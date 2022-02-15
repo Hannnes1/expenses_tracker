@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `transactions`.`transactions` (
   `account` VARCHAR(20) NOT NULL,
   `verification_number` VARCHAR(20) NULL,
   `text` VARCHAR(45) NOT NULL COMMENT 'The text that comes from the bank',
-  `description` TEXT NULL COMMENT 'Description of the transaction',
+  `description` VARCHAR(255) NULL COMMENT 'Description of the transaction',
   `amount` FLOAT NULL COMMENT 'The amout paid. Negative means paid out. Positive means income.',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
