@@ -1,0 +1,1 @@
+Expenses tracker using a GO API and a Flutter client app.
