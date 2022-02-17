@@ -22,6 +22,7 @@ type Transaction struct {
 	// account
 	// Required: true
 	// Max Length: 20
+	// Min Length: 1
 	Account *string `json:"account"`
 
 	// amount
@@ -44,10 +45,12 @@ type Transaction struct {
 	// text
 	// Required: true
 	// Max Length: 45
+	// Min Length: 1
 	Text *string `json:"text"`
 
 	// verification number
 	// Max Length: 20
+	// Min Length: 1
 	VerificationNumber string `json:"verification_number,omitempty"`
 }
 
@@ -88,6 +91,10 @@ func (m *Transaction) Validate(formats strfmt.Registry) error {
 func (m *Transaction) validateAccount(formats strfmt.Registry) error {
 
 	if err := validate.Required("account", "body", m.Account); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("account", "body", *m.Account, 1); err != nil {
 		return err
 	}
 
@@ -138,6 +145,10 @@ func (m *Transaction) validateText(formats strfmt.Registry) error {
 		return err
 	}
 
+	if err := validate.MinLength("text", "body", *m.Text, 1); err != nil {
+		return err
+	}
+
 	if err := validate.MaxLength("text", "body", *m.Text, 45); err != nil {
 		return err
 	}
@@ -148,6 +159,10 @@ func (m *Transaction) validateText(formats strfmt.Registry) error {
 func (m *Transaction) validateVerificationNumber(formats strfmt.Registry) error {
 	if swag.IsZero(m.VerificationNumber) { // not required
 		return nil
+	}
+
+	if err := validate.MinLength("verification_number", "body", m.VerificationNumber, 1); err != nil {
+		return err
 	}
 
 	if err := validate.MaxLength("verification_number", "body", m.VerificationNumber, 20); err != nil {

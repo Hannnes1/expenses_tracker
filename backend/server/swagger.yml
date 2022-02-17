@@ -38,12 +38,15 @@ definitions:
         format: date-time
       account:
         type: string
+        minLength: 1
         maxLength: 20
       verification_number:
         type: string
+        minLength: 1
         maxLength: 20
       text:
         type: string
+        minLength: 1
         maxLength: 45
       description:
         type: string
