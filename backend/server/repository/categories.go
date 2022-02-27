@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 	"log"
+	"strings"
 
 	"hultergard.com/expenses_tracker/models"
 )
@@ -15,10 +16,17 @@ func Categories(categoryIDs []int) ([]models.Category, error) {
 	if len(categoryIDs) == 0 {
 		query = "SELECT * FROM categories"
 	} else {
-		query = "SELECT * FROM categories WHERE id IN ?"
+		query = "SELECT * FROM categories WHERE id IN (?" + strings.Repeat(",?", len(categoryIDs)-1) + ")"
 	}
 
-	rows, err := DB.Query(query, categoryIDs)
+	args := make([]interface{}, len(categoryIDs))
+	if len(categoryIDs) > 0 {
+		for i, id := range categoryIDs {
+			args[i] = id
+		}
+	}
+
+	rows, err := DB.Query(query, args...)
 	if err != nil {
 		log.Fatal(err)
 		return nil, err

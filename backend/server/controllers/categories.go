@@ -11,13 +11,13 @@ import (
 type Category struct{}
 
 // @description Get a list of all categories
-// @param        ids	 query    array  false  "Category IDs to filter by"
+// @param        id[]	 query    array  false  "Category IDs to filter by"
 // @success      200     {array}  models.Category
 // @router       /categories [get]
 func (Category) GetList(c *gin.Context) {
-	idsStr := c.QueryArray("ids")
+	idsStr := c.QueryArray("id[]")
 
-	ids := make([]int, 0)
+	ids := make([]int, len(idsStr))
 
 	for i, id := range idsStr {
 		ids[i], _ = strconv.Atoi(id)
