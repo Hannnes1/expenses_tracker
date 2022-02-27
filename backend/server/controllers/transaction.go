@@ -22,5 +22,14 @@ func (Transaction) GetList(c *gin.Context) {
 		return
 	}
 
+	for i := range transactions {
+		cIDs, err := repository.CategoryIDsByTransaction(transactions[i].ID)
+		if err != nil {
+			c.IndentedJSON(500, models.InternalError(""))
+			return
+		}
+		transactions[i].Categories = cIDs
+	}
+
 	c.IndentedJSON(200, transactions)
 }

@@ -1,7 +1,7 @@
 package models
 
 type Transaction struct {
-	Id                 int64   `json:"id"`
+	ID                 int     `json:"id"`
 	Date               string  `json:"date" validate:"required,iso8601"`
 	Account            string  `json:"account"`
 	VerificationNumber string  `json:"verification_number"`

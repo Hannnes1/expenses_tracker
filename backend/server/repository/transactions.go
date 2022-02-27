@@ -19,7 +19,7 @@ func Transactions(offset int, limit int) ([]models.Transaction, error) {
 
 	for rows.Next() {
 		var t models.Transaction
-		if err := rows.Scan(&t.Id, &t.Date, &t.Account, &t.VerificationNumber, &t.Text, &t.Description, &t.Amount); err != nil {
+		if err := rows.Scan(&t.ID, &t.Date, &t.Account, &t.VerificationNumber, &t.Text, &t.Description, &t.Amount); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
