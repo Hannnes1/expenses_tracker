@@ -37,7 +37,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Category 1'),(2,'Category 2');
+INSERT INTO `categories` VALUES (1,'Category 1', 'The first category'),(2,'Category 2', 'The second category'),(3,'Category 3', 'The third category');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `transaction_has_category` (
 
 LOCK TABLES `transaction_has_category` WRITE;
 /*!40000 ALTER TABLE `transaction_has_category` DISABLE KEYS */;
-INSERT INTO `transaction_has_category` VALUES (1,1),(2,2);
+INSERT INTO `transaction_has_category` VALUES (1,1),(2,2),(2,3);
 /*!40000 ALTER TABLE `transaction_has_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
