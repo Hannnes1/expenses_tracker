@@ -36,7 +36,7 @@ ENGINE = InnoDB;
 -- Table `transactions`.`categories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transactions`.`categories` (
-  `id` VARCHAR(20) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `description` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -47,7 +47,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `transactions`.`transaction_has_category` (
   `transactions_id` INT NOT NULL,
-  `categories_id` VARCHAR(20) NOT NULL,
+  `categories_id` INT NOT NULL,
   PRIMARY KEY (`transactions_id`, `categories_id`),
   INDEX `fk_transaction_has_category_categories1_idx` (`categories_id` ASC) VISIBLE,
   CONSTRAINT `fk_transaction_has_category_transactions`
