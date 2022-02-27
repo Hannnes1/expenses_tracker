@@ -1,0 +1,37 @@
+definitions:
+  models.Transaction:
+    properties:
+      account:
+        type: string
+      amount:
+        type: number
+      category:
+        type: string
+      date:
+        type: string
+      description:
+        maxLength: 255
+        type: string
+      id:
+        type: integer
+      text:
+        type: string
+      verification_number:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Expenses Tracker API
+  version: "0.1"
+paths:
+  /transactions:
+    get:
+      description: Get a list of all transactions
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Transaction'
+            type: array
+swagger: "2.0"

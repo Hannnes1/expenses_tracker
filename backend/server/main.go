@@ -4,26 +4,41 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-openapi/strfmt"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"hultergard.com/expenses_tracker/docs"
 	"hultergard.com/expenses_tracker/models"
 )
 
-var account = "12345"
-var amount = 10.0
-var date, err = strfmt.ParseDateTime("2020-01-01T00:00:00Z")
-var text = "test"
-
 var transactions = []models.Transaction{
-	{ID: 1, Account: &account, Amount: &amount, Date: &date, Text: &text, VerificationNumber: "12345"},
+	{
+		Id:                 1,
+		Date:               "2018-01-01",
+		Account:            "Checking",
+		VerificationNumber: "123",
+		Text:               "Paycheck",
+		Description:        "Paycheck for January",
+		Amount:             100.00,
+		Category:           "Income",
+	},
 }
 
-func getTransactions(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, transactions)
-}
-
+// @title    Expenses Tracker API
+// @version  0.1
 func main() {
 	router := gin.Default()
+
+	docs.SwaggerInfo.BasePath = "/api/v1"
+
 	router.GET("/transactions", getTransactions)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	router.Run("localhost:8080")
+}
+
+// @description  Get a list of all transactions
+// @success      200  {array}  models.Transaction
+// @router       /transactions [get]
+func getTransactions(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, transactions)
 }
