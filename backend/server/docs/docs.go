@@ -62,7 +62,10 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "category": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "date": {
                     "type": "string"

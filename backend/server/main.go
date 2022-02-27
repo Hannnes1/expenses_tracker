@@ -51,7 +51,14 @@ func main() {
 	{
 		transaction := new(controllers.Transaction)
 
-		tg.GET("/", transaction.Get)
+		tg.GET("/", transaction.GetList)
+	}
+
+	cg := r.Group("/categories")
+	{
+		category := new(controllers.Category)
+
+		cg.GET("/", category.GetList)
 	}
 
 	r.Run("localhost:8080")

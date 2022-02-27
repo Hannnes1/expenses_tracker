@@ -6,7 +6,9 @@ definitions:
       amount:
         type: number
       category:
-        type: string
+        items:
+          type: string
+        type: array
       date:
         type: string
       description:
