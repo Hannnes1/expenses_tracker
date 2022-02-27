@@ -19,6 +19,20 @@ const docTemplate = `{
         "/transactions": {
             "get": {
                 "description": "Get a list of all transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Offset for pagination",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results to return",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -36,6 +50,10 @@ const docTemplate = `{
     "definitions": {
         "models.Transaction": {
             "type": "object",
+            "required": [
+                "date",
+                "description"
+            ],
             "properties": {
                 "account": {
                     "type": "string"

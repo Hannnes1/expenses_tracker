@@ -1,44 +1,58 @@
 package main
 
 import (
-	"net/http"
+	"database/sql"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator"
+	"github.com/go-sql-driver/mysql"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"hultergard.com/expenses_tracker/controllers"
 	"hultergard.com/expenses_tracker/docs"
-	"hultergard.com/expenses_tracker/models"
+	"hultergard.com/expenses_tracker/repository"
 )
-
-var transactions = []models.Transaction{
-	{
-		Id:                 1,
-		Date:               "2018-01-01",
-		Account:            "Checking",
-		VerificationNumber: "123",
-		Text:               "Paycheck",
-		Description:        "Paycheck for January",
-		Amount:             100.00,
-		Category:           "Income",
-	},
-}
 
 // @title    Expenses Tracker API
 // @version  0.1
 func main() {
-	router := gin.Default()
-
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
-	router.GET("/transactions", getTransactions)
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	cfg := mysql.Config{
+		User:   "root",
+		Passwd: "",
+		Net:    "tcp",
+		Addr:   "127.0.0.1:3306",
+		DBName: "transactions",
+	}
 
-	router.Run("localhost:8080")
-}
+	var err error
+	repository.DB, err = sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// @description  Get a list of all transactions
-// @success      200  {array}  models.Transaction
-// @router       /transactions [get]
-func getTransactions(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, transactions)
+	pingErr := repository.DB.Ping()
+	if pingErr != nil {
+		log.Fatal(pingErr)
+	}
+
+	r := gin.Default()
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("iso8601", iso8601)
+	}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	tg := r.Group("/transactions")
+	{
+		transaction := new(controllers.Transaction)
+
+		tg.GET("/", transaction.Get)
+	}
+
+	r.Run("localhost:8080")
 }

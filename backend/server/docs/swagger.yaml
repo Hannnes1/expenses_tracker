@@ -18,6 +18,9 @@ definitions:
         type: string
       verification_number:
         type: string
+    required:
+    - date
+    - description
     type: object
 info:
   contact: {}
@@ -27,6 +30,15 @@ paths:
   /transactions:
     get:
       description: Get a list of all transactions
+      parameters:
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      - description: Number of results to return
+        in: query
+        name: limit
+        type: integer
       responses:
         "200":
           description: OK
