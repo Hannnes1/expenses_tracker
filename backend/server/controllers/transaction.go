@@ -22,13 +22,27 @@ func (Transaction) GetList(c *gin.Context) {
 		return
 	}
 
+	tIDs := make([]int, len(transactions))
+	for i, t := range transactions {
+		tIDs[i] = t.ID
+	}
+
+	// Get all category IDs for the transactions.
+	tc, err := repository.CategoryIDsByTransactions(tIDs)
+	if err != nil {
+		c.IndentedJSON(500, models.InternalError(""))
+		return
+	}
+
+	// Update each transaction with the correct category IDs.
 	for i := range transactions {
-		cIDs, err := repository.CategoryIDsByTransaction(transactions[i].ID)
-		if err != nil {
-			c.IndentedJSON(500, models.InternalError(""))
-			return
+		t := &transactions[i]
+
+		for _, c := range tc {
+			if t.ID == c.TransactionID {
+				t.Categories = append(t.Categories, c.CategoryID)
+			}
 		}
-		transactions[i].Categories = cIDs
 	}
 
 	c.IndentedJSON(200, transactions)

@@ -10,3 +10,8 @@ type Transaction struct {
 	Amount             float64 `json:"amount"`
 	Categories         []int   `json:"categories"`
 }
+
+type TransactionCategory struct {
+	TransactionID int `json:"transaction_id"`
+	CategoryID    int `json:"category_id"`
+}
