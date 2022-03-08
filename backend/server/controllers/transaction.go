@@ -11,7 +11,7 @@ type Transaction struct{}
 // @description  Get a list of all transactions
 // @param        offset  query    int  false  "Offset for pagination"
 // @param        limit   query    int  false  "Number of results to return, defaults to 10"
-// @success      200     {array}  models.Transaction
+// @success      200     {object}  models.TransactionGetListBody
 // @router       /transactions [get]
 func (Transaction) GetList(c *gin.Context) {
 	limit, offset := pagination(c)
@@ -48,7 +48,17 @@ func (Transaction) GetList(c *gin.Context) {
 		}
 	}
 
-	c.IndentedJSON(200, transactions)
+	count := repository.TransactionsCount()
+
+	// Return an empty list instead of null if there are no transactions.
+	if transactions == nil {
+		transactions = make([]models.Transaction, 0)
+	}
+
+	c.IndentedJSON(200, models.TransactionGetListBody{
+		Transactions: transactions,
+		TotalCount:   count,
+	})
 }
 
 // @description  Add multiple new transactions

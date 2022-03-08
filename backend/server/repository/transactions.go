@@ -56,3 +56,13 @@ func AddTransactions(transactions []models.Transaction) error {
 	}
 	return nil
 }
+
+// Get the total number of transactions in the database.
+func TransactionsCount() int64 {
+	var count int64
+	err := DB.QueryRow("SELECT COUNT(*) FROM transactions").Scan(&count)
+	if err != nil {
+		return 0
+	}
+	return count
+}

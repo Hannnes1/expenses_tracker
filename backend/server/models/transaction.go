@@ -19,3 +19,8 @@ type TransactionCategory struct {
 type TransactionAddBody struct {
 	Transactions []Transaction `json:"transactions" binding:"required"`
 }
+
+type TransactionGetListBody struct {
+	TotalCount   int64         `json:"total_count"`
+	Transactions []Transaction `json:"transactions"`
+}
