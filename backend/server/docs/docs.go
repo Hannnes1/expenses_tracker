@@ -16,6 +16,30 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/categories": {
+            "get": {
+                "description": "Get a list of all categories",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "description": "Category IDs to filter by",
+                        "name": "id[]",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Category"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/transactions": {
             "get": {
                 "description": "Get a list of all transactions",
@@ -28,7 +52,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Number of results to return",
+                        "description": "Number of results to return, defaults to 10",
                         "name": "limit",
                         "in": "query"
                     }
@@ -44,27 +68,70 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Add a new transaction",
+                "parameters": [
+                    {
+                        "description": "The transaction to add",
+                        "name": "transaction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Transaction"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Transaction"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
+        "models.Category": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 45
+                }
+            }
+        },
         "models.Transaction": {
             "type": "object",
             "required": [
+                "account",
                 "date",
-                "description"
+                "text"
             ],
             "properties": {
                 "account": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 20
                 },
                 "amount": {
                     "type": "number"
                 },
-                "category": {
+                "categories": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "type": "integer"
                     }
                 },
                 "date": {
@@ -78,10 +145,12 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "text": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 45
                 },
                 "verification_number": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 20
                 }
             }
         }
