@@ -15,3 +15,7 @@ type TransactionCategory struct {
 	TransactionID int64 `json:"transaction_id"`
 	CategoryID    int64 `json:"category_id"`
 }
+
+type TransactionAddBody struct {
+	Transactions []Transaction `json:"transactions" binding:"required"`
+}

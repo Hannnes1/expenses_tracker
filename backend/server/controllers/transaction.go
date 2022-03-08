@@ -51,30 +51,23 @@ func (Transaction) GetList(c *gin.Context) {
 	c.IndentedJSON(200, transactions)
 }
 
-// @description  Add a new transaction
-// @param        transaction   body    models.Transaction  true  "The transaction to add"
-// @success      200     {object}  models.Transaction
+// @description  Add multiple new transactions
+// @param        transactions   body    []models.Transaction  true  "The transaction to add"
+// @success      200     {array}  models.TransactionAddBody
 // @router       /transactions [post]
 func (Transaction) Add(c *gin.Context) {
-	var transaction models.Transaction
+	var body models.TransactionAddBody
 
-	if err := c.ShouldBindJSON(&transaction); err != nil {
+	if err := c.ShouldBindJSON(&body); err != nil {
 		c.IndentedJSON(400, models.BadRequestError(err.Error()))
 		return
 	}
 
-	id, err := repository.AddTransaction(transaction)
+	err := repository.AddTransactions(body.Transactions)
 	if err != nil {
 		c.IndentedJSON(500, models.InternalError("The transaction could not be added."))
 		return
 	}
 
-	transaction.ID = id
-
-	// Create an empty list of categories for the transaction instead of returning null.
-	if transaction.Categories == nil {
-		transaction.Categories = []int64{}
-	}
-
-	c.IndentedJSON(201, transaction)
+	c.Status(204)
 }

@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"strings"
+
 	"hultergard.com/expenses_tracker/models"
 )
 
@@ -32,23 +34,25 @@ func GetTransactions(offset int, limit int) ([]models.Transaction, error) {
 // Add a new transaction to the database.
 //
 // The id of the transaction is returned if successfull.
-func AddTransaction(transaction models.Transaction) (int64, error) {
-	res, err := DB.Exec("INSERT INTO transactions (date, account, verification_number, text, description, amount) VALUES (?, ?, ?, ?, ?, ?)",
-		transaction.Date,
-		transaction.Account,
-		transaction.VerificationNumber,
-		transaction.Text,
-		transaction.Description,
-		transaction.Amount,
-	)
-	if err != nil {
-		return 0, err
+func AddTransactions(transactions []models.Transaction) error {
+
+	query := "INSERT INTO transactions (date, account, verification_number, text, description, amount) VALUES "
+	sqlValues := make([]string, len(transactions))
+	args := []interface{}{}
+
+	// Build the query and the value list row by row, while also building a list of arguments.
+	for i, t := range transactions {
+		const rowArgs = "(?, ?, ?, ?, ?, ?)"
+		sqlValues[i] = rowArgs
+		args = append(args, t.Date, t.Account, t.VerificationNumber, t.Text, t.Description, t.Amount)
 	}
 
-	id, err := res.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
+	// Join the query and the value list, separated by a comma.
+	query += strings.Join(sqlValues, ", ")
 
-	return id, nil
+	_, err := DB.Exec(query, args...)
+	if err != nil {
+		return err
+	}
+	return nil
 }
