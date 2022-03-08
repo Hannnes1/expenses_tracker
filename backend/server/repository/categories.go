@@ -55,6 +55,10 @@ func CategoryIDsByTransactions(transactionIDs []int64) ([]models.TransactionCate
 	var transactionCategories []models.TransactionCategory
 	var rows *sql.Rows
 
+	if len(transactionIDs) == 0 {
+		return nil, nil
+	}
+
 	// Create a string with one question mark for each transaction ID
 	query := "SELECT transactions_id, categories_id FROM transaction_has_category WHERE transactions_id IN (?" + strings.Repeat(",?", len(transactionIDs)-1) + ")"
 
