@@ -51,7 +51,7 @@ func Categories(categoryIDs []int) ([]models.Category, error) {
 	return categories, nil
 }
 
-func CategoryIDsByTransactions(transactionIDs []int) ([]models.TransactionCategory, error) {
+func CategoryIDsByTransactions(transactionIDs []int64) ([]models.TransactionCategory, error) {
 	var transactionCategories []models.TransactionCategory
 	var rows *sql.Rows
 

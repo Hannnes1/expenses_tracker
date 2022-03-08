@@ -22,7 +22,7 @@ func (Transaction) GetList(c *gin.Context) {
 		return
 	}
 
-	tIDs := make([]int, len(transactions))
+	tIDs := make([]int64, len(transactions))
 	for i, t := range transactions {
 		tIDs[i] = t.ID
 	}

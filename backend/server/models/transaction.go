@@ -1,17 +1,12 @@
 package models
 
 type Transaction struct {
-	ID                 int     `json:"id"`
-	Date               string  `json:"date" validate:"required,iso8601"`
-	Account            string  `json:"account"`
-	VerificationNumber string  `json:"verification_number"`
-	Text               string  `json:"text"`
-	Description        string  `json:"description" validate:"required,max=255"`
+	ID                 int64   `json:"id"`
 	Amount             float64 `json:"amount"`
-	Categories         []int   `json:"categories"`
+	Categories         []int64 `json:"categories"`
 }
 
 type TransactionCategory struct {
-	TransactionID int `json:"transaction_id"`
-	CategoryID    int `json:"category_id"`
+	TransactionID int64 `json:"transaction_id"`
+	CategoryID    int64 `json:"category_id"`
 }
