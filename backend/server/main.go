@@ -59,6 +59,7 @@ func main() {
 		transaction := new(controllers.Transaction)
 
 		tg.GET("/", transaction.GetList)
+		tg.POST("/", transaction.Add)
 	}
 
 	cg := r.Group("/categories")

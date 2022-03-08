@@ -18,3 +18,10 @@ func InternalError(message ...string) httpError {
 		Message: selectMessage(message[0], "Something unexpected happened on the server"),
 	}
 }
+
+func BadRequestError(message ...string) httpError {
+	return httpError{
+		Code:    102,
+		Message: selectMessage(message[0], "Bad request"),
+	}
+}
