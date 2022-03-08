@@ -25,9 +25,31 @@ func (Category) GetList(c *gin.Context) {
 
 	categories, err := repository.Categories(ids)
 	if err != nil {
-		c.IndentedJSON(500, models.InternalError(""))
+		c.IndentedJSON(500, models.InternalError())
 		return
 	}
 
 	c.IndentedJSON(200, categories)
+}
+
+// @description Add multiple new categories
+// @param categories  body []models.Category  true  "Array of categories to add"
+// @success 204
+// @router /categories [post]
+func (Category) Add(c *gin.Context) {
+	var body models.CategoryAddBody
+
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		c.IndentedJSON(400, models.BadRequestError(err.Error()))
+		return
+	}
+
+	err = repository.AddCategories(body.Categories)
+	if err != nil {
+		c.IndentedJSON(500, models.InternalError("The categories could not be added"))
+		return
+	}
+
+	c.Status(204)
 }

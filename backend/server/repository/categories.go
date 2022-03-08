@@ -91,3 +91,25 @@ func CategoryIDsByTransactions(transactionIDs []int64) ([]models.TransactionCate
 
 	return transactionCategories, nil
 }
+
+func AddCategories(categories []models.Category) error {
+	query := "INSERT INTO categories (name, description) VALUES "
+	sqlValues := make([]string, len(categories))
+	args := []interface{}{}
+
+	// Build the query and the value list row by row, while also building a list of arguments.
+	for i, c := range categories {
+		const rowArgs = "(?, ?)"
+		sqlValues[i] = rowArgs
+		args = append(args, c.Name, c.Description)
+	}
+
+	// Join the query and the value list, separated by a comma.
+	query += strings.Join(sqlValues, ", ")
+
+	_, err := DB.Exec(query, args...)
+	if err != nil {
+		return err
+	}
+	return nil
+}

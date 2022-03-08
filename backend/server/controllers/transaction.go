@@ -63,7 +63,7 @@ func (Transaction) GetList(c *gin.Context) {
 
 // @description  Add multiple new transactions
 // @param        transactions   body    []models.Transaction  true  "The transaction to add"
-// @success      200     {array}  models.TransactionAddBody
+// @success      204
 // @router       /transactions [post]
 func (Transaction) Add(c *gin.Context) {
 	var body models.TransactionAddBody
@@ -75,7 +75,7 @@ func (Transaction) Add(c *gin.Context) {
 
 	err := repository.AddTransactions(body.Transactions)
 	if err != nil {
-		c.IndentedJSON(500, models.InternalError("The transaction could not be added."))
+		c.IndentedJSON(500, models.InternalError("The transactions could not be added"))
 		return
 	}
 

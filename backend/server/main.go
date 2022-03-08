@@ -67,6 +67,7 @@ func main() {
 		category := new(controllers.Category)
 
 		cg.GET("/", category.GetList)
+		cg.POST("/", category.Add)
 	}
 
 	r.Run("localhost:8080")

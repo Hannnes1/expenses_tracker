@@ -5,23 +5,24 @@ type httpError struct {
 	Message string `json:"message" validate:"required"`
 }
 
-func selectMessage(message string, fallback string) string {
-	if message == "" {
-		message = fallback
+func selectMessage(fallback string, message ...string) string {
+	if len(message) > 0 && message[0] != "" {
+		return message[0]
+	} else {
+		return fallback
 	}
-	return message
 }
 
 func InternalError(message ...string) httpError {
 	return httpError{
 		Code:    101,
-		Message: selectMessage(message[0], "Something unexpected happened on the server"),
+		Message: selectMessage("Something unexpected happened on the server", message...),
 	}
 }
 
 func BadRequestError(message ...string) httpError {
 	return httpError{
 		Code:    102,
-		Message: selectMessage(message[0], "Bad request"),
+		Message: selectMessage("Bad request", message...),
 	}
 }
