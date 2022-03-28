@@ -25,7 +25,7 @@ var iso8601 validator.Func = func(fl validator.FieldLevel) bool {
 // @title    Expenses Tracker API
 // @version  0.1
 func main() {
-	docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.BasePath = "/v1"
 
 	cfg := mysql.Config{
 		User:   "root",
@@ -54,20 +54,23 @@ func main() {
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	tg := r.Group("/transactions")
+	v1 := r.Group("/v1")
 	{
-		transaction := new(controllers.Transaction)
+		tg := v1.Group("/transactions")
+		{
+			transaction := new(controllers.Transaction)
 
-		tg.GET("/", transaction.GetList)
-		tg.POST("/", transaction.Add)
-	}
+			tg.GET("/", transaction.GetList)
+			tg.POST("/", transaction.Add)
+		}
 
-	cg := r.Group("/categories")
-	{
-		category := new(controllers.Category)
+		cg := v1.Group("/categories")
+		{
+			category := new(controllers.Category)
 
-		cg.GET("/", category.GetList)
-		cg.POST("/", category.Add)
+			cg.GET("/", category.GetList)
+			cg.POST("/", category.Add)
+		}
 	}
 
 	r.Run("localhost:8080")
