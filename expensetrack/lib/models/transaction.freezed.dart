@@ -23,7 +23,7 @@ class _$TransactionTearOff {
   const _$TransactionTearOff();
 
   _Transaction call(
-      {String? id,
+      {int? id,
       required String date,
       required String account,
       String? verificationNumber,
@@ -54,7 +54,7 @@ mixin _$Transaction {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
 
   /// The date that the transaction was made.
   ///
@@ -94,7 +94,7 @@ abstract class $TransactionCopyWith<$Res> {
           Transaction value, $Res Function(Transaction) then) =
       _$TransactionCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {int? id,
       String date,
       String account,
       String? verificationNumber,
@@ -125,7 +125,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -162,7 +162,7 @@ abstract class _$TransactionCopyWith<$Res>
       __$TransactionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {int? id,
       String date,
       String account,
       String? verificationNumber,
@@ -195,7 +195,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -244,7 +244,7 @@ class _$_Transaction implements _Transaction {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  final String? id;
+  final int? id;
   @override
 
   /// The date that the transaction was made.
@@ -323,7 +323,7 @@ class _$_Transaction implements _Transaction {
 
 abstract class _Transaction implements Transaction {
   factory _Transaction(
-      {String? id,
+      {int? id,
       required String date,
       required String account,
       String? verificationNumber,
@@ -339,7 +339,7 @@ abstract class _Transaction implements Transaction {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  String? get id;
+  int? get id;
   @override
 
   /// The date that the transaction was made.
@@ -375,5 +375,180 @@ abstract class _Transaction implements Transaction {
   @override
   @JsonKey(ignore: true)
   _$TransactionCopyWith<_Transaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+GetTransactionsBody _$GetTransactionsBodyFromJson(Map<String, dynamic> json) {
+  return _GetTransactionsBody.fromJson(json);
+}
+
+/// @nodoc
+class _$GetTransactionsBodyTearOff {
+  const _$GetTransactionsBodyTearOff();
+
+  _GetTransactionsBody call(
+      {required num totalCount, required List<Transaction> transactions}) {
+    return _GetTransactionsBody(
+      totalCount: totalCount,
+      transactions: transactions,
+    );
+  }
+
+  GetTransactionsBody fromJson(Map<String, Object?> json) {
+    return GetTransactionsBody.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $GetTransactionsBody = _$GetTransactionsBodyTearOff();
+
+/// @nodoc
+mixin _$GetTransactionsBody {
+  num get totalCount => throw _privateConstructorUsedError;
+  List<Transaction> get transactions => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetTransactionsBodyCopyWith<GetTransactionsBody> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetTransactionsBodyCopyWith<$Res> {
+  factory $GetTransactionsBodyCopyWith(
+          GetTransactionsBody value, $Res Function(GetTransactionsBody) then) =
+      _$GetTransactionsBodyCopyWithImpl<$Res>;
+  $Res call({num totalCount, List<Transaction> transactions});
+}
+
+/// @nodoc
+class _$GetTransactionsBodyCopyWithImpl<$Res>
+    implements $GetTransactionsBodyCopyWith<$Res> {
+  _$GetTransactionsBodyCopyWithImpl(this._value, this._then);
+
+  final GetTransactionsBody _value;
+  // ignore: unused_field
+  final $Res Function(GetTransactionsBody) _then;
+
+  @override
+  $Res call({
+    Object? totalCount = freezed,
+    Object? transactions = freezed,
+  }) {
+    return _then(_value.copyWith(
+      totalCount: totalCount == freezed
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as num,
+      transactions: transactions == freezed
+          ? _value.transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$GetTransactionsBodyCopyWith<$Res>
+    implements $GetTransactionsBodyCopyWith<$Res> {
+  factory _$GetTransactionsBodyCopyWith(_GetTransactionsBody value,
+          $Res Function(_GetTransactionsBody) then) =
+      __$GetTransactionsBodyCopyWithImpl<$Res>;
+  @override
+  $Res call({num totalCount, List<Transaction> transactions});
+}
+
+/// @nodoc
+class __$GetTransactionsBodyCopyWithImpl<$Res>
+    extends _$GetTransactionsBodyCopyWithImpl<$Res>
+    implements _$GetTransactionsBodyCopyWith<$Res> {
+  __$GetTransactionsBodyCopyWithImpl(
+      _GetTransactionsBody _value, $Res Function(_GetTransactionsBody) _then)
+      : super(_value, (v) => _then(v as _GetTransactionsBody));
+
+  @override
+  _GetTransactionsBody get _value => super._value as _GetTransactionsBody;
+
+  @override
+  $Res call({
+    Object? totalCount = freezed,
+    Object? transactions = freezed,
+  }) {
+    return _then(_GetTransactionsBody(
+      totalCount: totalCount == freezed
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as num,
+      transactions: transactions == freezed
+          ? _value.transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<Transaction>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_GetTransactionsBody implements _GetTransactionsBody {
+  _$_GetTransactionsBody(
+      {required this.totalCount, required this.transactions});
+
+  factory _$_GetTransactionsBody.fromJson(Map<String, dynamic> json) =>
+      _$$_GetTransactionsBodyFromJson(json);
+
+  @override
+  final num totalCount;
+  @override
+  final List<Transaction> transactions;
+
+  @override
+  String toString() {
+    return 'GetTransactionsBody(totalCount: $totalCount, transactions: $transactions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _GetTransactionsBody &&
+            const DeepCollectionEquality()
+                .equals(other.totalCount, totalCount) &&
+            const DeepCollectionEquality()
+                .equals(other.transactions, transactions));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(totalCount),
+      const DeepCollectionEquality().hash(transactions));
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetTransactionsBodyCopyWith<_GetTransactionsBody> get copyWith =>
+      __$GetTransactionsBodyCopyWithImpl<_GetTransactionsBody>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_GetTransactionsBodyToJson(this);
+  }
+}
+
+abstract class _GetTransactionsBody implements GetTransactionsBody {
+  factory _GetTransactionsBody(
+      {required num totalCount,
+      required List<Transaction> transactions}) = _$_GetTransactionsBody;
+
+  factory _GetTransactionsBody.fromJson(Map<String, dynamic> json) =
+      _$_GetTransactionsBody.fromJson;
+
+  @override
+  num get totalCount;
+  @override
+  List<Transaction> get transactions;
+  @override
+  @JsonKey(ignore: true)
+  _$GetTransactionsBodyCopyWith<_GetTransactionsBody> get copyWith =>
       throw _privateConstructorUsedError;
 }

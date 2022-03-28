@@ -7,7 +7,7 @@ part of 'http_error.dart';
 // **************************************************************************
 
 _$_HttpError _$$_HttpErrorFromJson(Map<String, dynamic> json) => _$_HttpError(
-      code: json['code'] as String,
+      code: json['code'] as int,
       message: json['message'] as String,
     );
 

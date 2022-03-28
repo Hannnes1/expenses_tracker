@@ -10,7 +10,7 @@ class Category with _$Category {
     /// The ID of the category.
     /// 
     /// Will be ignored when writing.
-    required String? id,
+    required int? id,
     
     /// The name of the category.
     /// 

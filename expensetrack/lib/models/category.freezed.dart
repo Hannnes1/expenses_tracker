@@ -23,9 +23,7 @@ class _$CategoryTearOff {
   const _$CategoryTearOff();
 
   _Category call(
-      {required String? id,
-      required String name,
-      required String? description}) {
+      {required int? id, required String name, required String? description}) {
     return _Category(
       id: id,
       name: name,
@@ -46,7 +44,7 @@ mixin _$Category {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
 
   /// The name of the category.
   ///
@@ -68,7 +66,7 @@ mixin _$Category {
 abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res>;
-  $Res call({String? id, String name, String? description});
+  $Res call({int? id, String name, String? description});
 }
 
 /// @nodoc
@@ -89,7 +87,7 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -107,7 +105,7 @@ abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
   factory _$CategoryCopyWith(_Category value, $Res Function(_Category) then) =
       __$CategoryCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, String name, String? description});
+  $Res call({int? id, String name, String? description});
 }
 
 /// @nodoc
@@ -129,7 +127,7 @@ class __$CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -156,7 +154,7 @@ class _$_Category implements _Category {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  final String? id;
+  final int? id;
   @override
 
   /// The name of the category.
@@ -206,7 +204,7 @@ class _$_Category implements _Category {
 
 abstract class _Category implements Category {
   factory _Category(
-      {required String? id,
+      {required int? id,
       required String name,
       required String? description}) = _$_Category;
 
@@ -217,7 +215,7 @@ abstract class _Category implements Category {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  String? get id;
+  int? get id;
   @override
 
   /// The name of the category.

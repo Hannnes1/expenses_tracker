@@ -22,7 +22,7 @@ HttpError _$HttpErrorFromJson(Map<String, dynamic> json) {
 class _$HttpErrorTearOff {
   const _$HttpErrorTearOff();
 
-  _HttpError call({required String code, required String message}) {
+  _HttpError call({required int code, required String message}) {
     return _HttpError(
       code: code,
       message: message,
@@ -39,7 +39,7 @@ const $HttpError = _$HttpErrorTearOff();
 
 /// @nodoc
 mixin _$HttpError {
-  String get code => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ mixin _$HttpError {
 abstract class $HttpErrorCopyWith<$Res> {
   factory $HttpErrorCopyWith(HttpError value, $Res Function(HttpError) then) =
       _$HttpErrorCopyWithImpl<$Res>;
-  $Res call({String code, String message});
+  $Res call({int code, String message});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$HttpErrorCopyWithImpl<$Res> implements $HttpErrorCopyWith<$Res> {
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -87,7 +87,7 @@ abstract class _$HttpErrorCopyWith<$Res> implements $HttpErrorCopyWith<$Res> {
           _HttpError value, $Res Function(_HttpError) then) =
       __$HttpErrorCopyWithImpl<$Res>;
   @override
-  $Res call({String code, String message});
+  $Res call({int code, String message});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class __$HttpErrorCopyWithImpl<$Res> extends _$HttpErrorCopyWithImpl<$Res>
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -126,7 +126,7 @@ class _$_HttpError implements _HttpError {
       _$$_HttpErrorFromJson(json);
 
   @override
-  final String code;
+  final int code;
   @override
   final String message;
 
@@ -162,14 +162,14 @@ class _$_HttpError implements _HttpError {
 }
 
 abstract class _HttpError implements HttpError {
-  factory _HttpError({required String code, required String message}) =
+  factory _HttpError({required int code, required String message}) =
       _$_HttpError;
 
   factory _HttpError.fromJson(Map<String, dynamic> json) =
       _$_HttpError.fromJson;
 
   @override
-  String get code;
+  int get code;
   @override
   String get message;
   @override

@@ -9,7 +9,7 @@ class Transaction with _$Transaction {
     /// The ID of the category.
     ///
     /// Will be ignored when writing.
-    String? id,
+    int? id,
 
     /// The date that the transaction was made.
     ///
@@ -40,4 +40,15 @@ class Transaction with _$Transaction {
   }) = _Transaction;
 
   factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
+}
+
+@freezed
+class GetTransactionsBody with _$GetTransactionsBody {
+  factory GetTransactionsBody({
+    required num totalCount,
+    required List<Transaction> transactions,
+  }) = _GetTransactionsBody;
+
+factory GetTransactionsBody.fromJson(Map<String, dynamic> json) => 
+_$GetTransactionsBodyFromJson(json);
 }
