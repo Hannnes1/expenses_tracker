@@ -12,6 +12,10 @@ class HomeView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: model.navigateToAddTransactions,
+        ),
         body: ListView.builder(
           itemCount: model.transactions.length,
           itemBuilder: (context, index) => ListTile(
