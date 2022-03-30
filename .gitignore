@@ -1,2 +1,6 @@
 # Generated documentation
 backend/server/docs/
+
+# User specific files
+.vscode
+!.vscode/launch.json
