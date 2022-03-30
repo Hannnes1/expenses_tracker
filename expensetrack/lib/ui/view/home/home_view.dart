@@ -1,4 +1,5 @@
 import 'package:expensetrack/ui/view/home/home_viewmodel.dart';
+import 'package:expensetrack/ui/view/home/transactions/transactions_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -16,11 +17,28 @@ class HomeView extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: model.navigateToAddTransactions,
         ),
-        body: ListView.builder(
-          itemCount: model.transactions.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(model.transactions[index].text),
-          ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.swap_horiz),
+              label: 'Transactions',
+            ),
+          ],
+          currentIndex: model.currentPage,
+          onTap: (index) => model.currentPage = index,
+        ),
+        body: PageView(
+          controller: model.pageController,
+          children: [
+            Container(
+              color: Colors.amber,
+            ),
+            const TransactionsView(),
+          ],
         ),
       ),
     );

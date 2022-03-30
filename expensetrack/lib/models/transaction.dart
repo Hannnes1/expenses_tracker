@@ -16,7 +16,7 @@ class Transaction with _$Transaction {
 
     /// The date that the transaction was made.
     @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-    DateTime date,
+    required DateTime date,
 
     /// The account number that the transaction belongs to.
     ///
@@ -47,7 +47,7 @@ class Transaction with _$Transaction {
 @freezed
 class GetTransactionsBody with _$GetTransactionsBody {
   factory GetTransactionsBody({
-    required num totalCount,
+    required int totalCount,
     required List<Transaction> transactions,
   }) = _GetTransactionsBody;
 

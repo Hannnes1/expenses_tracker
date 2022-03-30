@@ -31,7 +31,7 @@ Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
 _$_GetTransactionsBody _$$_GetTransactionsBodyFromJson(
         Map<String, dynamic> json) =>
     _$_GetTransactionsBody(
-      totalCount: json['totalCount'] as num,
+      totalCount: json['totalCount'] as int,
       transactions: (json['transactions'] as List<dynamic>)
           .map((e) => Transaction.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -25,7 +25,7 @@ class _$TransactionTearOff {
   _Transaction call(
       {int? id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          DateTime? date,
+          required DateTime date,
       required String account,
       String? verificationNumber,
       required String text,
@@ -59,7 +59,7 @@ mixin _$Transaction {
 
   /// The date that the transaction was made.
   @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-  DateTime? get date => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
 
   /// The account number that the transaction belongs to.
   ///
@@ -96,7 +96,7 @@ abstract class $TransactionCopyWith<$Res> {
   $Res call(
       {int? id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          DateTime? date,
+          DateTime date,
       String account,
       String? verificationNumber,
       String text,
@@ -130,7 +130,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       account: account == freezed
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
@@ -165,7 +165,7 @@ abstract class _$TransactionCopyWith<$Res>
   $Res call(
       {int? id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          DateTime? date,
+          DateTime date,
       String account,
       String? verificationNumber,
       String text,
@@ -201,7 +201,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       account: account == freezed
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
@@ -232,7 +232,7 @@ class _$_Transaction implements _Transaction {
   _$_Transaction(
       {this.id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          this.date,
+          required this.date,
       required this.account,
       this.verificationNumber,
       required this.text,
@@ -252,7 +252,7 @@ class _$_Transaction implements _Transaction {
 
   /// The date that the transaction was made.
   @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-  final DateTime? date;
+  final DateTime date;
   @override
 
   /// The account number that the transaction belongs to.
@@ -327,7 +327,7 @@ abstract class _Transaction implements Transaction {
   factory _Transaction(
       {int? id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          DateTime? date,
+          required DateTime date,
       required String account,
       String? verificationNumber,
       required String text,
@@ -347,7 +347,7 @@ abstract class _Transaction implements Transaction {
 
   /// The date that the transaction was made.
   @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-  DateTime? get date;
+  DateTime get date;
   @override
 
   /// The account number that the transaction belongs to.
@@ -389,7 +389,7 @@ class _$GetTransactionsBodyTearOff {
   const _$GetTransactionsBodyTearOff();
 
   _GetTransactionsBody call(
-      {required num totalCount, required List<Transaction> transactions}) {
+      {required int totalCount, required List<Transaction> transactions}) {
     return _GetTransactionsBody(
       totalCount: totalCount,
       transactions: transactions,
@@ -406,7 +406,7 @@ const $GetTransactionsBody = _$GetTransactionsBodyTearOff();
 
 /// @nodoc
 mixin _$GetTransactionsBody {
-  num get totalCount => throw _privateConstructorUsedError;
+  int get totalCount => throw _privateConstructorUsedError;
   List<Transaction> get transactions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -420,7 +420,7 @@ abstract class $GetTransactionsBodyCopyWith<$Res> {
   factory $GetTransactionsBodyCopyWith(
           GetTransactionsBody value, $Res Function(GetTransactionsBody) then) =
       _$GetTransactionsBodyCopyWithImpl<$Res>;
-  $Res call({num totalCount, List<Transaction> transactions});
+  $Res call({int totalCount, List<Transaction> transactions});
 }
 
 /// @nodoc
@@ -441,7 +441,7 @@ class _$GetTransactionsBodyCopyWithImpl<$Res>
       totalCount: totalCount == freezed
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
-              as num,
+              as int,
       transactions: transactions == freezed
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
@@ -457,7 +457,7 @@ abstract class _$GetTransactionsBodyCopyWith<$Res>
           $Res Function(_GetTransactionsBody) then) =
       __$GetTransactionsBodyCopyWithImpl<$Res>;
   @override
-  $Res call({num totalCount, List<Transaction> transactions});
+  $Res call({int totalCount, List<Transaction> transactions});
 }
 
 /// @nodoc
@@ -480,7 +480,7 @@ class __$GetTransactionsBodyCopyWithImpl<$Res>
       totalCount: totalCount == freezed
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
-              as num,
+              as int,
       transactions: transactions == freezed
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
@@ -499,7 +499,7 @@ class _$_GetTransactionsBody implements _GetTransactionsBody {
       _$$_GetTransactionsBodyFromJson(json);
 
   @override
-  final num totalCount;
+  final int totalCount;
   @override
   final List<Transaction> transactions;
 
@@ -539,14 +539,14 @@ class _$_GetTransactionsBody implements _GetTransactionsBody {
 
 abstract class _GetTransactionsBody implements GetTransactionsBody {
   factory _GetTransactionsBody(
-      {required num totalCount,
+      {required int totalCount,
       required List<Transaction> transactions}) = _$_GetTransactionsBody;
 
   factory _GetTransactionsBody.fromJson(Map<String, dynamic> json) =
       _$_GetTransactionsBody.fromJson;
 
   @override
-  num get totalCount;
+  int get totalCount;
   @override
   List<Transaction> get transactions;
   @override

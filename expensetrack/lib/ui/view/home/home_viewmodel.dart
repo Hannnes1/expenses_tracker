@@ -1,29 +1,36 @@
 import 'package:expensetrack/app/app.locator.dart';
 import 'package:expensetrack/app/app.logger.dart';
 import 'package:expensetrack/app/app.router.dart';
+import 'package:expensetrack/app/ui_helper.dart';
 import 'package:expensetrack/models/transaction.dart';
 import 'package:expensetrack/services/transaction_service.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final TransactionService _transactionService = locator<TransactionService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   final _log = getLogger('HomeViewModel');
 
-  List<Transaction> _transactions = [];
+  final PageController pageController = PageController();
 
-  List<Transaction> get transactions => _transactions;
-
-  Future<void> init() async {
+  int get currentPage => pageController.hasClients ? pageController.page!.round() : 0;
+  
+  void init() {
     _log.i('');
+    
+    pageController.addListener(() {
+      notifyListeners();
+    });
+  }
 
-    setBusy(true);
-
-    _transactions = (await _transactionService.getTransactions(0, 200)).transactions;
-
-    setBusy(false);
+  set currentPage(int page) {
+    pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 200),
+      curve: UiHelper.animationCurve,
+    );
   }
 
   Future<void> navigateToAddTransactions() async {
