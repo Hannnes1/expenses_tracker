@@ -6,8 +6,10 @@ import 'package:expensetrack/app/app.locator.dart';
 import 'package:expensetrack/app/app.logger.dart';
 import 'package:expensetrack/models/transaction.dart';
 import 'package:expensetrack/services/file_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:expensetrack/services/transaction_service.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -18,78 +20,75 @@ class AddTransactionsViewModel extends BaseViewModel {
 
   final _log = getLogger('AddTransactionsViewModel');
 
-  final List<Transaction> _transactions = [];
-
-  List<Transaction> get transactions => _transactions;
+  final List<TextEditingController> accountControllers = [];
+  final List<TextEditingController> textControllers = [];
+  final List<TextEditingController> amountControllers = [];
+  final List<TextEditingController> dateControllers = [];
+  final List<TextEditingController> verificationNumberControllers = [];
+  final List<TextEditingController> descriptionControllers = [];
 
   /// Add a new transaction to the list of transactions, if index doesn't exist.
-  _addIfNotExists(int index) {
-    if (index >= _transactions.length) {
-      _transactions.add(
-        Transaction(
-          account: '',
-          amount: 0,
-          date: '',
-          description: '',
-          text: '',
-          verificationNumber: '',
-        ),
-      );
+  void addIfNotExists(int index) {
+    _log.i('');
+
+    if (index >= accountControllers.length) {
+      _addTransaction();
     }
     notifyListeners();
   }
 
-  void updateText(int index, String value) {
-    _log.i('index: $index | value: $value');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(text: value);
+  void init() {
+    _addTransaction();
   }
 
+  void _addTransaction({
+    String? account,
+    String? text,
+    double? amount,
+    DateTime? date,
+    String? verificationNumber,
+    String? description,
+  }) {
+    accountControllers.add(TextEditingController(text: account));
+    textControllers.add(TextEditingController(text: text));
+    amountControllers.add(TextEditingController(text: amount?.toString()));
+    dateControllers.add(TextEditingController(text: date == null ? null : DateFormat('yyyy-MM-dd').format(date)));
+    verificationNumberControllers.add(TextEditingController(text: verificationNumber));
+    descriptionControllers.add(TextEditingController(text: description));
+  }
+
+  /// Remove a transaction from the list of transactions.
   void removeTransaction(int index) {
-    _log.i('index: $index');
+    _log.i('');
 
-    _transactions.removeAt(index);
+    accountControllers.remove(TextEditingController());
+    textControllers.remove(TextEditingController());
+    amountControllers.remove(TextEditingController());
+    dateControllers.remove(TextEditingController());
+    verificationNumberControllers.remove(TextEditingController());
+    descriptionControllers.remove(TextEditingController());
+
     notifyListeners();
-  }
-
-  void updateDate(int index, String value) {
-    _log.i('index: $index | value: $value');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(date: value);
-  }
-
-  void updateAccount(int index, String value) {
-    _log.i('index: $index | value: $value');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(account: value);
-  }
-
-  void updateVerificationNumber(int index, String value) {
-    _log.i('index: $index | value: $value');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(verificationNumber: value);
-  }
-
-  void updateDescription(int index, String value) {
-    _log.i('index: $index | value: $value');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(description: value);
   }
 
   Future<void> save() async {
     _log.i('');
 
     setBusy(true);
+
+    final List<Transaction> transactions = [];
+
+    for (var i = 0; i < accountControllers.length; i++) {
+      transactions.add(Transaction(
+        account: accountControllers[i].text,
+        text: textControllers[i].text,
+        // TODO: Handle parsing errors.
+        amount: double.parse(amountControllers[i].text),
+        date: DateTime.parse(dateControllers[i].text),
+        verificationNumber: verificationNumberControllers[i].text,
+        description: descriptionControllers[i].text,
+      ));
+    }
 
     await _transactionService.addTransactions(transactions);
 
@@ -109,24 +108,20 @@ class AddTransactionsViewModel extends BaseViewModel {
     }
 
     final file = File(pickResult!.files.first.path!).openRead();
-    final fields = await file.transform(utf8.decoder).transform(const CsvToListConverter()).toList();
+    final fields = await file.transform(utf8.decoder).transform(const CsvToListConverter(eol: '\n')).toList();
 
     // Assume the first line is the header.
     // TODO: Don't assume this.
     for (var i = 1; i < fields.length; i++) {
       final transaction = fields[i];
 
-      transactions.add(
-        // TODO: Columns should be assignable.
-        Transaction(
-          account: transaction[0],
-          text: transaction[1],
-          // Ensure that amount is a double.
-          amount: double.parse(transaction[2].toString()),
-          date: transaction[3],
-          verificationNumber: transaction[4],
-          description: transaction[5],
-        ),
+      _addTransaction(
+        account: transaction[0].toString(),
+        text: transaction[1].toString(),
+        amount: double.parse(transaction[2].toString()),
+        date: DateTime.parse(transaction[3]),
+        verificationNumber: transaction[4].toString(),
+        description: transaction[5].toString(),
       );
     }
 
@@ -136,16 +131,13 @@ class AddTransactionsViewModel extends BaseViewModel {
   void removeAllTransactions() {
     _log.i('');
 
-    _transactions.clear();
+    accountControllers.clear();
+    textControllers.clear();
+    amountControllers.clear();
+    dateControllers.clear();
+    verificationNumberControllers.clear();
+    descriptionControllers.clear();
 
     notifyListeners();
-  }
-
-  void updateAmount(int index, String value) {
-    _log.i('');
-
-    _addIfNotExists(index);
-
-    _transactions[index] = _transactions[index].copyWith(amount: double.parse(value));
   }
 }

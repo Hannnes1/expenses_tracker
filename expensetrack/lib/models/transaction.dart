@@ -1,3 +1,6 @@
+// ignore_for_file: invalid_annotation_target
+
+import 'package:expensetrack/app/json_helpers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction.freezed.dart';
@@ -12,9 +15,8 @@ class Transaction with _$Transaction {
     int? id,
 
     /// The date that the transaction was made.
-    ///
-    /// Must be formatted according to the ISO 8601 standard.
-    required String date,
+    @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+    DateTime date,
 
     /// The account number that the transaction belongs to.
     ///

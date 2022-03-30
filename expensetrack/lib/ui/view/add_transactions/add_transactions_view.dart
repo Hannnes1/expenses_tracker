@@ -11,6 +11,7 @@ class AddTransactionsView extends StatelessWidget {
 
     return ViewModelBuilder<AddTransactionsViewModel>.reactive(
       viewModelBuilder: () => AddTransactionsViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(),
         floatingActionButton: FloatingActionButton.extended(
@@ -24,7 +25,7 @@ class AddTransactionsView extends StatelessWidget {
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: model.transactions.length + 1,
+              itemCount: model.accountControllers.length,
               separatorBuilder: (_, __) => const Divider(),
               itemBuilder: (context, index) => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,27 +38,33 @@ class AddTransactionsView extends StatelessWidget {
                       children: [
                         _TextField(
                           labelText: 'Account',
-                          onChanged: (value) => model.updateAccount(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.accountControllers[index],
                         ),
                         _TextField(
                           labelText: 'Text',
-                          onChanged: (value) => model.updateText(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.textControllers[index],
                         ),
                         _TextField(
                           labelText: 'Amount',
-                          onChanged: (value) => model.updateAmount(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.amountControllers[index],
                         ),
                         _TextField(
                           labelText: 'Date',
-                          onChanged: (value) => model.updateDate(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.dateControllers[index],
                         ),
                         _TextField(
                           labelText: 'Verification Number',
-                          onChanged: (value) => model.updateVerificationNumber(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.verificationNumberControllers[index],
                         ),
                         _TextField(
                           labelText: 'Description',
-                          onChanged: (value) => model.updateDescription(index, value),
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.descriptionControllers[index],
                         ),
                       ],
                     ),
@@ -105,10 +112,12 @@ class _TextField extends StatelessWidget {
     Key? key,
     this.labelText,
     this.onChanged,
+    this.controller,
   }) : super(key: key);
 
   final String? labelText;
   final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +129,7 @@ class _TextField extends StatelessWidget {
           border: const OutlineInputBorder(),
         ),
         onChanged: onChanged,
+        controller: controller,
       ),
     );
   }

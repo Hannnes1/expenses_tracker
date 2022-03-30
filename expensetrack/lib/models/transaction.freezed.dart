@@ -24,7 +24,8 @@ class _$TransactionTearOff {
 
   _Transaction call(
       {int? id,
-      required String date,
+      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+          DateTime? date,
       required String account,
       String? verificationNumber,
       required String text,
@@ -57,9 +58,8 @@ mixin _$Transaction {
   int? get id => throw _privateConstructorUsedError;
 
   /// The date that the transaction was made.
-  ///
-  /// Must be formatted according to the ISO 8601 standard.
-  String get date => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+  DateTime? get date => throw _privateConstructorUsedError;
 
   /// The account number that the transaction belongs to.
   ///
@@ -95,7 +95,8 @@ abstract class $TransactionCopyWith<$Res> {
       _$TransactionCopyWithImpl<$Res>;
   $Res call(
       {int? id,
-      String date,
+      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+          DateTime? date,
       String account,
       String? verificationNumber,
       String text,
@@ -129,7 +130,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime?,
       account: account == freezed
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
@@ -163,7 +164,8 @@ abstract class _$TransactionCopyWith<$Res>
   @override
   $Res call(
       {int? id,
-      String date,
+      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+          DateTime? date,
       String account,
       String? verificationNumber,
       String text,
@@ -199,7 +201,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime?,
       account: account == freezed
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
@@ -229,7 +231,8 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
 class _$_Transaction implements _Transaction {
   _$_Transaction(
       {this.id,
-      required this.date,
+      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+          this.date,
       required this.account,
       this.verificationNumber,
       required this.text,
@@ -248,9 +251,8 @@ class _$_Transaction implements _Transaction {
   @override
 
   /// The date that the transaction was made.
-  ///
-  /// Must be formatted according to the ISO 8601 standard.
-  final String date;
+  @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+  final DateTime? date;
   @override
 
   /// The account number that the transaction belongs to.
@@ -324,7 +326,8 @@ class _$_Transaction implements _Transaction {
 abstract class _Transaction implements Transaction {
   factory _Transaction(
       {int? id,
-      required String date,
+      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+          DateTime? date,
       required String account,
       String? verificationNumber,
       required String text,
@@ -343,9 +346,8 @@ abstract class _Transaction implements Transaction {
   @override
 
   /// The date that the transaction was made.
-  ///
-  /// Must be formatted according to the ISO 8601 standard.
-  String get date;
+  @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+  DateTime? get date;
   @override
 
   /// The account number that the transaction belongs to.

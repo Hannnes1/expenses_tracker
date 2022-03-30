@@ -9,7 +9,7 @@ part of 'transaction.dart';
 _$_Transaction _$$_TransactionFromJson(Map<String, dynamic> json) =>
     _$_Transaction(
       id: json['id'] as int?,
-      date: json['date'] as String,
+      date: JsonHelpers.dateFromJson(json['date'] as String),
       account: json['account'] as String,
       verificationNumber: json['verificationNumber'] as String?,
       text: json['text'] as String,
@@ -20,7 +20,7 @@ _$_Transaction _$$_TransactionFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'date': instance.date,
+      'date': JsonHelpers.dateToJson(instance.date),
       'account': instance.account,
       'verificationNumber': instance.verificationNumber,
       'text': instance.text,
