@@ -26,7 +26,7 @@ class TransactionsView extends StatelessWidget {
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('[Category]'),
+                      Text(model.categoriesForTransaction(transaction)),
                       Text(transaction.account),
                     ],
                   ),

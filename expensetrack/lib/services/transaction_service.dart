@@ -26,16 +26,11 @@ class TransactionService {
   Future<void> addTransactions(List<Transaction> transactions) async {
     _log.i('transactions: $transactions');
 
-    try {
-      await _dio.post(
-        '/transactions/',
-        data: {
-          'transactions': transactions.map((e) => e.toJson()).toList(),
-        },
-      );
-      _log.i('Successfully added transactions');
-    } catch (e) {
-      _log.e('Error adding transactions: $e');
-    }
+    await _dio.post(
+      '/transactions/',
+      data: {
+        'transactions': transactions.map((e) => e.toJson()).toList(),
+      },
+    );
   }
 }

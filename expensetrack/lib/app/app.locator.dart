@@ -11,6 +11,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/category_service.dart';
 import '../services/file_picker.dart';
 import '../services/transaction_service.dart';
 
@@ -26,4 +27,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => TransactionService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => FilePickerService());
+  locator.registerLazySingleton(() => CategoryService());
 }

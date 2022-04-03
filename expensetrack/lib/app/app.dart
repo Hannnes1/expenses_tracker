@@ -1,3 +1,4 @@
+import 'package:expensetrack/services/category_service.dart';
 import 'package:expensetrack/services/file_picker.dart';
 import 'package:expensetrack/services/transaction_service.dart';
 import 'package:expensetrack/ui/view/add_transactions/add_transactions_view.dart';
@@ -16,6 +17,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: TransactionService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: FilePickerService),
+    LazySingleton(classType: CategoryService),
   ],
   logger: StackedLogger(),
 )

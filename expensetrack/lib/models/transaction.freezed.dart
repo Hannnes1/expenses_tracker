@@ -30,7 +30,8 @@ class _$TransactionTearOff {
       String? verificationNumber,
       required String text,
       String? description,
-      required num amount}) {
+      required num amount,
+      List<int>? categories}) {
     return _Transaction(
       id: id,
       date: date,
@@ -39,6 +40,7 @@ class _$TransactionTearOff {
       text: text,
       description: description,
       amount: amount,
+      categories: categories,
     );
   }
 
@@ -54,7 +56,8 @@ const $Transaction = _$TransactionTearOff();
 mixin _$Transaction {
   /// The ID of the category.
   ///
-  /// Will be ignored when writing.
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
   int? get id => throw _privateConstructorUsedError;
 
   /// The date that the transaction was made.
@@ -82,6 +85,12 @@ mixin _$Transaction {
   String? get description => throw _privateConstructorUsedError;
   num get amount => throw _privateConstructorUsedError;
 
+  /// The ID:s of the categories that the transaction belongs to.
+  ///
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
+  List<int>? get categories => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TransactionCopyWith<Transaction> get copyWith =>
@@ -101,7 +110,8 @@ abstract class $TransactionCopyWith<$Res> {
       String? verificationNumber,
       String text,
       String? description,
-      num amount});
+      num amount,
+      List<int>? categories});
 }
 
 /// @nodoc
@@ -121,6 +131,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
     Object? text = freezed,
     Object? description = freezed,
     Object? amount = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -151,6 +162,10 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as num,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
     ));
   }
 }
@@ -170,7 +185,8 @@ abstract class _$TransactionCopyWith<$Res>
       String? verificationNumber,
       String text,
       String? description,
-      num amount});
+      num amount,
+      List<int>? categories});
 }
 
 /// @nodoc
@@ -192,6 +208,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
     Object? text = freezed,
     Object? description = freezed,
     Object? amount = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_Transaction(
       id: id == freezed
@@ -222,6 +239,10 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as num,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
     ));
   }
 }
@@ -237,7 +258,8 @@ class _$_Transaction implements _Transaction {
       this.verificationNumber,
       required this.text,
       this.description,
-      required this.amount});
+      required this.amount,
+      this.categories});
 
   factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
       _$$_TransactionFromJson(json);
@@ -246,7 +268,8 @@ class _$_Transaction implements _Transaction {
 
   /// The ID of the category.
   ///
-  /// Will be ignored when writing.
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
   final int? id;
   @override
 
@@ -279,10 +302,17 @@ class _$_Transaction implements _Transaction {
   final String? description;
   @override
   final num amount;
+  @override
+
+  /// The ID:s of the categories that the transaction belongs to.
+  ///
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
+  final List<int>? categories;
 
   @override
   String toString() {
-    return 'Transaction(id: $id, date: $date, account: $account, verificationNumber: $verificationNumber, text: $text, description: $description, amount: $amount)';
+    return 'Transaction(id: $id, date: $date, account: $account, verificationNumber: $verificationNumber, text: $text, description: $description, amount: $amount, categories: $categories)';
   }
 
   @override
@@ -298,7 +328,9 @@ class _$_Transaction implements _Transaction {
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.amount, amount));
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
   }
 
   @override
@@ -310,7 +342,8 @@ class _$_Transaction implements _Transaction {
       const DeepCollectionEquality().hash(verificationNumber),
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(amount));
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(categories));
 
   @JsonKey(ignore: true)
   @override
@@ -332,7 +365,8 @@ abstract class _Transaction implements Transaction {
       String? verificationNumber,
       required String text,
       String? description,
-      required num amount}) = _$_Transaction;
+      required num amount,
+      List<int>? categories}) = _$_Transaction;
 
   factory _Transaction.fromJson(Map<String, dynamic> json) =
       _$_Transaction.fromJson;
@@ -341,7 +375,8 @@ abstract class _Transaction implements Transaction {
 
   /// The ID of the category.
   ///
-  /// Will be ignored when writing.
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
   int? get id;
   @override
 
@@ -374,6 +409,13 @@ abstract class _Transaction implements Transaction {
   String? get description;
   @override
   num get amount;
+  @override
+
+  /// The ID:s of the categories that the transaction belongs to.
+  ///
+  /// Will be ignored, and therefore omitted, when writing.
+  /// When reading, the value will allways be non-null.
+  List<int>? get categories;
   @override
   @JsonKey(ignore: true)
   _$TransactionCopyWith<_Transaction> get copyWith =>

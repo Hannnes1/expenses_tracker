@@ -66,6 +66,11 @@ class AddTransactionsView extends StatelessWidget {
                           onChanged: (value) => model.addIfNotExists(index),
                           controller: model.descriptionControllers[index],
                         ),
+                        _TextField(
+                          labelText: 'Category',
+                          onChanged: (value) => model.addIfNotExists(index),
+                          controller: model.categoriesControllers[index],
+                        ),
                       ],
                     ),
                   ),

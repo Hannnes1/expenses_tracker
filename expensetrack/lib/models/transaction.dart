@@ -11,7 +11,8 @@ class Transaction with _$Transaction {
   factory Transaction({
     /// The ID of the category.
     ///
-    /// Will be ignored when writing.
+    /// Will be ignored, and therefore omitted, when writing.
+    /// When reading, the value will allways be non-null.
     int? id,
 
     /// The date that the transaction was made.
@@ -39,6 +40,12 @@ class Transaction with _$Transaction {
     String? description,
 
     required num amount,
+    
+    /// The ID:s of the categories that the transaction belongs to.
+    ///
+    /// Will be ignored, and therefore omitted, when writing.
+    /// When reading, the value will allways be non-null.
+    List<int>? categories,
   }) = _Transaction;
 
   factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);

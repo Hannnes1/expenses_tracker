@@ -26,6 +26,7 @@ class AddTransactionsViewModel extends BaseViewModel {
   final List<TextEditingController> dateControllers = [];
   final List<TextEditingController> verificationNumberControllers = [];
   final List<TextEditingController> descriptionControllers = [];
+  final List<TextEditingController> categoriesControllers = [];
 
   /// Add a new transaction to the list of transactions, if index doesn't exist.
   void addIfNotExists(int index) {
@@ -48,6 +49,7 @@ class AddTransactionsViewModel extends BaseViewModel {
     DateTime? date,
     String? verificationNumber,
     String? description,
+    String? categories,
   }) {
     accountControllers.add(TextEditingController(text: account));
     textControllers.add(TextEditingController(text: text));
@@ -55,6 +57,7 @@ class AddTransactionsViewModel extends BaseViewModel {
     dateControllers.add(TextEditingController(text: date == null ? null : DateFormat('yyyy-MM-dd').format(date)));
     verificationNumberControllers.add(TextEditingController(text: verificationNumber));
     descriptionControllers.add(TextEditingController(text: description));
+    categoriesControllers.add(TextEditingController(text: categories));
   }
 
   /// Remove a transaction from the list of transactions.
@@ -67,6 +70,7 @@ class AddTransactionsViewModel extends BaseViewModel {
     dateControllers.remove(TextEditingController());
     verificationNumberControllers.remove(TextEditingController());
     descriptionControllers.remove(TextEditingController());
+    categoriesControllers.remove(TextEditingController());
 
     notifyListeners();
   }
@@ -76,7 +80,7 @@ class AddTransactionsViewModel extends BaseViewModel {
 
     setBusy(true);
 
-    final List<Transaction> transactions = [];
+    final transactions = <Transaction>[];
 
     for (var i = 0; i < accountControllers.length; i++) {
       transactions.add(Transaction(
@@ -87,6 +91,7 @@ class AddTransactionsViewModel extends BaseViewModel {
         date: DateTime.parse(dateControllers[i].text),
         verificationNumber: verificationNumberControllers[i].text,
         description: descriptionControllers[i].text,
+        categories: categoriesControllers[i].text.split(',').map((e) => int.parse(e)).toList(),
       ));
     }
 
