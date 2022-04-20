@@ -22,4 +22,15 @@ class TransactionService {
 
     return GetTransactionsBody.fromJson(response.data);
   }
+
+  Future<void> addTransactions(List<Transaction> transactions) async {
+    _log.i('transactions: $transactions');
+
+    await _dio.post(
+      '/transactions/',
+      data: {
+        'transactions': transactions,
+      },
+    );
+  }
 }

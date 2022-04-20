@@ -29,7 +29,8 @@ class _$TransactionTearOff {
       String? verificationNumber,
       required String text,
       String? description,
-      required num amount}) {
+      required num amount,
+      int? categoryId}) {
     return _Transaction(
       id: id,
       date: date,
@@ -38,6 +39,7 @@ class _$TransactionTearOff {
       text: text,
       description: description,
       amount: amount,
+      categoryId: categoryId,
     );
   }
 
@@ -82,6 +84,9 @@ mixin _$Transaction {
   String? get description => throw _privateConstructorUsedError;
   num get amount => throw _privateConstructorUsedError;
 
+  /// The id of the category that the transaction belongs to.
+  int? get categoryId => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TransactionCopyWith<Transaction> get copyWith =>
@@ -100,7 +105,8 @@ abstract class $TransactionCopyWith<$Res> {
       String? verificationNumber,
       String text,
       String? description,
-      num amount});
+      num amount,
+      int? categoryId});
 }
 
 /// @nodoc
@@ -120,6 +126,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
     Object? text = freezed,
     Object? description = freezed,
     Object? amount = freezed,
+    Object? categoryId = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -150,6 +157,10 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as num,
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -168,7 +179,8 @@ abstract class _$TransactionCopyWith<$Res>
       String? verificationNumber,
       String text,
       String? description,
-      num amount});
+      num amount,
+      int? categoryId});
 }
 
 /// @nodoc
@@ -190,6 +202,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
     Object? text = freezed,
     Object? description = freezed,
     Object? amount = freezed,
+    Object? categoryId = freezed,
   }) {
     return _then(_Transaction(
       id: id == freezed
@@ -220,6 +233,10 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as num,
+      categoryId: categoryId == freezed
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -234,7 +251,8 @@ class _$_Transaction implements _Transaction {
       this.verificationNumber,
       required this.text,
       this.description,
-      required this.amount});
+      required this.amount,
+      this.categoryId});
 
   factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
       _$$_TransactionFromJson(json);
@@ -277,10 +295,14 @@ class _$_Transaction implements _Transaction {
   final String? description;
   @override
   final num amount;
+  @override
+
+  /// The id of the category that the transaction belongs to.
+  final int? categoryId;
 
   @override
   String toString() {
-    return 'Transaction(id: $id, date: $date, account: $account, verificationNumber: $verificationNumber, text: $text, description: $description, amount: $amount)';
+    return 'Transaction(id: $id, date: $date, account: $account, verificationNumber: $verificationNumber, text: $text, description: $description, amount: $amount, categoryId: $categoryId)';
   }
 
   @override
@@ -296,7 +318,9 @@ class _$_Transaction implements _Transaction {
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.amount, amount));
+            const DeepCollectionEquality().equals(other.amount, amount) &&
+            const DeepCollectionEquality()
+                .equals(other.categoryId, categoryId));
   }
 
   @override
@@ -308,7 +332,8 @@ class _$_Transaction implements _Transaction {
       const DeepCollectionEquality().hash(verificationNumber),
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(amount));
+      const DeepCollectionEquality().hash(amount),
+      const DeepCollectionEquality().hash(categoryId));
 
   @JsonKey(ignore: true)
   @override
@@ -329,7 +354,8 @@ abstract class _Transaction implements Transaction {
       String? verificationNumber,
       required String text,
       String? description,
-      required num amount}) = _$_Transaction;
+      required num amount,
+      int? categoryId}) = _$_Transaction;
 
   factory _Transaction.fromJson(Map<String, dynamic> json) =
       _$_Transaction.fromJson;
@@ -372,6 +398,10 @@ abstract class _Transaction implements Transaction {
   String? get description;
   @override
   num get amount;
+  @override
+
+  /// The id of the category that the transaction belongs to.
+  int? get categoryId;
   @override
   @JsonKey(ignore: true)
   _$TransactionCopyWith<_Transaction> get copyWith =>

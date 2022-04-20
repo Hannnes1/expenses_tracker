@@ -16,7 +16,12 @@ class HomeView extends StatelessWidget {
           itemCount: model.transactions.length,
           itemBuilder: (context, index) => ListTile(
             title: Text(model.transactions[index].text),
+            subtitle: Text(model.transactions[index].categoryId.toString()),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: model.navigateToAddTransactionView,
         ),
       ),
     );

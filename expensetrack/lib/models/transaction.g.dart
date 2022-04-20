@@ -15,6 +15,7 @@ _$_Transaction _$$_TransactionFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String,
       description: json['description'] as String?,
       amount: json['amount'] as num,
+      categoryId: json['categoryId'] as int?,
     );
 
 Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
       'text': instance.text,
       'description': instance.description,
       'amount': instance.amount,
+      'categoryId': instance.categoryId,
     };
 
 _$_GetTransactionsBody _$$_GetTransactionsBodyFromJson(

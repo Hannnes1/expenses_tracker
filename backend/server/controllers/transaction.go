@@ -18,7 +18,7 @@ func (Transaction) GetList(c *gin.Context) {
 
 	transactions, err := repository.GetTransactions(offset, limit)
 	if err != nil {
-		c.IndentedJSON(500, models.InternalError(""))
+		c.IndentedJSON(500, models.InternalError("Could not retrieve transactions"))
 		return
 	}
 

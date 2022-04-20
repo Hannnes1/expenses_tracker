@@ -37,6 +37,9 @@ class Transaction with _$Transaction {
     String? description,
 
     required num amount,
+    
+    /// The id of the category that the transaction belongs to.
+    int? categoryId,
   }) = _Transaction;
 
   factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);

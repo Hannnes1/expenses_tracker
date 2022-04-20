@@ -11,7 +11,7 @@ type Transaction struct {
 	Text               string  `json:"text" binding:"required,max=45"`
 	Description        string  `json:"description" binding:"max=255"`
 	Amount             float64 `json:"amount" binding:"required"`
-	Category           int64   `json:"category"`
+	CategoryId         *int64  `json:"categoryId"`
 }
 
 type TransactionAddBody struct {

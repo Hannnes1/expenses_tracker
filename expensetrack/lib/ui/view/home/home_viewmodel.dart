@@ -1,11 +1,14 @@
 import 'package:expensetrack/app/app.locator.dart';
 import 'package:expensetrack/app/app.logger.dart';
+import 'package:expensetrack/app/app.router.dart';
 import 'package:expensetrack/models/transaction.dart';
 import 'package:expensetrack/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
   final TransactionService _transactionService = locator<TransactionService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   final _log = getLogger('HomeViewModel');
 
@@ -27,5 +30,11 @@ class HomeViewModel extends BaseViewModel {
     _log.i('');
 
     return await _transactionService.getTransaction();
+  }
+
+  navigateToAddTransactionView() {
+    _log.i('');
+
+    _navigationService.navigateTo(Routes.addTransactionView);
   }
 }
