@@ -22,32 +22,6 @@ func (Transaction) GetList(c *gin.Context) {
 		return
 	}
 
-	// Create a list of transaction IDs to be able to get the categories for each transaction.
-	tIDs := make([]int64, len(transactions))
-	for i, t := range transactions {
-		tIDs[i] = t.ID
-	}
-
-	// Get all category IDs for the transactions.
-	tc, err := repository.CategoryIDsByTransactions(tIDs)
-	if err != nil {
-		c.IndentedJSON(500, models.InternalError(""))
-		return
-	}
-
-	// Update each transaction with the correct category IDs.
-	for i := range transactions {
-		t := &transactions[i]
-
-		t.Categories = make([]int64, 0)
-
-		for _, c := range tc {
-			if t.ID == c.TransactionID {
-				t.Categories = append(t.Categories, c.CategoryID)
-			}
-		}
-	}
-
 	count := repository.TransactionsCount()
 
 	// Return an empty list instead of null if there are no transactions.
