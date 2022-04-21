@@ -36,15 +36,15 @@ func GetTransactions(offset int, limit int) ([]models.Transaction, error) {
 // The id of the transaction is returned if successfull.
 func AddTransactions(transactions []models.Transaction) error {
 
-	query := "INSERT INTO transactions (date, account, verification_number, text, description, amount) VALUES "
+	query := "INSERT INTO transactions (date, account, verification_number, text, description, amount, category_id) VALUES "
 	sqlValues := make([]string, len(transactions))
 	args := []interface{}{}
 
 	// Build the query and the value list row by row, while also building a list of arguments.
 	for i, t := range transactions {
-		const rowArgs = "(?, ?, ?, ?, ?, ?)"
+		const rowArgs = "(?, ?, ?, ?, ?, ?, ?)"
 		sqlValues[i] = rowArgs
-		args = append(args, t.Date, t.Account, t.VerificationNumber, t.Text, t.Description, t.Amount)
+		args = append(args, t.Date, t.Account, t.VerificationNumber, t.Text, t.Description, t.Amount, t.CategoryId)
 	}
 
 	// Join the query and the value list, separated by a comma.

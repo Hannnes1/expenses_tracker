@@ -1,3 +1,4 @@
+import 'package:expensetrack/app/json_helpers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'transaction.freezed.dart';
@@ -14,7 +15,8 @@ class Transaction with _$Transaction {
     /// The date that the transaction was made.
     ///
     /// Must be formatted according to the ISO 8601 standard.
-    required String date,
+    @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
+    required DateTime date,
 
     /// The account number that the transaction belongs to.
     ///
@@ -48,7 +50,7 @@ class Transaction with _$Transaction {
 @freezed
 class GetTransactionsBody with _$GetTransactionsBody {
   factory GetTransactionsBody({
-    required num totalCount,
+    required int totalCount,
     required List<Transaction> transactions,
   }) = _GetTransactionsBody;
 

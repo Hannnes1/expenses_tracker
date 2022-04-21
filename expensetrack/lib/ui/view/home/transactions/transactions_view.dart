@@ -10,19 +10,37 @@ class TransactionsView extends StatelessWidget {
     return ViewModelBuilder<TransactionsViewModel>.reactive(
       viewModelBuilder: () => TransactionsViewModel(),
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(),
-        body: ListView.builder(
-          itemCount: model.transactions.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(model.transactions[index].text),
-            subtitle: Text(model.transactions[index].categoryId.toString()),
+      builder: (context, model, child) => Column(
+        children: [
+          Flexible(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: model.transactions.length,
+              controller: model.scrollController,
+              separatorBuilder: (_, __) => const Divider(),
+              itemBuilder: (context, index) {
+                final transaction = model.transactions[index];
+
+                return ListTile(
+                  title: Text(transaction.text),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(model.categoryForTransaction(transaction)),
+                      Text(transaction.account),
+                    ],
+                  ),
+                  trailing: Text(transaction.amount.toString()),
+                );
+              },
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: model.navigateToAddTransactionView,
-        ),
+          if (model.isBusy)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 24),
+              child: CircularProgressIndicator(),
+            ),
+        ],
       ),
     );
   }

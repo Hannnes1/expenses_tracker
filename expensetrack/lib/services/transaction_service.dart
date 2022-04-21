@@ -9,7 +9,7 @@ class TransactionService {
 
   final _log = getLogger('TransactionService');
 
-  Future<GetTransactionsBody> getTransaction([int? offset, int? limit]) async {
+  Future<GetTransactionsBody> getTransactions([int? offset, int? limit]) async {
     _log.i('offset: $offset | limit: $limit');
 
     final response = await _dio.get(

@@ -15,3 +15,4 @@ analyzer:
     - "**/app.locator.dart"
     - "**/app.router.dart"
     - "**/app.logger.dart"
+    - "**/*.g.dart"

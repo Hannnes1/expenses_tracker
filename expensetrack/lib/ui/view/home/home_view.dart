@@ -11,25 +11,32 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        body: PageView(
-          controller: model.pageController, 
-          children: const [
-            OverviewView(),
-            TransactionsView(),
-          ],
+        appBar: AppBar(),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: model.navigateToAddTransactions,
         ),
         bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) => model.goToPage(index),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.list_outlined),
+              icon: Icon(Icons.swap_horiz),
               label: 'Transactions',
             ),
+          ],
+          currentIndex: model.currentPage,
+          onTap: (index) => model.currentPage = index,
+        ),
+        body: PageView(
+          controller: model.pageController,
+          children: const [
+            OverviewView(), 
+            TransactionsView(),
           ],
         ),
       ),

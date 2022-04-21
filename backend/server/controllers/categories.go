@@ -17,16 +17,28 @@ type Category struct{}
 func (Category) GetList(c *gin.Context) {
 	idsStr := c.QueryArray("id[]")
 
-	ids := make([]int, len(idsStr))
+	var ids []int
+	// If the array of id:s has length one and the value is an empty string,
+	// It should be interpreted as empty.
+	if len(idsStr) == 1 && idsStr[0] == "" {
+		ids = []int{}
+	} else {
+		ids = make([]int, len(idsStr))
 
-	for i, id := range idsStr {
-		ids[i], _ = strconv.Atoi(id)
+		for i, id := range idsStr {
+			ids[i], _ = strconv.Atoi(id)
+		}
 	}
 
 	categories, err := repository.Categories(ids)
 	if err != nil {
 		c.IndentedJSON(500, models.InternalError())
 		return
+	}
+
+	// Return an empty list instead of null if there are no transactions.
+	if categories == nil {
+		categories = make([]models.Category, 0)
 	}
 
 	c.IndentedJSON(200, categories)
