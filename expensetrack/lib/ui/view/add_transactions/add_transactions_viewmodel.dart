@@ -77,8 +77,6 @@ class AddTransactionsViewModel extends BaseViewModel {
 
   /// Check if all the fields are empty.
   bool _transactionIsEmpty(int index) {
-    _log.i('index: $index');
-
     return accountControllers[index].text.isEmpty &&
         textControllers[index].text.isEmpty &&
         amountControllers[index].text.isEmpty &&
