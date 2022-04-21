@@ -1,3 +1,4 @@
+import 'package:expensetrack/ui/view/home/analytics/analytics_view.dart';
 import 'package:expensetrack/ui/view/home/home_viewmodel.dart';
 import 'package:expensetrack/ui/view/home/overview/overview_view.dart';
 import 'package:expensetrack/ui/view/home/transactions/transactions_view.dart';
@@ -25,6 +26,10 @@ class HomeView extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.pie_chart),
+              label: 'Analytics',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.swap_horiz),
               label: 'Transactions',
             ),
@@ -35,7 +40,8 @@ class HomeView extends StatelessWidget {
         body: PageView(
           controller: model.pageController,
           children: const [
-            OverviewView(), 
+            OverviewView(),
+            AnalyticsView(),
             TransactionsView(),
           ],
         ),

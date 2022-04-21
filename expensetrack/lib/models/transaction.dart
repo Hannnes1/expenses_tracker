@@ -57,3 +57,16 @@ class GetTransactionsBody with _$GetTransactionsBody {
 factory GetTransactionsBody.fromJson(Map<String, dynamic> json) => 
 _$GetTransactionsBodyFromJson(json);
 }
+
+@freezed
+class ResultByMonth with _$ResultByMonth {
+  factory ResultByMonth({
+    required int year,
+    required int month,
+    required num income,
+    required num expenses,
+  }) = _ResultByMonth;
+
+factory ResultByMonth.fromJson(Map<String, dynamic> json) => 
+_$ResultByMonthFromJson(json);
+}

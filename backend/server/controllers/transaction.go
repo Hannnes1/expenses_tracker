@@ -55,3 +55,21 @@ func (Transaction) Add(c *gin.Context) {
 
 	c.Status(204)
 }
+
+// @description  Get the result (income & expenses) grouped my month.
+// @param firstDate query    string  false  "The first date to get the result"
+// @param lastDate  query    string  false  "The last date to get the result"
+// @success      200     {object}  []models.ResultByMonth
+// @router       /transactions/result [get]
+func (Transaction) GetResultByMonth(c *gin.Context) {
+	firstDate := c.Query("firstDate")
+	lastDate := c.Query("lastDate")
+
+	result, err := repository.GetResultByMonth(firstDate, lastDate)
+	if err != nil {
+		c.IndentedJSON(500, models.InternalError("Could not retrieve result"))
+		return
+	}
+
+	c.IndentedJSON(200, result)
+}

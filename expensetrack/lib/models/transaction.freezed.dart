@@ -590,3 +590,219 @@ abstract class _GetTransactionsBody implements GetTransactionsBody {
   _$GetTransactionsBodyCopyWith<_GetTransactionsBody> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+ResultByMonth _$ResultByMonthFromJson(Map<String, dynamic> json) {
+  return _ResultByMonth.fromJson(json);
+}
+
+/// @nodoc
+class _$ResultByMonthTearOff {
+  const _$ResultByMonthTearOff();
+
+  _ResultByMonth call(
+      {required int year,
+      required int month,
+      required num income,
+      required num expenses}) {
+    return _ResultByMonth(
+      year: year,
+      month: month,
+      income: income,
+      expenses: expenses,
+    );
+  }
+
+  ResultByMonth fromJson(Map<String, Object?> json) {
+    return ResultByMonth.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ResultByMonth = _$ResultByMonthTearOff();
+
+/// @nodoc
+mixin _$ResultByMonth {
+  int get year => throw _privateConstructorUsedError;
+  int get month => throw _privateConstructorUsedError;
+  num get income => throw _privateConstructorUsedError;
+  num get expenses => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ResultByMonthCopyWith<ResultByMonth> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResultByMonthCopyWith<$Res> {
+  factory $ResultByMonthCopyWith(
+          ResultByMonth value, $Res Function(ResultByMonth) then) =
+      _$ResultByMonthCopyWithImpl<$Res>;
+  $Res call({int year, int month, num income, num expenses});
+}
+
+/// @nodoc
+class _$ResultByMonthCopyWithImpl<$Res>
+    implements $ResultByMonthCopyWith<$Res> {
+  _$ResultByMonthCopyWithImpl(this._value, this._then);
+
+  final ResultByMonth _value;
+  // ignore: unused_field
+  final $Res Function(ResultByMonth) _then;
+
+  @override
+  $Res call({
+    Object? year = freezed,
+    Object? month = freezed,
+    Object? income = freezed,
+    Object? expenses = freezed,
+  }) {
+    return _then(_value.copyWith(
+      year: year == freezed
+          ? _value.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int,
+      month: month == freezed
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int,
+      income: income == freezed
+          ? _value.income
+          : income // ignore: cast_nullable_to_non_nullable
+              as num,
+      expenses: expenses == freezed
+          ? _value.expenses
+          : expenses // ignore: cast_nullable_to_non_nullable
+              as num,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ResultByMonthCopyWith<$Res>
+    implements $ResultByMonthCopyWith<$Res> {
+  factory _$ResultByMonthCopyWith(
+          _ResultByMonth value, $Res Function(_ResultByMonth) then) =
+      __$ResultByMonthCopyWithImpl<$Res>;
+  @override
+  $Res call({int year, int month, num income, num expenses});
+}
+
+/// @nodoc
+class __$ResultByMonthCopyWithImpl<$Res>
+    extends _$ResultByMonthCopyWithImpl<$Res>
+    implements _$ResultByMonthCopyWith<$Res> {
+  __$ResultByMonthCopyWithImpl(
+      _ResultByMonth _value, $Res Function(_ResultByMonth) _then)
+      : super(_value, (v) => _then(v as _ResultByMonth));
+
+  @override
+  _ResultByMonth get _value => super._value as _ResultByMonth;
+
+  @override
+  $Res call({
+    Object? year = freezed,
+    Object? month = freezed,
+    Object? income = freezed,
+    Object? expenses = freezed,
+  }) {
+    return _then(_ResultByMonth(
+      year: year == freezed
+          ? _value.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int,
+      month: month == freezed
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int,
+      income: income == freezed
+          ? _value.income
+          : income // ignore: cast_nullable_to_non_nullable
+              as num,
+      expenses: expenses == freezed
+          ? _value.expenses
+          : expenses // ignore: cast_nullable_to_non_nullable
+              as num,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ResultByMonth implements _ResultByMonth {
+  _$_ResultByMonth(
+      {required this.year,
+      required this.month,
+      required this.income,
+      required this.expenses});
+
+  factory _$_ResultByMonth.fromJson(Map<String, dynamic> json) =>
+      _$$_ResultByMonthFromJson(json);
+
+  @override
+  final int year;
+  @override
+  final int month;
+  @override
+  final num income;
+  @override
+  final num expenses;
+
+  @override
+  String toString() {
+    return 'ResultByMonth(year: $year, month: $month, income: $income, expenses: $expenses)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ResultByMonth &&
+            const DeepCollectionEquality().equals(other.year, year) &&
+            const DeepCollectionEquality().equals(other.month, month) &&
+            const DeepCollectionEquality().equals(other.income, income) &&
+            const DeepCollectionEquality().equals(other.expenses, expenses));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(year),
+      const DeepCollectionEquality().hash(month),
+      const DeepCollectionEquality().hash(income),
+      const DeepCollectionEquality().hash(expenses));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ResultByMonthCopyWith<_ResultByMonth> get copyWith =>
+      __$ResultByMonthCopyWithImpl<_ResultByMonth>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ResultByMonthToJson(this);
+  }
+}
+
+abstract class _ResultByMonth implements ResultByMonth {
+  factory _ResultByMonth(
+      {required int year,
+      required int month,
+      required num income,
+      required num expenses}) = _$_ResultByMonth;
+
+  factory _ResultByMonth.fromJson(Map<String, dynamic> json) =
+      _$_ResultByMonth.fromJson;
+
+  @override
+  int get year;
+  @override
+  int get month;
+  @override
+  num get income;
+  @override
+  num get expenses;
+  @override
+  @JsonKey(ignore: true)
+  _$ResultByMonthCopyWith<_ResultByMonth> get copyWith =>
+      throw _privateConstructorUsedError;
+}

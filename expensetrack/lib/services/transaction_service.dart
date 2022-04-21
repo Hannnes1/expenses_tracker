@@ -33,4 +33,18 @@ class TransactionService {
       },
     );
   }
+
+  Future<List<ResultByMonth>> getResultByMonth(DateTime firstDate, DateTime lastDate) async {
+    _log.i('firstDate: $firstDate | lastDate: $lastDate');
+
+    final response = await _dio.get(
+      '/transactions/result',
+      queryParameters: {
+        'firstDate': firstDate.toIso8601String(),
+        'lastDate': lastDate.toIso8601String(),
+      },
+    );
+
+    return (response.data as List).map((e) => ResultByMonth.fromJson(e)).toList();
+  }
 }

@@ -45,3 +45,19 @@ Map<String, dynamic> _$$_GetTransactionsBodyToJson(
       'totalCount': instance.totalCount,
       'transactions': instance.transactions,
     };
+
+_$_ResultByMonth _$$_ResultByMonthFromJson(Map<String, dynamic> json) =>
+    _$_ResultByMonth(
+      year: json['year'] as int,
+      month: json['month'] as int,
+      income: json['income'] as num,
+      expenses: json['expenses'] as num,
+    );
+
+Map<String, dynamic> _$$_ResultByMonthToJson(_$_ResultByMonth instance) =>
+    <String, dynamic>{
+      'year': instance.year,
+      'month': instance.month,
+      'income': instance.income,
+      'expenses': instance.expenses,
+    };

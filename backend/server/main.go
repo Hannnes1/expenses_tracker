@@ -62,6 +62,7 @@ func main() {
 
 			tg.GET("/", transaction.GetList)
 			tg.POST("/", transaction.Add)
+			tg.GET("/result", transaction.GetResultByMonth)
 		}
 
 		cg := v1.Group("/categories")

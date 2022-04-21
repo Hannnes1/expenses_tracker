@@ -22,3 +22,10 @@ type TransactionGetListBody struct {
 	TotalCount   int64         `json:"totalCount"`
 	Transactions []Transaction `json:"transactions"`
 }
+
+type ResultByMonth struct {
+	Year     int64   `json:"year"`
+	Month    int64   `json:"month"`
+	Income   float64 `json:"income"`
+	Expenses float64 `json:"expenses"`
+}
