@@ -8,6 +8,7 @@ linter:
     omit_local_variable_types: true
     prefer_final_locals: true
     prefer_final_in_for_each: true
+    library_private_types_in_public_api: false
 
 analyzer:
   exclude: 
