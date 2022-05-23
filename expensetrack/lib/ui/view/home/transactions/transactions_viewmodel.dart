@@ -22,22 +22,14 @@ class TransactionsViewModel extends BaseViewModel {
   /// The total number of transactions that exist in the database.
   int? _totalCount;
 
-  final ScrollController scrollController = ScrollController();
-
   List<Category> _categories = [];
+
+  bool _loadingTransactions = false;
 
   void init() async {
     _log.i('');
 
     await _loadCategories();
-
-    await _loadMore();
-
-    scrollController.addListener(() {
-      if (!isBusy && scrollController.position.pixels + 100 >= scrollController.position.maxScrollExtent) {
-        _loadMore();
-      }
-    });
 
     notifyListeners();
   }
@@ -52,14 +44,15 @@ class TransactionsViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  Future<void> _loadMore() async {
+  Future<void> loadMore() async {
     _log.i('');
 
     // Don't attempt to load more if we're already loading, or no more transactions exist.
-    if (isBusy || _totalCount != null && _offset >= _totalCount!) {
+    if (_loadingTransactions || _totalCount != null && _offset >= _totalCount!) {
       return;
     }
 
+    _loadingTransactions = true;
     setBusy(true);
 
     final response = await _transactionService.getTransactions(_offset, 20);
@@ -67,6 +60,7 @@ class TransactionsViewModel extends BaseViewModel {
     _totalCount = response.totalCount;
     _transactions.addAll(response.transactions);
 
+    _loadingTransactions = false;
     setBusy(false);
   }
 

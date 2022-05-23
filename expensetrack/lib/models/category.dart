@@ -21,6 +21,11 @@ class Category with _$Category {
     /// 
     /// Max 255 characters.
     required String? description,
+		
+    /// Whether the transactions in this category are internal.
+    /// 
+    /// Internal transactions will not be included in certain statistics.
+    required bool internal,
   }) = _Category
 ;
 

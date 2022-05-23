@@ -45,8 +45,8 @@ class AnalyticsViewModel extends BaseViewModel {
   _addResultByDate(int year, int month, List<ResultByMonth> resultList) {
     _resultByMonth.add(
       resultList.firstWhere(
-        (e) => e.year == year && e.month == month,
-        orElse: () => ResultByMonth(year: year, month: month, income: 1, expenses: 1),
+        (e) => e.year == year && e.month == month && e.internal == false,
+        orElse: () => ResultByMonth(year: year, month: month, income: 0, expenses: 0, internal: false),
       ),
     );
   }

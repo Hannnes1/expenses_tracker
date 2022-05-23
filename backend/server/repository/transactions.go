@@ -73,12 +73,16 @@ func GetResultByMonth(firstDate string, lastDate string) ([]models.ResultByMonth
 
 	rows, err := DB.Query(
 		`SELECT YEAR(date) as year, MONTH(date) as month,
-		SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END) as income,
-		SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END) as expenses
-		FROM transactions.transactions
-		WHERE date >= ? AND date <= ?
-		GROUP BY YEAR(date), MONTH(date)
-		ORDER BY YEAR(date), MONTH(date)`,
+		 SUM(CASE WHEN amount > 0 THEN amount ELSE 0 END) as income,
+		 SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END) as expenses,
+		 internal
+		 FROM transactions.transactions
+		 LEFT JOIN
+		 transactions.categories
+		 ON transactions.category_id = categories.id
+		 WHERE date >= ? AND date <= ?
+		 GROUP BY YEAR(date), MONTH(date), internal
+		 ORDER BY YEAR(date), MONTH(date)`,
 		firstDate, lastDate)
 	if err != nil {
 		return nil, err
@@ -88,7 +92,7 @@ func GetResultByMonth(firstDate string, lastDate string) ([]models.ResultByMonth
 
 	for rows.Next() {
 		var r models.ResultByMonth
-		if err := rows.Scan(&r.Year, &r.Month, &r.Income, &r.Expenses); err != nil {
+		if err := rows.Scan(&r.Year, &r.Month, &r.Income, &r.Expenses, &r.Internal); err != nil {
 			return nil, err
 		}
 

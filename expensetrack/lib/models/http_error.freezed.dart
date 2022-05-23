@@ -12,30 +12,11 @@ part of 'http_error.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 HttpError _$HttpErrorFromJson(Map<String, dynamic> json) {
   return _HttpError.fromJson(json);
 }
-
-/// @nodoc
-class _$HttpErrorTearOff {
-  const _$HttpErrorTearOff();
-
-  _HttpError call({required int code, required String message}) {
-    return _HttpError(
-      code: code,
-      message: message,
-    );
-  }
-
-  HttpError fromJson(Map<String, Object?> json) {
-    return HttpError.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $HttpError = _$HttpErrorTearOff();
 
 /// @nodoc
 mixin _$HttpError {
@@ -82,29 +63,30 @@ class _$HttpErrorCopyWithImpl<$Res> implements $HttpErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$HttpErrorCopyWith<$Res> implements $HttpErrorCopyWith<$Res> {
-  factory _$HttpErrorCopyWith(
-          _HttpError value, $Res Function(_HttpError) then) =
-      __$HttpErrorCopyWithImpl<$Res>;
+abstract class _$$_HttpErrorCopyWith<$Res> implements $HttpErrorCopyWith<$Res> {
+  factory _$$_HttpErrorCopyWith(
+          _$_HttpError value, $Res Function(_$_HttpError) then) =
+      __$$_HttpErrorCopyWithImpl<$Res>;
   @override
   $Res call({int code, String message});
 }
 
 /// @nodoc
-class __$HttpErrorCopyWithImpl<$Res> extends _$HttpErrorCopyWithImpl<$Res>
-    implements _$HttpErrorCopyWith<$Res> {
-  __$HttpErrorCopyWithImpl(_HttpError _value, $Res Function(_HttpError) _then)
-      : super(_value, (v) => _then(v as _HttpError));
+class __$$_HttpErrorCopyWithImpl<$Res> extends _$HttpErrorCopyWithImpl<$Res>
+    implements _$$_HttpErrorCopyWith<$Res> {
+  __$$_HttpErrorCopyWithImpl(
+      _$_HttpError _value, $Res Function(_$_HttpError) _then)
+      : super(_value, (v) => _then(v as _$_HttpError));
 
   @override
-  _HttpError get _value => super._value as _HttpError;
+  _$_HttpError get _value => super._value as _$_HttpError;
 
   @override
   $Res call({
     Object? code = freezed,
     Object? message = freezed,
   }) {
-    return _then(_HttpError(
+    return _then(_$_HttpError(
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -139,11 +121,12 @@ class _$_HttpError implements _HttpError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _HttpError &&
+            other is _$_HttpError &&
             const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -152,8 +135,8 @@ class _$_HttpError implements _HttpError {
 
   @JsonKey(ignore: true)
   @override
-  _$HttpErrorCopyWith<_HttpError> get copyWith =>
-      __$HttpErrorCopyWithImpl<_HttpError>(this, _$identity);
+  _$$_HttpErrorCopyWith<_$_HttpError> get copyWith =>
+      __$$_HttpErrorCopyWithImpl<_$_HttpError>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -162,18 +145,18 @@ class _$_HttpError implements _HttpError {
 }
 
 abstract class _HttpError implements HttpError {
-  factory _HttpError({required int code, required String message}) =
+  factory _HttpError({required final int code, required final String message}) =
       _$_HttpError;
 
   factory _HttpError.fromJson(Map<String, dynamic> json) =
       _$_HttpError.fromJson;
 
   @override
-  int get code;
+  int get code => throw _privateConstructorUsedError;
   @override
-  String get message;
+  String get message => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$HttpErrorCopyWith<_HttpError> get copyWith =>
+  _$$_HttpErrorCopyWith<_$_HttpError> get copyWith =>
       throw _privateConstructorUsedError;
 }

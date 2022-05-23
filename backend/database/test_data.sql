@@ -23,7 +23,7 @@ USE `transactions`;
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Category 1', 'The first category'),(2,'Category 2', 'The second category'),(3,'Category 3', 'The third category');
+INSERT INTO `categories` VALUES (1,'Category 1', 'The first category', 1),(2,'Category 2', 'The second category', 0),(3,'Category 3', 'The third category', 0);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 

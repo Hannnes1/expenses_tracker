@@ -36,7 +36,7 @@ func Categories(categoryIDs []int) ([]models.Category, error) {
 
 	for rows.Next() {
 		var c models.Category
-		if err := rows.Scan(&c.Id, &c.Name, &c.Description); err != nil {
+		if err := rows.Scan(&c.Id, &c.Name, &c.Description, &c.Internal); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
@@ -52,13 +52,13 @@ func Categories(categoryIDs []int) ([]models.Category, error) {
 }
 
 func AddCategories(categories []models.Category) error {
-	query := "INSERT INTO categories (name, description) VALUES "
+	query := "INSERT INTO categories (name, description, internal) VALUES "
 	sqlValues := make([]string, len(categories))
 	args := []interface{}{}
 
 	// Build the query and the value list row by row, while also building a list of arguments.
 	for i, c := range categories {
-		const rowArgs = "(?, ?)"
+		const rowArgs = "(?, ?, ?)"
 		sqlValues[i] = rowArgs
 		args = append(args, c.Name, c.Description)
 	}

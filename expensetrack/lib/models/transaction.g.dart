@@ -52,6 +52,7 @@ _$_ResultByMonth _$$_ResultByMonthFromJson(Map<String, dynamic> json) =>
       month: json['month'] as int,
       income: json['income'] as num,
       expenses: json['expenses'] as num,
+      internal: json['internal'] as bool,
     );
 
 Map<String, dynamic> _$$_ResultByMonthToJson(_$_ResultByMonth instance) =>
@@ -60,4 +61,5 @@ Map<String, dynamic> _$$_ResultByMonthToJson(_$_ResultByMonth instance) =>
       'month': instance.month,
       'income': instance.income,
       'expenses': instance.expenses,
+      'internal': instance.internal,
     };

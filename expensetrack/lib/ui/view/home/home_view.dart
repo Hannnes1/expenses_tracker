@@ -1,4 +1,5 @@
 import 'package:expensetrack/ui/view/home/analytics/analytics_view.dart';
+import 'package:expensetrack/ui/view/home/categories/categories_view.dart';
 import 'package:expensetrack/ui/view/home/home_viewmodel.dart';
 import 'package:expensetrack/ui/view/home/overview/overview_view.dart';
 import 'package:expensetrack/ui/view/home/transactions/transactions_view.dart';
@@ -16,10 +17,12 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(),
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
           onPressed: model.navigateToAddTransactions,
+          child: const Icon(Icons.add),
         ),
         bottomNavigationBar: BottomNavigationBar(
+					unselectedItemColor: Colors.grey,
+					selectedItemColor: Theme.of(context).colorScheme.secondary,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -33,6 +36,10 @@ class HomeView extends StatelessWidget {
               icon: Icon(Icons.swap_horiz),
               label: 'Transactions',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: 'Categories',
+            ),
           ],
           currentIndex: model.currentPage,
           onTap: (index) => model.currentPage = index,
@@ -43,6 +50,7 @@ class HomeView extends StatelessWidget {
             OverviewView(),
             AnalyticsView(),
             TransactionsView(),
+						CategoriesView(),
           ],
         ),
       ),

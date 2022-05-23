@@ -65,6 +65,7 @@ class ResultByMonth with _$ResultByMonth {
     required int month,
     required num income,
     required num expenses,
+		required bool internal,
   }) = _ResultByMonth;
 
 factory ResultByMonth.fromJson(Map<String, dynamic> json) => 

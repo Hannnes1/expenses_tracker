@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `transactions`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(255) NULL,
+  `internal` TINYINT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 SET SQL_MODE = @OLD_SQL_MODE;

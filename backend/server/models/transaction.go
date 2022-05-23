@@ -28,4 +28,5 @@ type ResultByMonth struct {
 	Month    int64   `json:"month"`
 	Income   float64 `json:"income"`
 	Expenses float64 `json:"expenses"`
+	Internal bool    `json:"internal"`
 }

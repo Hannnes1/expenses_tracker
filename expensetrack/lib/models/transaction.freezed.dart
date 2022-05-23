@@ -12,45 +12,11 @@ part of 'transaction.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Transaction _$TransactionFromJson(Map<String, dynamic> json) {
   return _Transaction.fromJson(json);
 }
-
-/// @nodoc
-class _$TransactionTearOff {
-  const _$TransactionTearOff();
-
-  _Transaction call(
-      {int? id,
-      @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          required DateTime date,
-      required String account,
-      String? verificationNumber,
-      required String text,
-      String? description,
-      required num amount,
-      int? categoryId}) {
-    return _Transaction(
-      id: id,
-      date: date,
-      account: account,
-      verificationNumber: verificationNumber,
-      text: text,
-      description: description,
-      amount: amount,
-      categoryId: categoryId,
-    );
-  }
-
-  Transaction fromJson(Map<String, Object?> json) {
-    return Transaction.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Transaction = _$TransactionTearOff();
 
 /// @nodoc
 mixin _$Transaction {
@@ -169,11 +135,11 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TransactionCopyWith<$Res>
+abstract class _$$_TransactionCopyWith<$Res>
     implements $TransactionCopyWith<$Res> {
-  factory _$TransactionCopyWith(
-          _Transaction value, $Res Function(_Transaction) then) =
-      __$TransactionCopyWithImpl<$Res>;
+  factory _$$_TransactionCopyWith(
+          _$_Transaction value, $Res Function(_$_Transaction) then) =
+      __$$_TransactionCopyWithImpl<$Res>;
   @override
   $Res call(
       {int? id,
@@ -188,14 +154,14 @@ abstract class _$TransactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
-    implements _$TransactionCopyWith<$Res> {
-  __$TransactionCopyWithImpl(
-      _Transaction _value, $Res Function(_Transaction) _then)
-      : super(_value, (v) => _then(v as _Transaction));
+class __$$_TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
+    implements _$$_TransactionCopyWith<$Res> {
+  __$$_TransactionCopyWithImpl(
+      _$_Transaction _value, $Res Function(_$_Transaction) _then)
+      : super(_value, (v) => _then(v as _$_Transaction));
 
   @override
-  _Transaction get _value => super._value as _Transaction;
+  _$_Transaction get _value => super._value as _$_Transaction;
 
   @override
   $Res call({
@@ -208,7 +174,7 @@ class __$TransactionCopyWithImpl<$Res> extends _$TransactionCopyWithImpl<$Res>
     Object? amount = freezed,
     Object? categoryId = freezed,
   }) {
-    return _then(_Transaction(
+    return _then(_$_Transaction(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -262,48 +228,47 @@ class _$_Transaction implements _Transaction {
   factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
       _$$_TransactionFromJson(json);
 
-  @override
-
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  final int? id;
   @override
+  final int? id;
 
   /// The date that the transaction was made.
   ///
   /// Must be formatted according to the ISO 8601 standard.
+  @override
   @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
   final DateTime date;
-  @override
 
   /// The account number that the transaction belongs to.
   ///
   /// Max 20 characters.
-  final String account;
   @override
+  final String account;
 
   /// The verification number of the transaction.
   ///
   /// Max 20 characters.
-  final String? verificationNumber;
   @override
+  final String? verificationNumber;
 
   /// The Text from the bank for the transaction.
   ///
   /// Max 45 characters.
-  final String text;
   @override
+  final String text;
 
   /// A description of the transaction.
   ///
   /// Max 255 characters.
+  @override
   final String? description;
   @override
   final num amount;
-  @override
 
   /// The id of the category that the transaction belongs to.
+  @override
   final int? categoryId;
 
   @override
@@ -315,7 +280,7 @@ class _$_Transaction implements _Transaction {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Transaction &&
+            other is _$_Transaction &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.account, account) &&
@@ -329,6 +294,7 @@ class _$_Transaction implements _Transaction {
                 .equals(other.categoryId, categoryId));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -343,8 +309,8 @@ class _$_Transaction implements _Transaction {
 
   @JsonKey(ignore: true)
   @override
-  _$TransactionCopyWith<_Transaction> get copyWith =>
-      __$TransactionCopyWithImpl<_Transaction>(this, _$identity);
+  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
+      __$$_TransactionCopyWithImpl<_$_Transaction>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -354,15 +320,15 @@ class _$_Transaction implements _Transaction {
 
 abstract class _Transaction implements Transaction {
   factory _Transaction(
-      {int? id,
+      {final int? id,
       @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-          required DateTime date,
-      required String account,
-      String? verificationNumber,
-      required String text,
-      String? description,
-      required num amount,
-      int? categoryId}) = _$_Transaction;
+          required final DateTime date,
+      required final String account,
+      final String? verificationNumber,
+      required final String text,
+      final String? description,
+      required final num amount,
+      final int? categoryId}) = _$_Transaction;
 
   factory _Transaction.fromJson(Map<String, dynamic> json) =
       _$_Transaction.fromJson;
@@ -372,73 +338,53 @@ abstract class _Transaction implements Transaction {
   /// The ID of the category.
   ///
   /// Will be ignored when writing.
-  int? get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
 
   /// The date that the transaction was made.
   ///
   /// Must be formatted according to the ISO 8601 standard.
   @JsonKey(fromJson: JsonHelpers.dateFromJson, toJson: JsonHelpers.dateToJson)
-  DateTime get date;
+  DateTime get date => throw _privateConstructorUsedError;
   @override
 
   /// The account number that the transaction belongs to.
   ///
   /// Max 20 characters.
-  String get account;
+  String get account => throw _privateConstructorUsedError;
   @override
 
   /// The verification number of the transaction.
   ///
   /// Max 20 characters.
-  String? get verificationNumber;
+  String? get verificationNumber => throw _privateConstructorUsedError;
   @override
 
   /// The Text from the bank for the transaction.
   ///
   /// Max 45 characters.
-  String get text;
+  String get text => throw _privateConstructorUsedError;
   @override
 
   /// A description of the transaction.
   ///
   /// Max 255 characters.
-  String? get description;
+  String? get description => throw _privateConstructorUsedError;
   @override
-  num get amount;
+  num get amount => throw _privateConstructorUsedError;
   @override
 
   /// The id of the category that the transaction belongs to.
-  int? get categoryId;
+  int? get categoryId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TransactionCopyWith<_Transaction> get copyWith =>
+  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 GetTransactionsBody _$GetTransactionsBodyFromJson(Map<String, dynamic> json) {
   return _GetTransactionsBody.fromJson(json);
 }
-
-/// @nodoc
-class _$GetTransactionsBodyTearOff {
-  const _$GetTransactionsBodyTearOff();
-
-  _GetTransactionsBody call(
-      {required int totalCount, required List<Transaction> transactions}) {
-    return _GetTransactionsBody(
-      totalCount: totalCount,
-      transactions: transactions,
-    );
-  }
-
-  GetTransactionsBody fromJson(Map<String, Object?> json) {
-    return GetTransactionsBody.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $GetTransactionsBody = _$GetTransactionsBodyTearOff();
 
 /// @nodoc
 mixin _$GetTransactionsBody {
@@ -487,38 +433,38 @@ class _$GetTransactionsBodyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$GetTransactionsBodyCopyWith<$Res>
+abstract class _$$_GetTransactionsBodyCopyWith<$Res>
     implements $GetTransactionsBodyCopyWith<$Res> {
-  factory _$GetTransactionsBodyCopyWith(_GetTransactionsBody value,
-          $Res Function(_GetTransactionsBody) then) =
-      __$GetTransactionsBodyCopyWithImpl<$Res>;
+  factory _$$_GetTransactionsBodyCopyWith(_$_GetTransactionsBody value,
+          $Res Function(_$_GetTransactionsBody) then) =
+      __$$_GetTransactionsBodyCopyWithImpl<$Res>;
   @override
   $Res call({int totalCount, List<Transaction> transactions});
 }
 
 /// @nodoc
-class __$GetTransactionsBodyCopyWithImpl<$Res>
+class __$$_GetTransactionsBodyCopyWithImpl<$Res>
     extends _$GetTransactionsBodyCopyWithImpl<$Res>
-    implements _$GetTransactionsBodyCopyWith<$Res> {
-  __$GetTransactionsBodyCopyWithImpl(
-      _GetTransactionsBody _value, $Res Function(_GetTransactionsBody) _then)
-      : super(_value, (v) => _then(v as _GetTransactionsBody));
+    implements _$$_GetTransactionsBodyCopyWith<$Res> {
+  __$$_GetTransactionsBodyCopyWithImpl(_$_GetTransactionsBody _value,
+      $Res Function(_$_GetTransactionsBody) _then)
+      : super(_value, (v) => _then(v as _$_GetTransactionsBody));
 
   @override
-  _GetTransactionsBody get _value => super._value as _GetTransactionsBody;
+  _$_GetTransactionsBody get _value => super._value as _$_GetTransactionsBody;
 
   @override
   $Res call({
     Object? totalCount = freezed,
     Object? transactions = freezed,
   }) {
-    return _then(_GetTransactionsBody(
+    return _then(_$_GetTransactionsBody(
       totalCount: totalCount == freezed
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
       transactions: transactions == freezed
-          ? _value.transactions
+          ? _value._transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<Transaction>,
     ));
@@ -529,15 +475,20 @@ class __$GetTransactionsBodyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GetTransactionsBody implements _GetTransactionsBody {
   _$_GetTransactionsBody(
-      {required this.totalCount, required this.transactions});
+      {required this.totalCount, required final List<Transaction> transactions})
+      : _transactions = transactions;
 
   factory _$_GetTransactionsBody.fromJson(Map<String, dynamic> json) =>
       _$$_GetTransactionsBodyFromJson(json);
 
   @override
   final int totalCount;
+  final List<Transaction> _transactions;
   @override
-  final List<Transaction> transactions;
+  List<Transaction> get transactions {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_transactions);
+  }
 
   @override
   String toString() {
@@ -548,23 +499,24 @@ class _$_GetTransactionsBody implements _GetTransactionsBody {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _GetTransactionsBody &&
+            other is _$_GetTransactionsBody &&
             const DeepCollectionEquality()
                 .equals(other.totalCount, totalCount) &&
             const DeepCollectionEquality()
-                .equals(other.transactions, transactions));
+                .equals(other._transactions, _transactions));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(totalCount),
-      const DeepCollectionEquality().hash(transactions));
+      const DeepCollectionEquality().hash(_transactions));
 
   @JsonKey(ignore: true)
   @override
-  _$GetTransactionsBodyCopyWith<_GetTransactionsBody> get copyWith =>
-      __$GetTransactionsBodyCopyWithImpl<_GetTransactionsBody>(
+  _$$_GetTransactionsBodyCopyWith<_$_GetTransactionsBody> get copyWith =>
+      __$$_GetTransactionsBodyCopyWithImpl<_$_GetTransactionsBody>(
           this, _$identity);
 
   @override
@@ -575,19 +527,19 @@ class _$_GetTransactionsBody implements _GetTransactionsBody {
 
 abstract class _GetTransactionsBody implements GetTransactionsBody {
   factory _GetTransactionsBody(
-      {required int totalCount,
-      required List<Transaction> transactions}) = _$_GetTransactionsBody;
+      {required final int totalCount,
+      required final List<Transaction> transactions}) = _$_GetTransactionsBody;
 
   factory _GetTransactionsBody.fromJson(Map<String, dynamic> json) =
       _$_GetTransactionsBody.fromJson;
 
   @override
-  int get totalCount;
+  int get totalCount => throw _privateConstructorUsedError;
   @override
-  List<Transaction> get transactions;
+  List<Transaction> get transactions => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GetTransactionsBodyCopyWith<_GetTransactionsBody> get copyWith =>
+  _$$_GetTransactionsBodyCopyWith<_$_GetTransactionsBody> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -596,36 +548,12 @@ ResultByMonth _$ResultByMonthFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$ResultByMonthTearOff {
-  const _$ResultByMonthTearOff();
-
-  _ResultByMonth call(
-      {required int year,
-      required int month,
-      required num income,
-      required num expenses}) {
-    return _ResultByMonth(
-      year: year,
-      month: month,
-      income: income,
-      expenses: expenses,
-    );
-  }
-
-  ResultByMonth fromJson(Map<String, Object?> json) {
-    return ResultByMonth.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ResultByMonth = _$ResultByMonthTearOff();
-
-/// @nodoc
 mixin _$ResultByMonth {
   int get year => throw _privateConstructorUsedError;
   int get month => throw _privateConstructorUsedError;
   num get income => throw _privateConstructorUsedError;
   num get expenses => throw _privateConstructorUsedError;
+  bool get internal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -638,7 +566,7 @@ abstract class $ResultByMonthCopyWith<$Res> {
   factory $ResultByMonthCopyWith(
           ResultByMonth value, $Res Function(ResultByMonth) then) =
       _$ResultByMonthCopyWithImpl<$Res>;
-  $Res call({int year, int month, num income, num expenses});
+  $Res call({int year, int month, num income, num expenses, bool internal});
 }
 
 /// @nodoc
@@ -656,6 +584,7 @@ class _$ResultByMonthCopyWithImpl<$Res>
     Object? month = freezed,
     Object? income = freezed,
     Object? expenses = freezed,
+    Object? internal = freezed,
   }) {
     return _then(_value.copyWith(
       year: year == freezed
@@ -674,30 +603,34 @@ class _$ResultByMonthCopyWithImpl<$Res>
           ? _value.expenses
           : expenses // ignore: cast_nullable_to_non_nullable
               as num,
+      internal: internal == freezed
+          ? _value.internal
+          : internal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$ResultByMonthCopyWith<$Res>
+abstract class _$$_ResultByMonthCopyWith<$Res>
     implements $ResultByMonthCopyWith<$Res> {
-  factory _$ResultByMonthCopyWith(
-          _ResultByMonth value, $Res Function(_ResultByMonth) then) =
-      __$ResultByMonthCopyWithImpl<$Res>;
+  factory _$$_ResultByMonthCopyWith(
+          _$_ResultByMonth value, $Res Function(_$_ResultByMonth) then) =
+      __$$_ResultByMonthCopyWithImpl<$Res>;
   @override
-  $Res call({int year, int month, num income, num expenses});
+  $Res call({int year, int month, num income, num expenses, bool internal});
 }
 
 /// @nodoc
-class __$ResultByMonthCopyWithImpl<$Res>
+class __$$_ResultByMonthCopyWithImpl<$Res>
     extends _$ResultByMonthCopyWithImpl<$Res>
-    implements _$ResultByMonthCopyWith<$Res> {
-  __$ResultByMonthCopyWithImpl(
-      _ResultByMonth _value, $Res Function(_ResultByMonth) _then)
-      : super(_value, (v) => _then(v as _ResultByMonth));
+    implements _$$_ResultByMonthCopyWith<$Res> {
+  __$$_ResultByMonthCopyWithImpl(
+      _$_ResultByMonth _value, $Res Function(_$_ResultByMonth) _then)
+      : super(_value, (v) => _then(v as _$_ResultByMonth));
 
   @override
-  _ResultByMonth get _value => super._value as _ResultByMonth;
+  _$_ResultByMonth get _value => super._value as _$_ResultByMonth;
 
   @override
   $Res call({
@@ -705,8 +638,9 @@ class __$ResultByMonthCopyWithImpl<$Res>
     Object? month = freezed,
     Object? income = freezed,
     Object? expenses = freezed,
+    Object? internal = freezed,
   }) {
-    return _then(_ResultByMonth(
+    return _then(_$_ResultByMonth(
       year: year == freezed
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -723,6 +657,10 @@ class __$ResultByMonthCopyWithImpl<$Res>
           ? _value.expenses
           : expenses // ignore: cast_nullable_to_non_nullable
               as num,
+      internal: internal == freezed
+          ? _value.internal
+          : internal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -734,7 +672,8 @@ class _$_ResultByMonth implements _ResultByMonth {
       {required this.year,
       required this.month,
       required this.income,
-      required this.expenses});
+      required this.expenses,
+      required this.internal});
 
   factory _$_ResultByMonth.fromJson(Map<String, dynamic> json) =>
       _$$_ResultByMonthFromJson(json);
@@ -747,35 +686,40 @@ class _$_ResultByMonth implements _ResultByMonth {
   final num income;
   @override
   final num expenses;
+  @override
+  final bool internal;
 
   @override
   String toString() {
-    return 'ResultByMonth(year: $year, month: $month, income: $income, expenses: $expenses)';
+    return 'ResultByMonth(year: $year, month: $month, income: $income, expenses: $expenses, internal: $internal)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ResultByMonth &&
+            other is _$_ResultByMonth &&
             const DeepCollectionEquality().equals(other.year, year) &&
             const DeepCollectionEquality().equals(other.month, month) &&
             const DeepCollectionEquality().equals(other.income, income) &&
-            const DeepCollectionEquality().equals(other.expenses, expenses));
+            const DeepCollectionEquality().equals(other.expenses, expenses) &&
+            const DeepCollectionEquality().equals(other.internal, internal));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(year),
       const DeepCollectionEquality().hash(month),
       const DeepCollectionEquality().hash(income),
-      const DeepCollectionEquality().hash(expenses));
+      const DeepCollectionEquality().hash(expenses),
+      const DeepCollectionEquality().hash(internal));
 
   @JsonKey(ignore: true)
   @override
-  _$ResultByMonthCopyWith<_ResultByMonth> get copyWith =>
-      __$ResultByMonthCopyWithImpl<_ResultByMonth>(this, _$identity);
+  _$$_ResultByMonthCopyWith<_$_ResultByMonth> get copyWith =>
+      __$$_ResultByMonthCopyWithImpl<_$_ResultByMonth>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -785,24 +729,27 @@ class _$_ResultByMonth implements _ResultByMonth {
 
 abstract class _ResultByMonth implements ResultByMonth {
   factory _ResultByMonth(
-      {required int year,
-      required int month,
-      required num income,
-      required num expenses}) = _$_ResultByMonth;
+      {required final int year,
+      required final int month,
+      required final num income,
+      required final num expenses,
+      required final bool internal}) = _$_ResultByMonth;
 
   factory _ResultByMonth.fromJson(Map<String, dynamic> json) =
       _$_ResultByMonth.fromJson;
 
   @override
-  int get year;
+  int get year => throw _privateConstructorUsedError;
   @override
-  int get month;
+  int get month => throw _privateConstructorUsedError;
   @override
-  num get income;
+  num get income => throw _privateConstructorUsedError;
   @override
-  num get expenses;
+  num get expenses => throw _privateConstructorUsedError;
+  @override
+  bool get internal => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ResultByMonthCopyWith<_ResultByMonth> get copyWith =>
+  _$$_ResultByMonthCopyWith<_$_ResultByMonth> get copyWith =>
       throw _privateConstructorUsedError;
 }
