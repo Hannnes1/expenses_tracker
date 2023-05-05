@@ -1,8 +1,0 @@
-version: '3.9'
-
-services:
-  database:
-    build:
-      context: ./database
-    ports:
-      - "3306:3306"
