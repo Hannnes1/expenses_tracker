@@ -1,0 +1,6 @@
+name: expenses_tracker
+
+packages:
+  - client
+  - server
+  - shared
