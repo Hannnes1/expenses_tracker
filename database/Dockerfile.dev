@@ -1,0 +1,7 @@
+FROM postgres:14.4-alpine
+
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_DB=expenses_tracker
+
+COPY dev_init/ /docker-entrypoint-initdb.d/

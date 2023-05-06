@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  database:
+    build:
+      context: ./database
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - "5433:5432"
+  firebase:
+    build:
+      context: ./firebase_emulator
+    volumes:
+     - ./firebase_emulator/config:/usr/emulator
+    ports:
+      - "9099:9099"
+      - "9098:9098"

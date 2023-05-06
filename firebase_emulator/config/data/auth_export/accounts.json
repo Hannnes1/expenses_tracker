@@ -1,0 +1,28 @@
+{
+    "kind": "identitytoolkit#DownloadAccountResponse",
+    "users": [
+        {
+            "localId": "Re5Pbbfl0bxn12Uar7exGrDwsP9N",
+            "createdAt": "1674226384022",
+            "lastLoginAt": "1674226384021",
+            "displayName": "Fake User",
+            "photoUrl": "",
+            "emailVerified": false,
+            "email": "demoaccount+fakeuser@solidred.se",
+            "salt": "fakeSaltdE3l1OpdqR5xdbCA2Edl",
+            "passwordHash": "fakeHash:salt=fakeSaltdE3l1OpdqR5xdbCA2Edl:password=password",
+            "passwordUpdatedAt": 1674226384022,
+            "validSince": "1674226384",
+            "providerUserInfo": [
+                {
+                    "providerId": "password",
+                    "email": "demoaccount+fakeuser@solidred.se",
+                    "federatedId": "demoaccount+fakeuser@solidred.se",
+                    "rawId": "demoaccount+fakeuser@solidred.se",
+                    "displayName": "Emanuel Ronaldo",
+                    "photoUrl": ""
+                }
+            ]
+        }
+    ]
+}
