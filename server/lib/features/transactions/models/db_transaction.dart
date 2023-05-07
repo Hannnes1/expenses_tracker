@@ -1,7 +1,8 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'db_transaction.freezed.dart';
-part 'db_transaction.g.dart';
 
 @freezed
 class DbTransaction with _$DbTransaction {
@@ -18,5 +19,18 @@ class DbTransaction with _$DbTransaction {
     required DateTime? createdAt,
   }) = _DbTransaction;
 
-  factory DbTransaction.fromJson(Map<String, dynamic> json) => _$DbTransactionFromJson(json);
+  static DbTransaction fromDatabase(Map<String, dynamic> row) {
+    return DbTransaction(
+      id: row['id'],
+      userId: row['user_id'],
+      date: row['date'],
+      text: row['text'],
+      amount: num.parse(row['amount']),
+      accountId: row['account_id'],
+      categoryId: row['category_id'],
+      fixedCost: row['fixed_cost'],
+      description: row['description'],
+      createdAt: row['created_at'],
+    );
+  }
 }

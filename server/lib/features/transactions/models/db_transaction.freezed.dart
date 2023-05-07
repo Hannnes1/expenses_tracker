@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-DbTransaction _$DbTransactionFromJson(Map<String, dynamic> json) {
-  return _DbTransaction.fromJson(json);
-}
-
 /// @nodoc
 mixin _$DbTransaction {
   String? get id => throw _privateConstructorUsedError;
@@ -31,7 +27,6 @@ mixin _$DbTransaction {
   String? get description => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DbTransactionCopyWith<DbTransaction> get copyWith =>
       throw _privateConstructorUsedError;
@@ -214,7 +209,7 @@ class __$$_DbTransactionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_DbTransaction implements _DbTransaction {
   _$_DbTransaction(
       {required this.id,
@@ -227,9 +222,6 @@ class _$_DbTransaction implements _DbTransaction {
       required this.fixedCost,
       required this.description,
       required this.createdAt});
-
-  factory _$_DbTransaction.fromJson(Map<String, dynamic> json) =>
-      _$$_DbTransactionFromJson(json);
 
   @override
   final String? id;
@@ -279,7 +271,6 @@ class _$_DbTransaction implements _DbTransaction {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, date, text, amount,
       accountId, categoryId, fixedCost, description, createdAt);
@@ -289,13 +280,6 @@ class _$_DbTransaction implements _DbTransaction {
   @pragma('vm:prefer-inline')
   _$$_DbTransactionCopyWith<_$_DbTransaction> get copyWith =>
       __$$_DbTransactionCopyWithImpl<_$_DbTransaction>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_DbTransactionToJson(
-      this,
-    );
-  }
 }
 
 abstract class _DbTransaction implements DbTransaction {
@@ -310,9 +294,6 @@ abstract class _DbTransaction implements DbTransaction {
       required final bool fixedCost,
       required final String? description,
       required final DateTime? createdAt}) = _$_DbTransaction;
-
-  factory _DbTransaction.fromJson(Map<String, dynamic> json) =
-      _$_DbTransaction.fromJson;
 
   @override
   String? get id;
