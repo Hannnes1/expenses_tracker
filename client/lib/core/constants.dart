@@ -1,0 +1,1 @@
+const kTransactionPageLimit = 20;
