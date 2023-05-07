@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE accounts (
-  id uuid PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id TEXT REFERENCES users(id) NOT NULL,
   name TEXT NOT NULL,
   description TEXT,
@@ -20,20 +20,20 @@ CREATE TABLE accounts (
 );
 
 CREATE TABLE categories (
-  id uuid PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   description TEXT,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE transactions (
-  id uuid PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id TEXT REFERENCES users(id) NOT NULL,
-  date TIME NOT NULL,
+  date DATE NOT NULL,
   text TEXT NOT NULL,
   amount NUMERIC NOT NULL,
-  account_id uuid REFERENCES accounts(id) NOT NULL,
-  category_id uuid REFERENCES categories(id) NOT NULL,
+  account_id UUID REFERENCES accounts(id) NOT NULL,
+  category_id UUID REFERENCES categories(id) NOT NULL,
   fixed_cost BOOLEAN NOT NULL,
   description TEXT,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
