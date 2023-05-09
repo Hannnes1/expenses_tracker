@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Expenses Tracker
+  version: 0.0.1
+paths:
+  /transactions:
+    get:
+      summary: Get transactions
+      description: Retrieve a list of paginated transactions, with the latest transactions first.
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+          description: The offset of the first transaction to retrieve.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+          description: The maximum number of transactions to retrieve.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+    post:
+      summary: Create a transaction
+      description: Create a new transaction.
+      requestBody:
+        description: Transaction object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransaction"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+  /accounts:
+    get:
+      summary: Get accounts
+      description: Retrieve a list of accounts.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+  /categories:
+    get:
+      summary: Get categories
+      description: Retrieve a list of categories.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+components:
+  schemas:
+    Account:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+
+    Category:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+    Transaction:
+      type: object
+      readOnly: true
+      required:
+        - id
+        - date
+        - text
+        - amount
+        - account
+        - category
+        - fixedCost
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date-time
+          description: The date of the transaction. This is not necessarily the date that the purchase was made.
+        text:
+          type: string
+          description: The text of the transaction. Should be the same as the text on the bank statement.
+        amount:
+          type: number
+          description: The amount of the transaction. Negative values indicate an expense, positive values indicate income.
+        account:
+          $ref: "#/components/schemas/Account"
+          description: The identifier of the account associated with the transaction.
+        category:
+          $ref: "#/components/schemas/Category"
+          description: The identifier of the category associated with the transaction.
+        fixedCost:
+          type: boolean
+          description: Indicates whether the transaction is a fixed cost.
+        description:
+          type: string
+          nullable: true
+          description: Additional description of the transaction.
+    CreateTransaction:
+      type: object
+      required:
+        - date
+        - text
+        - amount
+        - accountId
+        - categoryId
+        - fixedCost
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: The date of the transaction. This is not necessarily the date that the purchase was made.
+        text:
+          type: string
+          description: The text of the transaction. Should be the same as the text on the bank statement.
+        amount:
+          type: number
+          description: The amount of the transaction. Negative values indicate an expense, positive values indicate income.
+        accountId:
+          type: string
+          description: The identifier of a preexisting account that the transaction was made from / to.
+        categoryId:
+          type: string
+          description: The identifier of a preexisting category that the transaction belongs to.
+        fixedCost:
+          type: boolean
+        description:
+          type: string
+          nullable: true

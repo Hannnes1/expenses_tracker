@@ -1,4 +1,5 @@
 import 'package:expensetrack/core/constants.dart';
+import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
 import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
@@ -61,8 +62,13 @@ class TransactionsPage extends ConsumerWidget {
                           Text(transaction.amount.toString()),
                         ],
                       ),
-                      // TODO: Show actual category
-                      subtitle: const Text('Category'),
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(transaction.category.name),
+                          Text(transaction.date.relative(false)),
+                        ],
+                      ),
                     ),
                     const Divider(),
                   ],

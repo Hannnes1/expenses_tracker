@@ -4,6 +4,7 @@ import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
@@ -32,6 +33,14 @@ class App extends ConsumerWidget {
       darkTheme: ThemeData.from(colorScheme: darkColorScheme, useMaterial3: true),
       routerConfig: ref.watch(routerProvider),
       debugShowMaterialGrid: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'SE'),
+        Locale('en', 'US'),
+      ],
       builder: (context, child) {
         final colors = Theme.of(context).colorScheme;
 

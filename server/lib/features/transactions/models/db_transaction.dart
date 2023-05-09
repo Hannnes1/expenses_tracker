@@ -7,7 +7,7 @@ part 'db_transaction.freezed.dart';
 @freezed
 class DbTransaction with _$DbTransaction {
   factory DbTransaction({
-    required String? id,
+    String? id,
     required String userId,
     required DateTime date,
     required String text,
@@ -16,7 +16,7 @@ class DbTransaction with _$DbTransaction {
     required String categoryId,
     required bool fixedCost,
     required String? description,
-    required DateTime? createdAt,
+    DateTime? createdAt,
   }) = _DbTransaction;
 
   static DbTransaction fromDatabase(Map<String, dynamic> row) {

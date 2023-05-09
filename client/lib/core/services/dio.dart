@@ -8,7 +8,7 @@ part 'dio.g.dart';
 @riverpod
 Dio dio(DioRef ref) {
   return initializeDio(
-    baseUrl: 'http://192.168.1.214:8080',
+    baseUrl: 'http://192.168.1.214:5000',
     logger: ref.watch(loggerProvider('Dio')),
   );
 }

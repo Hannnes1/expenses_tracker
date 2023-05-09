@@ -212,7 +212,7 @@ class __$$_DbTransactionCopyWithImpl<$Res>
 
 class _$_DbTransaction implements _DbTransaction {
   _$_DbTransaction(
-      {required this.id,
+      {this.id,
       required this.userId,
       required this.date,
       required this.text,
@@ -221,7 +221,7 @@ class _$_DbTransaction implements _DbTransaction {
       required this.categoryId,
       required this.fixedCost,
       required this.description,
-      required this.createdAt});
+      this.createdAt});
 
   @override
   final String? id;
@@ -284,7 +284,7 @@ class _$_DbTransaction implements _DbTransaction {
 
 abstract class _DbTransaction implements DbTransaction {
   factory _DbTransaction(
-      {required final String? id,
+      {final String? id,
       required final String userId,
       required final DateTime date,
       required final String text,
@@ -293,7 +293,7 @@ abstract class _DbTransaction implements DbTransaction {
       required final String categoryId,
       required final bool fixedCost,
       required final String? description,
-      required final DateTime? createdAt}) = _$_DbTransaction;
+      final DateTime? createdAt}) = _$_DbTransaction;
 
   @override
   String? get id;

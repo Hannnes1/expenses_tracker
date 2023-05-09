@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 
 import '../lib/core/db_connection.dart';
-import '../lib/features/transactions/repositories/transactions.dart';
+import '../lib/features/accounts/repositories/account_repository.dart';
 import '../lib/features/authentication/models/user_info.dart';
+import '../lib/features/categories/repositories/category_repository.dart';
+import '../lib/features/transactions/repositories/transaction_repository.dart';
+import '../lib/features/transactions/services/transaction_conversion_service.dart';
 
 Handler middleware(Handler handler) {
   return (context) {
@@ -12,11 +15,16 @@ Handler middleware(Handler handler) {
       return Response(statusCode: HttpStatus.unauthorized);
     }
 
+    // The order of the providers is important.
+    // Dependencies need to be placed *after* the providers that use them.
     handler = handler
-        .use(requestLogger())
+        .use(transactionConversionServiceProvider())
         .use(transactionRepositoryProvider())
+        .use(categoryRepositoryProvider())
+        .use(accountRepositoryProvider())
         .use(dbConnectionProvider())
-        .use(userInfoProvider());
+        .use(userInfoProvider())
+        .use(requestLogger());
 
     return handler(context);
   };

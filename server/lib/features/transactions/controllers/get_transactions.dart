@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:shared/shared.dart';
 
 import '../../authentication/models/user_info.dart';
-import '../repositories/transactions.dart';
+import '../repositories/transaction_repository.dart';
+import '../services/transaction_conversion_service.dart';
 
 Future<Response> getTransactions(RequestContext context) async {
   final request = context.request;
@@ -20,6 +20,8 @@ Future<Response> getTransactions(RequestContext context) async {
   }
 
   final transactionRepository = await context.read<Future<TransactionRepository>>();
+  final transactionConversionService = await context.read<Future<TransactionConversionService>>();
+
   final userId = context.read<UserInfo>().id;
 
   final dbTransactions = await transactionRepository.getTransactions(
@@ -28,20 +30,7 @@ Future<Response> getTransactions(RequestContext context) async {
     limit,
   );
 
-  final transactions = dbTransactions
-      .map(
-        (e) => Transaction(
-          id: e.id!,
-          date: e.date,
-          text: e.text,
-          amount: e.amount,
-          accountId: e.accountId,
-          categoryId: e.categoryId,
-          fixedCost: e.fixedCost,
-          description: e.description,
-        ),
-      )
-      .toList();
+  final transactions = await transactionConversionService.convertTransactions(dbTransactions);
 
   return Response.json(body: transactions);
 }
