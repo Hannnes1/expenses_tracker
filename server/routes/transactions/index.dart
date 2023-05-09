@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
 
-import '../lib/features/transactions/controllers/get_transactions.dart';
+import '../../lib/features/transactions/controllers/get_transactions.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {

@@ -24,7 +24,7 @@ class TransactionsRepository {
     int limit = kTransactionPageLimit,
   }) async {
     final response = await _dio.get(
-      '/',
+      '/transactions',
       queryParameters: {
         'offset': offset,
         'limit': limit,
