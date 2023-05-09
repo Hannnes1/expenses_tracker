@@ -1,6 +1,7 @@
 import 'package:expensetrack/core/constants.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
+import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,52 +11,66 @@ class TransactionsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final page = index ~/ kTransactionPageLimit;
-          final itemIndex = index % kTransactionPageLimit;
-
-          final pageValue = ref.watch(paginatedTransactionsProvider(page));
-
-          return pageValue.when(
-            error: (error, stackTrace) => Text('Error $error'),
-            loading: () {
-              if (itemIndex > 0) return null;
-
-              return ShimmerLoading(
-                child: Container(
-                  height: 80,
-                  width: 100,
-                  color: Colors.black,
-                ),
-              );
-            },
-            data: (transactions) {
-              if (itemIndex >= transactions.length) {
-                return null;
-              }
-
-              final transaction = transactions[itemIndex];
-
-              return Column(
-                children: [
-                  ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(transaction.text),
-                        Text(transaction.amount.toString()),
-                      ],
-                    ),
-                    // TODO: Show actual category
-                    subtitle: const Text('Category'),
-                  ),
-                  const Divider(),
-                ],
-              );
-            },
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(transactionsRepositoryProvider);
         },
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            final page = index ~/ kTransactionPageLimit;
+            final itemIndex = index % kTransactionPageLimit;
+
+            final pageValue = ref.watch(paginatedTransactionsProvider(page));
+
+            return pageValue.when(
+              error: (error, stackTrace) {
+                if (itemIndex != 0) return null;
+
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('The transactions could not be loaded.'),
+                  ),
+                );
+              },
+              loading: () {
+                if (itemIndex != 0) return null;
+
+                return ShimmerLoading(
+                  child: Container(
+                    height: 80,
+                    width: 100,
+                    color: Colors.black,
+                  ),
+                );
+              },
+              data: (transactions) {
+                if (itemIndex >= transactions.length) {
+                  return null;
+                }
+
+                final transaction = transactions[itemIndex];
+
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(transaction.text),
+                          Text(transaction.amount.toString()),
+                        ],
+                      ),
+                      // TODO: Show actual category
+                      subtitle: const Text('Category'),
+                    ),
+                    const Divider(),
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
