@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "677224566709",
+    "project_id": "expenses-tracker-8ef0a",
+    "storage_bucket": "expenses-tracker-8ef0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677224566709:android:0468829dbf2d91fc6253fc",
+        "android_client_info": {
+          "package_name": "se.hultergard.expensetrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677224566709-grpflgqlqqr0p5eugb51nloeetn7jfds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrqCU5J_rJLpKCbBYzmkyz__0oMD0vCsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677224566709-grpflgqlqqr0p5eugb51nloeetn7jfds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

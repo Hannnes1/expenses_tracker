@@ -1,10 +1,18 @@
 import 'package:expensetrack/core/color_schemes.dart';
 import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
+import 'package:expensetrack/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     const ProviderScope(
       child: App(),
@@ -23,6 +31,7 @@ class App extends ConsumerWidget {
       theme: ThemeData.from(colorScheme: lightColorScheme, useMaterial3: true),
       darkTheme: ThemeData.from(colorScheme: darkColorScheme, useMaterial3: true),
       routerConfig: ref.watch(routerProvider),
+      debugShowMaterialGrid: false,
       builder: (context, child) {
         final colors = Theme.of(context).colorScheme;
 
