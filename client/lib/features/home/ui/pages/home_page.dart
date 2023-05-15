@@ -1,3 +1,4 @@
+import 'package:expensetrack/features/authentication/ui/widgets/sign_in_widget.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transactions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,12 +16,14 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final authenticated = false;
+
     final body = IndexedStack(
       index: _selectedIndex,
-      children: const [
-        Center(child: Text('Statistics')),
-        TransactionsPage(),
-        Center(child: Text('Menu')),
+      children: [
+        authenticated ? const Center(child: Text('Statistics')) : const SignInWidget(),
+        authenticated ? const TransactionsPage() : const SignInWidget(),
+        const Center(child: Text('Menu')),
       ],
     );
 

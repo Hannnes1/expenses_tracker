@@ -29,6 +29,13 @@
             {
               "client_id": "677224566709-grpflgqlqqr0p5eugb51nloeetn7jfds.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "677224566709-b89j27nfju5el7hvf9qbhravq48c5iri.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "se.hultergard.expensetrack"
+              }
             }
           ]
         }

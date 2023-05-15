@@ -2,6 +2,8 @@ openapi: 3.0.0
 info:
   title: Expenses Tracker
   version: 0.0.1
+security:
+    - FirebaseAuth: []
 paths:
   /transactions:
     get:
@@ -73,6 +75,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/Category"
 components:
+  securitySchemes:
+    FirebaseAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Account:
       type: object
