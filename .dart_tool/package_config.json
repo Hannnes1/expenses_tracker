@@ -239,10 +239,10 @@
       "name": "expenses_tracker",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-05-06T08:56:39.234108Z",
+  "generated": "2023-05-16T17:03:52.473507Z",
   "generator": "pub",
-  "generatorVersion": "2.19.6"
+  "generatorVersion": "3.0.0"
 }

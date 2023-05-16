@@ -3,4 +3,14 @@ name: expenses_tracker
 packages:
   - client
   - server
-  - shared
+  - server/packages/*
+
+scripts:
+  generate:
+    name: generate
+    run: melos exec -c 1 --depends-on="build_runner" --flutter -- "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: Build all generated files for Flutter packages in this project.
+  get:
+    name: get
+    description: Run flutter pub get
+    exec: flutter pub get
