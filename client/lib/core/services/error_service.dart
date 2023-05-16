@@ -38,8 +38,8 @@ class ErrorService {
     // The message part of the log should not include the stack trace
     // that is why only the first line is included there.
     _log.e(
-      exception.toString().split('\n')[0] + (requestId == null ? '' : ' - Request ID: $requestId'),
-      parsedException,
+      parsedException.toString() + (requestId == null ? '' : ' - Request ID: $requestId'),
+      exception,
       exception.stackTrace,
     );
 

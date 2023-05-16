@@ -30,11 +30,14 @@ class AuthRepository {
       final jwt = JWT.decode(token);
       final kid = jwt.header!['kid'] as String;
 
+      print(_publicKeys![kid]!);
+
       await JWT.verify(token, RSAPublicKey(_publicKeys![kid]!));
 
       return jwt.payload['sub'];
-    } catch (e) {
+    } catch (e, stack) {
       print('JWT Error: $e}');
+      print(stack);
 
       return null;
     }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:expensetrack/core/services/logger.dart';
+import 'package:expensetrack/features/authentication/repositories/auth_repository.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,12 +9,13 @@ part 'dio.g.dart';
 @riverpod
 Dio dio(DioRef ref) {
   return initializeDio(
-    baseUrl: 'http://192.168.1.214:5000',
+    baseUrl: 'http://192.168.1.214:8080',
     logger: ref.watch(loggerProvider('Dio')),
+    authRepository: ref.watch(authRepositoryProvider),
   );
 }
 
-Dio initializeDio({required String baseUrl, required Logger logger}) {
+Dio initializeDio({required String baseUrl, required Logger logger, required AuthRepository authRepository}) {
   final dio = Dio();
 
   dio.interceptors.add(
@@ -21,7 +23,7 @@ Dio initializeDio({required String baseUrl, required Logger logger}) {
       onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
         options.baseUrl = baseUrl; // Base url must be set before anything else to avoid errors.
 
-        const token = 'Re5Pbbfl0bxn12Uar7exGrDwsP9N';
+        final token = await authRepository.accessToken();
 
         options.headers.addAll({
           'authorization': 'Bearer $token',
@@ -51,7 +53,8 @@ Dio initializeDio({required String baseUrl, required Logger logger}) {
 }
 
 const _startSeparator = '------------------------------------------------------------------';
-const _endSeparator = '------------------------------------------------------------------------------------------------';
+const _endSeparator =
+    '------------------------------------------------------------------------------------------------';
 
 /// Returns string for logging error in interceptor.
 String _errorLogString(DioError error) {
