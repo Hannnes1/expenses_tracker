@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "677224566709-c5n22iateh887s481vsopli035qgr1v0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "se.hultergard.expensetrack",
+            "certificate_hash": "bf2a2a9e8e0815f38a8badc8e4e6b50ad3ba6808"
+          }
+        },
+        {
           "client_id": "677224566709-grpflgqlqqr0p5eugb51nloeetn7jfds.apps.googleusercontent.com",
           "client_type": 3
         }

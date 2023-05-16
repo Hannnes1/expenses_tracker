@@ -1,3 +1,4 @@
+import 'package:expensetrack/features/authentication/services/auth_service.dart';
 import 'package:expensetrack/features/authentication/ui/widgets/sign_in_widget.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transactions_page.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authenticated = false;
+    final authenticated = ref.watch(currentUserProvider) != null;
 
     final body = IndexedStack(
       index: _selectedIndex,

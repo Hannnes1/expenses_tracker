@@ -1,3 +1,4 @@
+import 'package:expensetrack/features/authentication/ui/widgets/sign_in_with_google_button.dart';
 import 'package:flutter/material.dart';
 
 class SignInWidget extends StatelessWidget {
@@ -5,6 +6,8 @@ class SignInWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(
+      child: SignInWithGoogleButton(),
+    );
   }
 }

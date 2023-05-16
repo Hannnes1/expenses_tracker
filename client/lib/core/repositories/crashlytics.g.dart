@@ -6,11 +6,11 @@ part of 'crashlytics.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$crashlyticsHash() => r'8179211791f8f9b8e08bd7bc0249147e97faf602';
+String _$crashlyticsHash() => r'52b8e5a7a0734ef5f4c43dbe608b2a6c54ac56e1';
 
 /// Returns an instance of [FirebaseCrashlytics].
 ///
-/// Null will be returned if the app is running on the web or on Linux.
+/// Null will be returned if the app is running on the web.
 ///
 /// Copied from [crashlytics].
 @ProviderFor(crashlytics)

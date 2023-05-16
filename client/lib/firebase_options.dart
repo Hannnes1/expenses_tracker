@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '677224566709',
     projectId: 'expenses-tracker-8ef0a',
     storageBucket: 'expenses-tracker-8ef0a.appspot.com',
+    androidClientId: '677224566709-c5n22iateh887s481vsopli035qgr1v0.apps.googleusercontent.com',
     iosClientId: '677224566709-b89j27nfju5el7hvf9qbhravq48c5iri.apps.googleusercontent.com',
     iosBundleId: 'se.hultergard.expensetrack',
   );
