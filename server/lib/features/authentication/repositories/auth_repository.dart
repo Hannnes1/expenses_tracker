@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:convert/convert.dart';
+import 'package:basic_utils/basic_utils.dart' hide RSAPublicKey;
 import 'package:dart_frog/dart_frog.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:http/http.dart' as http;
@@ -25,14 +28,16 @@ class AuthRepository {
     try {
       await _updatePublicKeys();
 
-      print(token);
-
       final jwt = JWT.decode(token);
       final kid = jwt.header!['kid'] as String;
 
-      print(_publicKeys![kid]!);
+      /// Extract the public key from the certificate.
+      final cert = X509Utils.x509CertificateFromPem(_publicKeys![kid]!);
+      final bytes = hex.decode(cert.tbsCertificate!.subjectPublicKeyInfo.bytes!);
+      final key = CryptoUtils.rsaPublicKeyFromDERBytes(Uint8List.fromList(bytes));
+      final pem = CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
 
-      await JWT.verify(token, RSAPublicKey(_publicKeys![kid]!));
+      await JWT.verify(token, RSAPublicKey(pem));
 
       return jwt.payload['sub'];
     } catch (e, stack) {
