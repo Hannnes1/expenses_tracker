@@ -2,7 +2,6 @@ import 'package:expensetrack/core/constants.dart';
 import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
-import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,9 +12,7 @@ class TransactionsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          ref.invalidate(transactionsRepositoryProvider);
-        },
+        onRefresh: () async => ref.invalidate(paginatedTransactionsProvider),
         child: ListView.builder(
           itemBuilder: (context, index) {
             final page = index ~/ kTransactionPageLimit;
@@ -29,7 +26,7 @@ class TransactionsPage extends ConsumerWidget {
 
                 return const Center(
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.only(top: 16.0),
                     child: Text('The transactions could not be loaded.'),
                   ),
                 );
@@ -46,6 +43,15 @@ class TransactionsPage extends ConsumerWidget {
                 );
               },
               data: (transactions) {
+                if (page == 0 && itemIndex == 0 && transactions.isEmpty) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: Text('No transactions found.'),
+                    ),
+                  );
+                }
+
                 if (itemIndex >= transactions.length) {
                   return null;
                 }

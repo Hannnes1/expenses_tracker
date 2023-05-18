@@ -19,6 +19,10 @@ class CategoryRepository {
 
   /// Get a list of categorys by their IDs.
   Future<List<DbCategory>> getCategoriesByIds(Set<String> ids) async {
+    if (ids.isEmpty) {
+      return [];
+    }
+
     final results = await connection.mappedResultsQuery(
       'SELECT * FROM categories WHERE id IN (${repeatParameters('id', ids.length)})',
       substitutionValues: repeatSubstitutionValues('id', ids),

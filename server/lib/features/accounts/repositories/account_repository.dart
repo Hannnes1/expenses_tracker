@@ -19,6 +19,10 @@ class AccountRepository {
 
   /// Get a list of accounts by their IDs.
   Future<List<DbAccount>> getAccountsByIds(Set<String> ids) async {
+    if (ids.isEmpty) {
+      return [];
+    }
+
     final results = await connection.mappedResultsQuery(
       'SELECT * FROM accounts WHERE id IN (${repeatParameters('id', ids.length)})',
       substitutionValues: repeatSubstitutionValues('id', ids),
