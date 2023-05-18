@@ -1,5 +1,6 @@
 import 'package:expensetrack/features/authentication/services/auth_service.dart';
 import 'package:expensetrack/features/authentication/ui/widgets/sign_in_widget.dart';
+import 'package:expensetrack/features/statistics/ui/pages/statistics_page.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transactions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final body = IndexedStack(
       index: _selectedIndex,
       children: [
-        authenticated ? const Center(child: Text('Statistics')) : const SignInWidget(),
+        authenticated ? const StatisticsPage() : const SignInWidget(),
         authenticated ? const TransactionsPage() : const SignInWidget(),
         const Center(child: Text('Menu')),
       ],

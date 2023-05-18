@@ -176,3 +176,35 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
     );
   }
 }
+
+/// A soilid black widget intented to be shown below a `ShimmerLoading` widget.
+class LoadingPlaceholder extends StatelessWidget {
+  const LoadingPlaceholder({
+    super.key,
+    this.shape = BoxShape.rectangle,
+    this.radius = 4,
+    this.height,
+    this.width,
+    this.margin,
+  });
+
+  final BoxShape shape;
+  final double radius;
+  final double? height;
+  final double? width;
+  final EdgeInsets? margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      margin: margin,
+      decoration: BoxDecoration(
+        color: const Color(0xFF000000),
+        shape: shape,
+        borderRadius: shape == BoxShape.rectangle ? BorderRadius.circular(radius) : null,
+      ),
+    );
+  }
+}

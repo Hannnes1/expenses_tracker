@@ -18,7 +18,7 @@ class TransactionRepository {
 
   /// Get a paginated list of transactions.
   Future<List<DbTransaction>> getTransactions(String userId, int offset, [int limit = 20]) async {
-    final results = await connection.mappedResultsQuery(
+    final result = await connection.mappedResultsQuery(
       'SELECT * FROM transactions WHERE user_id = @userId ORDER BY date DESC LIMIT @limit OFFSET @offset',
       substitutionValues: {
         'userId': userId,
@@ -27,7 +27,7 @@ class TransactionRepository {
       },
     );
 
-    return results.map((e) => DbTransaction.fromDatabase(e['transactions']!)).toList();
+    return result.map((e) => DbTransaction.fromDatabase(e['transactions']!)).toList();
   }
 
   /// Create a new transaction and return the result.
