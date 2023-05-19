@@ -47,3 +47,9 @@ extension DateTimeExtentions on DateTime {
     return includeTime ? localFormat() : localDate();
   }
 }
+
+extension NumExtension on num {
+  String formatCurrency() {
+    return NumberFormat.currency(locale: 'sv').format(this);
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:expensetrack/core/constants.dart';
+import 'package:expensetrack/core/custom_colors.dart';
 import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
@@ -10,6 +11,9 @@ class TransactionsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final customColors = theme.extension<CustomColors>()!;
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async => ref.invalidate(paginatedTransactionsProvider),
@@ -65,7 +69,9 @@ class TransactionsPage extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(transaction.text),
-                          Text(transaction.amount.toString()),
+                          Text(transaction.amount.formatCurrency(), style: TextStyle(
+                            color: transaction.amount.isNegative ? customColors.negative : customColors.positive,
+                          ),),
                         ],
                       ),
                       subtitle: Row(
