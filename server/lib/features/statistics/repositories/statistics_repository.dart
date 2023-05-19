@@ -47,6 +47,13 @@ class StatisticsRepository {
       },
     );
 
+    if (result.isEmpty) {
+      return YearMonthlyAverage(
+        averageFixedCost: 0,
+        averageVariableCost: 0,
+      );
+    }
+
     return YearMonthlyAverage.fromDatabase(result.first['year_monthly_average'] ?? result.first['']!);
   }
 }

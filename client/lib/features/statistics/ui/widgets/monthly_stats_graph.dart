@@ -37,11 +37,15 @@ class MonthlyStatsGraph extends ConsumerWidget {
             loading: () => const ShimmerLoading(
               child: LoadingPlaceholder(),
             ),
-            data: (data) => _Graph(
-              data: data,
-              showSeparated: showSeparated,
-              showSum: showSum,
-            ),
+            data: (data) => data.isEmpty
+                ? const Center(
+                    child: Text('No data to show'),
+                  )
+                : _Graph(
+                    data: data,
+                    showSeparated: showSeparated,
+                    showSum: showSum,
+                  ),
           ),
     );
   }

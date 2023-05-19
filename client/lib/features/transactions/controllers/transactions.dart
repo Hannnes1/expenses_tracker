@@ -8,6 +8,9 @@ part 'transactions.g.dart';
 
 @riverpod
 Future<List<Transaction>> paginatedTransactions(PaginatedTransactionsRef ref, int page) async {
+  // Caching is required here to prevent loading when scrolling up.
+  ref.cacheFor(kDefaultCacheDuration);
+
   return await ref.watch(transactionsRepositoryProvider).getTransactions(offset: page * kTransactionPageLimit);
 }
 

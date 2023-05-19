@@ -74,8 +74,8 @@ ORDER BY MONTH;
 CREATE VIEW year_monthly_average AS
 SELECT
     user_id,
-    AVG(CASE WHEN fixed_cost THEN monthly_sum END) AS average_fixed_cost,
-    AVG(CASE WHEN NOT fixed_cost THEN monthly_sum END) AS average_variable_cost
+    COALESCE(AVG(CASE WHEN fixed_cost THEN monthly_sum END), 0) AS average_fixed_cost,
+    COALESCE(AVG(CASE WHEN NOT fixed_cost THEN monthly_sum END), 0) AS average_variable_cost
 FROM (
     SELECT
         transactions.user_id AS user_id,
