@@ -20,7 +20,8 @@ StatisticsOverview _$StatisticsOverviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$StatisticsOverview {
-  SixMonthAverage get sixMonthAverage => throw _privateConstructorUsedError;
+  YearMonthlyAverage get yearMonthlyAverage =>
+      throw _privateConstructorUsedError;
   List<MonthlyFixedCosts> get monthlyFixedCosts =>
       throw _privateConstructorUsedError;
   List<MonthlyCategoryTotals> get monthlyCategoryTotals =>
@@ -39,11 +40,11 @@ abstract class $StatisticsOverviewCopyWith<$Res> {
       _$StatisticsOverviewCopyWithImpl<$Res, StatisticsOverview>;
   @useResult
   $Res call(
-      {SixMonthAverage sixMonthAverage,
+      {YearMonthlyAverage yearMonthlyAverage,
       List<MonthlyFixedCosts> monthlyFixedCosts,
       List<MonthlyCategoryTotals> monthlyCategoryTotals});
 
-  $SixMonthAverageCopyWith<$Res> get sixMonthAverage;
+  $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage;
 }
 
 /// @nodoc
@@ -59,15 +60,15 @@ class _$StatisticsOverviewCopyWithImpl<$Res, $Val extends StatisticsOverview>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sixMonthAverage = null,
+    Object? yearMonthlyAverage = null,
     Object? monthlyFixedCosts = null,
     Object? monthlyCategoryTotals = null,
   }) {
     return _then(_value.copyWith(
-      sixMonthAverage: null == sixMonthAverage
-          ? _value.sixMonthAverage
-          : sixMonthAverage // ignore: cast_nullable_to_non_nullable
-              as SixMonthAverage,
+      yearMonthlyAverage: null == yearMonthlyAverage
+          ? _value.yearMonthlyAverage
+          : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
+              as YearMonthlyAverage,
       monthlyFixedCosts: null == monthlyFixedCosts
           ? _value.monthlyFixedCosts
           : monthlyFixedCosts // ignore: cast_nullable_to_non_nullable
@@ -81,9 +82,10 @@ class _$StatisticsOverviewCopyWithImpl<$Res, $Val extends StatisticsOverview>
 
   @override
   @pragma('vm:prefer-inline')
-  $SixMonthAverageCopyWith<$Res> get sixMonthAverage {
-    return $SixMonthAverageCopyWith<$Res>(_value.sixMonthAverage, (value) {
-      return _then(_value.copyWith(sixMonthAverage: value) as $Val);
+  $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage {
+    return $YearMonthlyAverageCopyWith<$Res>(_value.yearMonthlyAverage,
+        (value) {
+      return _then(_value.copyWith(yearMonthlyAverage: value) as $Val);
     });
   }
 }
@@ -97,12 +99,12 @@ abstract class _$$_StatisticsOverviewCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {SixMonthAverage sixMonthAverage,
+      {YearMonthlyAverage yearMonthlyAverage,
       List<MonthlyFixedCosts> monthlyFixedCosts,
       List<MonthlyCategoryTotals> monthlyCategoryTotals});
 
   @override
-  $SixMonthAverageCopyWith<$Res> get sixMonthAverage;
+  $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage;
 }
 
 /// @nodoc
@@ -116,15 +118,15 @@ class __$$_StatisticsOverviewCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sixMonthAverage = null,
+    Object? yearMonthlyAverage = null,
     Object? monthlyFixedCosts = null,
     Object? monthlyCategoryTotals = null,
   }) {
     return _then(_$_StatisticsOverview(
-      sixMonthAverage: null == sixMonthAverage
-          ? _value.sixMonthAverage
-          : sixMonthAverage // ignore: cast_nullable_to_non_nullable
-              as SixMonthAverage,
+      yearMonthlyAverage: null == yearMonthlyAverage
+          ? _value.yearMonthlyAverage
+          : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
+              as YearMonthlyAverage,
       monthlyFixedCosts: null == monthlyFixedCosts
           ? _value._monthlyFixedCosts
           : monthlyFixedCosts // ignore: cast_nullable_to_non_nullable
@@ -141,7 +143,7 @@ class __$$_StatisticsOverviewCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_StatisticsOverview implements _StatisticsOverview {
   _$_StatisticsOverview(
-      {required this.sixMonthAverage,
+      {required this.yearMonthlyAverage,
       required final List<MonthlyFixedCosts> monthlyFixedCosts,
       required final List<MonthlyCategoryTotals> monthlyCategoryTotals})
       : _monthlyFixedCosts = monthlyFixedCosts,
@@ -151,7 +153,7 @@ class _$_StatisticsOverview implements _StatisticsOverview {
       _$$_StatisticsOverviewFromJson(json);
 
   @override
-  final SixMonthAverage sixMonthAverage;
+  final YearMonthlyAverage yearMonthlyAverage;
   final List<MonthlyFixedCosts> _monthlyFixedCosts;
   @override
   List<MonthlyFixedCosts> get monthlyFixedCosts {
@@ -172,7 +174,7 @@ class _$_StatisticsOverview implements _StatisticsOverview {
 
   @override
   String toString() {
-    return 'StatisticsOverview(sixMonthAverage: $sixMonthAverage, monthlyFixedCosts: $monthlyFixedCosts, monthlyCategoryTotals: $monthlyCategoryTotals)';
+    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, monthlyFixedCosts: $monthlyFixedCosts, monthlyCategoryTotals: $monthlyCategoryTotals)';
   }
 
   @override
@@ -180,8 +182,8 @@ class _$_StatisticsOverview implements _StatisticsOverview {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StatisticsOverview &&
-            (identical(other.sixMonthAverage, sixMonthAverage) ||
-                other.sixMonthAverage == sixMonthAverage) &&
+            (identical(other.yearMonthlyAverage, yearMonthlyAverage) ||
+                other.yearMonthlyAverage == yearMonthlyAverage) &&
             const DeepCollectionEquality()
                 .equals(other._monthlyFixedCosts, _monthlyFixedCosts) &&
             const DeepCollectionEquality()
@@ -192,7 +194,7 @@ class _$_StatisticsOverview implements _StatisticsOverview {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      sixMonthAverage,
+      yearMonthlyAverage,
       const DeepCollectionEquality().hash(_monthlyFixedCosts),
       const DeepCollectionEquality().hash(_monthlyCategoryTotals));
 
@@ -213,7 +215,7 @@ class _$_StatisticsOverview implements _StatisticsOverview {
 
 abstract class _StatisticsOverview implements StatisticsOverview {
   factory _StatisticsOverview(
-          {required final SixMonthAverage sixMonthAverage,
+          {required final YearMonthlyAverage yearMonthlyAverage,
           required final List<MonthlyFixedCosts> monthlyFixedCosts,
           required final List<MonthlyCategoryTotals> monthlyCategoryTotals}) =
       _$_StatisticsOverview;
@@ -222,7 +224,7 @@ abstract class _StatisticsOverview implements StatisticsOverview {
       _$_StatisticsOverview.fromJson;
 
   @override
-  SixMonthAverage get sixMonthAverage;
+  YearMonthlyAverage get yearMonthlyAverage;
   @override
   List<MonthlyFixedCosts> get monthlyFixedCosts;
   @override

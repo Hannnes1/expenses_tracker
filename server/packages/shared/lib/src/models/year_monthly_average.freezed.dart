@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'six_month_average.dart';
+part of 'year_monthly_average.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SixMonthAverage _$SixMonthAverageFromJson(Map<String, dynamic> json) {
-  return _SixMonthAverage.fromJson(json);
+YearMonthlyAverage _$YearMonthlyAverageFromJson(Map<String, dynamic> json) {
+  return _YearMonthlyAverage.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SixMonthAverage {
+mixin _$YearMonthlyAverage {
   num get averageFixedCost => throw _privateConstructorUsedError;
   num get averageVariableCost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SixMonthAverageCopyWith<SixMonthAverage> get copyWith =>
+  $YearMonthlyAverageCopyWith<YearMonthlyAverage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SixMonthAverageCopyWith<$Res> {
-  factory $SixMonthAverageCopyWith(
-          SixMonthAverage value, $Res Function(SixMonthAverage) then) =
-      _$SixMonthAverageCopyWithImpl<$Res, SixMonthAverage>;
+abstract class $YearMonthlyAverageCopyWith<$Res> {
+  factory $YearMonthlyAverageCopyWith(
+          YearMonthlyAverage value, $Res Function(YearMonthlyAverage) then) =
+      _$YearMonthlyAverageCopyWithImpl<$Res, YearMonthlyAverage>;
   @useResult
   $Res call({num averageFixedCost, num averageVariableCost});
 }
 
 /// @nodoc
-class _$SixMonthAverageCopyWithImpl<$Res, $Val extends SixMonthAverage>
-    implements $SixMonthAverageCopyWith<$Res> {
-  _$SixMonthAverageCopyWithImpl(this._value, this._then);
+class _$YearMonthlyAverageCopyWithImpl<$Res, $Val extends YearMonthlyAverage>
+    implements $YearMonthlyAverageCopyWith<$Res> {
+  _$YearMonthlyAverageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +68,22 @@ class _$SixMonthAverageCopyWithImpl<$Res, $Val extends SixMonthAverage>
 }
 
 /// @nodoc
-abstract class _$$_SixMonthAverageCopyWith<$Res>
-    implements $SixMonthAverageCopyWith<$Res> {
-  factory _$$_SixMonthAverageCopyWith(
-          _$_SixMonthAverage value, $Res Function(_$_SixMonthAverage) then) =
-      __$$_SixMonthAverageCopyWithImpl<$Res>;
+abstract class _$$_YearMonthlyAverageCopyWith<$Res>
+    implements $YearMonthlyAverageCopyWith<$Res> {
+  factory _$$_YearMonthlyAverageCopyWith(_$_YearMonthlyAverage value,
+          $Res Function(_$_YearMonthlyAverage) then) =
+      __$$_YearMonthlyAverageCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({num averageFixedCost, num averageVariableCost});
 }
 
 /// @nodoc
-class __$$_SixMonthAverageCopyWithImpl<$Res>
-    extends _$SixMonthAverageCopyWithImpl<$Res, _$_SixMonthAverage>
-    implements _$$_SixMonthAverageCopyWith<$Res> {
-  __$$_SixMonthAverageCopyWithImpl(
-      _$_SixMonthAverage _value, $Res Function(_$_SixMonthAverage) _then)
+class __$$_YearMonthlyAverageCopyWithImpl<$Res>
+    extends _$YearMonthlyAverageCopyWithImpl<$Res, _$_YearMonthlyAverage>
+    implements _$$_YearMonthlyAverageCopyWith<$Res> {
+  __$$_YearMonthlyAverageCopyWithImpl(
+      _$_YearMonthlyAverage _value, $Res Function(_$_YearMonthlyAverage) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_SixMonthAverageCopyWithImpl<$Res>
     Object? averageFixedCost = null,
     Object? averageVariableCost = null,
   }) {
-    return _then(_$_SixMonthAverage(
+    return _then(_$_YearMonthlyAverage(
       averageFixedCost: null == averageFixedCost
           ? _value.averageFixedCost
           : averageFixedCost // ignore: cast_nullable_to_non_nullable
@@ -107,12 +107,13 @@ class __$$_SixMonthAverageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SixMonthAverage implements _SixMonthAverage {
-  _$_SixMonthAverage(
-      {required this.averageFixedCost, required this.averageVariableCost});
+class _$_YearMonthlyAverage extends _YearMonthlyAverage {
+  _$_YearMonthlyAverage(
+      {required this.averageFixedCost, required this.averageVariableCost})
+      : super._();
 
-  factory _$_SixMonthAverage.fromJson(Map<String, dynamic> json) =>
-      _$$_SixMonthAverageFromJson(json);
+  factory _$_YearMonthlyAverage.fromJson(Map<String, dynamic> json) =>
+      _$$_YearMonthlyAverageFromJson(json);
 
   @override
   final num averageFixedCost;
@@ -121,14 +122,14 @@ class _$_SixMonthAverage implements _SixMonthAverage {
 
   @override
   String toString() {
-    return 'SixMonthAverage(averageFixedCost: $averageFixedCost, averageVariableCost: $averageVariableCost)';
+    return 'YearMonthlyAverage(averageFixedCost: $averageFixedCost, averageVariableCost: $averageVariableCost)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SixMonthAverage &&
+            other is _$_YearMonthlyAverage &&
             (identical(other.averageFixedCost, averageFixedCost) ||
                 other.averageFixedCost == averageFixedCost) &&
             (identical(other.averageVariableCost, averageVariableCost) ||
@@ -143,24 +144,26 @@ class _$_SixMonthAverage implements _SixMonthAverage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SixMonthAverageCopyWith<_$_SixMonthAverage> get copyWith =>
-      __$$_SixMonthAverageCopyWithImpl<_$_SixMonthAverage>(this, _$identity);
+  _$$_YearMonthlyAverageCopyWith<_$_YearMonthlyAverage> get copyWith =>
+      __$$_YearMonthlyAverageCopyWithImpl<_$_YearMonthlyAverage>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SixMonthAverageToJson(
+    return _$$_YearMonthlyAverageToJson(
       this,
     );
   }
 }
 
-abstract class _SixMonthAverage implements SixMonthAverage {
-  factory _SixMonthAverage(
+abstract class _YearMonthlyAverage extends YearMonthlyAverage {
+  factory _YearMonthlyAverage(
       {required final num averageFixedCost,
-      required final num averageVariableCost}) = _$_SixMonthAverage;
+      required final num averageVariableCost}) = _$_YearMonthlyAverage;
+  _YearMonthlyAverage._() : super._();
 
-  factory _SixMonthAverage.fromJson(Map<String, dynamic> json) =
-      _$_SixMonthAverage.fromJson;
+  factory _YearMonthlyAverage.fromJson(Map<String, dynamic> json) =
+      _$_YearMonthlyAverage.fromJson;
 
   @override
   num get averageFixedCost;
@@ -168,6 +171,6 @@ abstract class _SixMonthAverage implements SixMonthAverage {
   num get averageVariableCost;
   @override
   @JsonKey(ignore: true)
-  _$$_SixMonthAverageCopyWith<_$_SixMonthAverage> get copyWith =>
+  _$$_YearMonthlyAverageCopyWith<_$_YearMonthlyAverage> get copyWith =>
       throw _privateConstructorUsedError;
 }

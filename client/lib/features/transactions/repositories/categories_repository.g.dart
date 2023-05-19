@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'statistics_overview.dart';
+part of 'categories_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$statisticsOverviewHash() =>
-    r'a2c7011a7158cdacc711784e7ad8fd01ed62fb58';
+String _$categoriesRepositoryHash() =>
+    r'4c260671c0d05e415db377c6844a5c9c9d4b7ed3';
 
-/// See also [statisticsOverview].
-@ProviderFor(statisticsOverview)
-final statisticsOverviewProvider =
-    AutoDisposeFutureProvider<StatisticsOverview>.internal(
-  statisticsOverview,
-  name: r'statisticsOverviewProvider',
+/// See also [categoriesRepository].
+@ProviderFor(categoriesRepository)
+final categoriesRepositoryProvider =
+    AutoDisposeProvider<CategoriesRepository>.internal(
+  categoriesRepository,
+  name: r'categoriesRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$statisticsOverviewHash,
+      : _$categoriesRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef StatisticsOverviewRef
-    = AutoDisposeFutureProviderRef<StatisticsOverview>;
+typedef CategoriesRepositoryRef = AutoDisposeProviderRef<CategoriesRepository>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

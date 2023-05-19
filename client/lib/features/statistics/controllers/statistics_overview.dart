@@ -5,6 +5,6 @@ import 'package:shared/shared.dart';
 part 'statistics_overview.g.dart';
 
 @riverpod
-Future<StatisticsOverview> statisticsOverview(StatisticsOverviewRef ref) {
+Future<StatisticsOverview> statisticsOverview(StatisticsOverviewRef ref) async {
   return ref.watch(statisticsRepositoryProvider).getOverview();
 }

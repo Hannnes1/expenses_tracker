@@ -9,8 +9,8 @@ part of 'statistics_overview.dart';
 _$_StatisticsOverview _$$_StatisticsOverviewFromJson(
         Map<String, dynamic> json) =>
     _$_StatisticsOverview(
-      sixMonthAverage: SixMonthAverage.fromJson(
-          json['sixMonthAverage'] as Map<String, dynamic>),
+      yearMonthlyAverage: YearMonthlyAverage.fromJson(
+          json['yearMonthlyAverage'] as Map<String, dynamic>),
       monthlyFixedCosts: (json['monthlyFixedCosts'] as List<dynamic>)
           .map((e) => MonthlyFixedCosts.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -22,7 +22,7 @@ _$_StatisticsOverview _$$_StatisticsOverviewFromJson(
 Map<String, dynamic> _$$_StatisticsOverviewToJson(
         _$_StatisticsOverview instance) =>
     <String, dynamic>{
-      'sixMonthAverage': instance.sixMonthAverage,
+      'yearMonthlyAverage': instance.yearMonthlyAverage,
       'monthlyFixedCosts': instance.monthlyFixedCosts,
       'monthlyCategoryTotals': instance.monthlyCategoryTotals,
     };

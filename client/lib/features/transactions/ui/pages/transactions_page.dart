@@ -1,6 +1,6 @@
 import 'package:expensetrack/core/constants.dart';
-import 'package:expensetrack/core/custom_colors.dart';
 import 'package:expensetrack/core/extensions.dart';
+import 'package:expensetrack/core/widgets/currency_text.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +11,15 @@ class TransactionsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final customColors = theme.extension<CustomColors>()!;
-
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async => ref.invalidate(paginatedTransactionsProvider),
+        onRefresh: () async {
+          ref.invalidate(paginatedTransactionsProvider);
+
+          // Await the first page of transactions to be loaded so that the
+          // refresh indicator is visible until there is new data.
+          await ref.read(paginatedTransactionsProvider(0).future);
+        },
         child: ListView.builder(
           itemBuilder: (context, index) {
             final page = index ~/ kTransactionPageLimit;
@@ -69,9 +72,7 @@ class TransactionsPage extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(transaction.text),
-                          Text(transaction.amount.formatCurrency(), style: TextStyle(
-                            color: transaction.amount.isNegative ? customColors.negative : customColors.positive,
-                          ),),
+                          CurrencyText(transaction.amount),
                         ],
                       ),
                       subtitle: Row(

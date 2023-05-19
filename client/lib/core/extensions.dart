@@ -24,6 +24,11 @@ extension DateTimeExtentions on DateTime {
     return DateFormat.Hm().format(toLocal());
   }
 
+  /// Three letter abbreviation of the month.
+  String shortMonthName() {
+    return DateFormat.MMM('en_SE').format(toLocal());
+  }
+
   /// Compare dates only, ignoring the time of day.
   bool isSameDate(DateTime other) {
     return year == other.year && month == other.month && day == other.day;

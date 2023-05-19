@@ -69,9 +69,9 @@ GROUP BY transactions.user_id, MONTH
 ORDER BY MONTH;
 
 /*
- * The average monthly expenses the last 6 months, with fixed and variable cost separated.
+ * The average monthly expenses the last year, with fixed and variable cost separated.
  */
-CREATE VIEW six_month_average AS
+CREATE VIEW year_monthly_average AS
 SELECT
     user_id,
     AVG(CASE WHEN fixed_cost THEN monthly_sum END) AS average_fixed_cost,
@@ -83,7 +83,7 @@ FROM (
         DATE_TRUNC('month', transactions.date) AS month,
         SUM(transactions.amount) AS monthly_sum
     FROM transactions
-    WHERE transactions.date >= CURRENT_DATE - INTERVAL '6 months'
+    WHERE transactions.date >= CURRENT_DATE - INTERVAL '1 year'
     GROUP BY transactions.user_id, transactions.fixed_cost, month
 ) AS subquery
 GROUP BY user_id;

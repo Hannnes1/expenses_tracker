@@ -39,14 +39,14 @@ class StatisticsRepository {
     return result.map((e) => MonthlyFixedCosts.fromDatabase(e['monthly_fixed_costs'] ?? e['']!)).toList();
   }
 
-  Future<SixMonthAverage> getSixMonthAverage(String userId) async {
+  Future<YearMonthlyAverage> getYearMonthlyAverage(String userId) async {
     final result = await connection.mappedResultsQuery(
-      'SELECT * FROM six_month_average WHERE user_id = @userId',
+      'SELECT * FROM year_monthly_average WHERE user_id = @userId',
       substitutionValues: {
         'userId': userId,
       },
     );
 
-    return SixMonthAverage.fromDatabase(result.first['six_month_average'] ?? result.first['']!);
+    return YearMonthlyAverage.fromDatabase(result.first['year_monthly_average'] ?? result.first['']!);
   }
 }

@@ -9,13 +9,13 @@ Future<Response> getOverview(RequestContext context) async {
 
   final userId = context.read<UserInfo>().id;
 
-  final sixMonthAverage = await statisticsRepository.getSixMonthAverage(userId);
+  final yearMonthlyAverage = await statisticsRepository.getYearMonthlyAverage(userId);
   final monthlyFixedCosts = await statisticsRepository.getMonthlyFixedCosts(userId);
   final monthlyCategoryTotals = await statisticsRepository.getMonthlyCategoryTotals(userId);
 
   return Response.json(
     body: StatisticsOverview(
-      sixMonthAverage: sixMonthAverage,
+      yearMonthlyAverage: yearMonthlyAverage,
       monthlyFixedCosts: monthlyFixedCosts,
       monthlyCategoryTotals: monthlyCategoryTotals,
     ),

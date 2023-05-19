@@ -30,4 +30,10 @@ class CategoryRepository {
 
     return results.map((e) => DbCategory.fromDatabase(e['categories']!)).toList();
   }
+
+  Future<List<DbCategory>> getCategories(String userId) async {
+    final results = await connection.mappedResultsQuery('SELECT * FROM categories');
+
+    return results.map((e) => DbCategory.fromDatabase(e['categories']!)).toList();
+  }
 }
