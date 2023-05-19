@@ -30,4 +30,13 @@ class AccountRepository {
 
     return results.map((e) => DbAccount.fromDatabase(e['accounts']!)).toList();
   }
+
+  Future<List<DbAccount>> getAccounts(String userId) async {
+    final results = await connection.mappedResultsQuery(
+      'SELECT * FROM accounts WHERE user_id = @userId',
+      substitutionValues: {'userId': userId},
+    );
+
+    return results.map((e) => DbAccount.fromDatabase(e['accounts']!)).toList();
+  }
 }

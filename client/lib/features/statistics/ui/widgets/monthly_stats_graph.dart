@@ -110,7 +110,7 @@ class _Graph extends ConsumerWidget {
 
     final monthlySum = _monthlySum();
 
-    final yAxisInterval = (_maxY - _minY) ~/ 2 ~/ 1000 * 1000.0;
+    final yAxisInterval = (_maxY - _minY) ~/ 4 ~/ 1000 * 1000.0;
 
     Widget buildBottomTitle(double value, TitleMeta meta) {
       final month = _monthlySum().keys.toList()[value.toInt()];

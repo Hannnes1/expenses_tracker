@@ -1,4 +1,6 @@
 import 'package:expensetrack/features/home/ui/pages/home_page.dart';
+import 'package:expensetrack/features/transactions/ui/pages/create_transaction_page.dart';
+import 'package:expensetrack/features/transactions/ui/pages/transaction_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,24 @@ final routerProvider = Provider<GoRouter>((ref) {
           key: state.pageKey,
           child: const HomePage(),
         ),
+        routes: [
+          GoRoute(
+            path: 'create-transaction',
+            pageBuilder: (context, state) => _adaptiveRoute(
+              key: state.pageKey,
+              child: const CreateTransactionPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'transaction/:id',
+            pageBuilder: (context, state) => _adaptiveRoute(
+              key: state.pageKey,
+              child: TransactionDetailsPage(
+                transactionId: state.pathParameters['id']!,
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );

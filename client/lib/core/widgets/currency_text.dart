@@ -1,5 +1,5 @@
-import 'package:expensetrack/core/custom_colors.dart';
 import 'package:expensetrack/core/extensions.dart';
+import 'package:expensetrack/core/theme/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 /// A text that displays a [num] as a currency and applies style.

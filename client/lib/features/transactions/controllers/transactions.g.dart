@@ -113,4 +113,86 @@ class PaginatedTransactionsProvider
     return _SystemHash.finish(hash);
   }
 }
+
+String _$transactionHash() => r'6062fbb2b6834f839db668fc3bff36c997238286';
+typedef TransactionRef = AutoDisposeFutureProviderRef<Transaction>;
+
+/// See also [transaction].
+@ProviderFor(transaction)
+const transactionProvider = TransactionFamily();
+
+/// See also [transaction].
+class TransactionFamily extends Family<AsyncValue<Transaction>> {
+  /// See also [transaction].
+  const TransactionFamily();
+
+  /// See also [transaction].
+  TransactionProvider call(
+    String id,
+  ) {
+    return TransactionProvider(
+      id,
+    );
+  }
+
+  @override
+  TransactionProvider getProviderOverride(
+    covariant TransactionProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'transactionProvider';
+}
+
+/// See also [transaction].
+class TransactionProvider extends AutoDisposeFutureProvider<Transaction> {
+  /// See also [transaction].
+  TransactionProvider(
+    this.id,
+  ) : super.internal(
+          (ref) => transaction(
+            ref,
+            id,
+          ),
+          from: transactionProvider,
+          name: r'transactionProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$transactionHash,
+          dependencies: TransactionFamily._dependencies,
+          allTransitiveDependencies:
+              TransactionFamily._allTransitiveDependencies,
+        );
+
+  final String id;
+
+  @override
+  bool operator ==(Object other) {
+    return other is TransactionProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

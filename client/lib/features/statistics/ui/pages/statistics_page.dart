@@ -1,3 +1,4 @@
+import 'package:expensetrack/core/widgets/card_with_title.dart';
 import 'package:expensetrack/core/widgets/currency_text.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
@@ -33,66 +34,57 @@ class StatisticsPage extends ConsumerWidget {
                   ),
                 ].map((e) => ShimmerLoading(child: e)).toList(),
                 data: (statistics) => [
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Monthly Average',
-                            style: textTheme.headlineSmall,
-                          ),
-                          Text(
-                            'Your average monthly expenses the last 12 months.',
-                            style: textTheme.bodySmall,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Average fixed costs: '),
-                              CurrencyText(
-                                statistics.yearMonthlyAverage.averageFixedCost,
-                                style: textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Average variable costs: '),
-                              CurrencyText(
-                                statistics.yearMonthlyAverage.averageVariableCost,
-                                style: textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Total average: '),
-                              CurrencyText(
-                                statistics.yearMonthlyAverage.totalAverage,
-                                style: textTheme.titleLarge,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                  CardWithTitle(
+                    title: 'Monthly Average',
+                    subtitle: 'Your average monthly cash flow the last 12 months.',
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Average fixed cash flow: '),
+                            CurrencyText(
+                              statistics.yearMonthlyAverage.averageFixedCost,
+                              style: textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Average variable cash flow: '),
+                            CurrencyText(
+                              statistics.yearMonthlyAverage.averageVariableCost,
+                              style: textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Total average: '),
+                            CurrencyText(
+                              statistics.yearMonthlyAverage.totalAverage,
+                              style: textTheme.titleLarge,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  const MonthlyStatsGraph(
-                    showSum: true,
-                    showSeparated: false,
+                  const CardWithTitle(
+                    title: 'Month by Month',
+                    subtitle: 'Your cash flow month by month.',
+                    child: MonthlyStatsGraph(
+                      showSum: true,
+                      showSeparated: false,
+                    ),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:expensetrack/core/constants.dart';
 import 'package:expensetrack/core/extensions.dart';
+import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/currency_text.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
@@ -12,6 +13,10 @@ class TransactionsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(routerProvider).go('/create-transaction'),
+        child: const Icon(Icons.add),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(paginatedTransactionsProvider);
@@ -68,6 +73,7 @@ class TransactionsPage extends ConsumerWidget {
                 return Column(
                   children: [
                     ListTile(
+                      onTap: () => ref.read(routerProvider).go('/transaction/${transaction.id}'),
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

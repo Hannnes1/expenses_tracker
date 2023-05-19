@@ -30,6 +30,19 @@ class TransactionRepository {
     return result.map((e) => DbTransaction.fromDatabase(e['transactions']!)).toList();
   }
 
+  /// Get a single transaction.
+  Future<DbTransaction> getTransaction(String userId, String transactionId) async {
+    final result = await connection.mappedResultsQuery(
+      'SELECT * FROM transactions WHERE user_id = @userId AND id = @transactionId',
+      substitutionValues: {
+        'userId': userId,
+        'transactionId': transactionId,
+      },
+    );
+
+    return DbTransaction.fromDatabase(result.first['transactions']!);
+  }
+
   /// Create a new transaction and return the result.
   Future<DbTransaction> createTransaction(DbTransaction transaction) async {
     final result = await connection.mappedResultsQuery(

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeExtentions on DateTime {
@@ -6,14 +9,14 @@ extension DateTimeExtentions on DateTime {
   /// To get both the date and time see [localFormat].
   /// For time only see [localTime].
   String localDate() {
-    return DateFormat.yMMMd('sv').format(toLocal());
+    return DateFormat.yMMMd('en_SE').format(toLocal());
   }
 
   /// Format the `dateTime` as the local date and time.
   ///
   /// For date only see [localDate]. For time only see [localTime].
   String localFormat() {
-    return DateFormat.yMMMd('sv').add_Hm().format(toLocal());
+    return DateFormat.yMMMd('en_SE').add_Hm().format(toLocal());
   }
 
   /// Format the `dateTime` as the local time.
@@ -56,5 +59,14 @@ extension DateTimeExtentions on DateTime {
 extension NumExtension on num {
   String formatCurrency() {
     return NumberFormat.currency(locale: 'sv').format(this);
+  }
+}
+
+extension AutoDisposeExtension on AutoDisposeRef {
+  // When invoked keeps your provider alive for [duration]
+  void cacheFor(Duration duration) {
+    final link = keepAlive();
+    final timer = Timer(duration, () => link.close());
+    onDispose(() => timer.cancel());
   }
 }

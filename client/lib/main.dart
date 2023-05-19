@@ -1,7 +1,7 @@
-import 'package:expensetrack/core/color_schemes.dart';
-import 'package:expensetrack/core/custom_colors.dart';
 import 'package:expensetrack/core/router.dart';
+import 'package:expensetrack/core/theme/theme.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
+import 'package:expensetrack/core/widgets/unfocuser.dart';
 import 'package:expensetrack/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +29,9 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData.from(
-        colorScheme: lightColorScheme,
-        useMaterial3: true,
-      ).copyWith(
-        extensions: [lightCustomColors],
-      ),
-      darkTheme: ThemeData.from(
-        colorScheme: darkColorScheme,
-        useMaterial3: true,
-      ).copyWith(extensions: [darkCustomColors]),
+      // themeMode: ThemeMode.light,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       routerConfig: ref.watch(routerProvider),
       debugShowMaterialGrid: false,
       localizationsDelegates: const [
@@ -64,7 +57,9 @@ class App extends ConsumerWidget {
             end: const Alignment(1.0, 0.3),
             tileMode: TileMode.clamp,
           ),
-          child: child!,
+          child: Unfocuser(
+            child: child!,
+          ),
         );
       },
     );

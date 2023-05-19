@@ -39,4 +39,29 @@ class TransactionsRepository {
       throw _errorService.httpHandler(e);
     }
   }
+
+  Future<Transaction> getTransaction(String id) async {
+    try {
+      final response = await _dio.get(
+        '/transactions/$id',
+      );
+
+      return Transaction.fromJson(response.data);
+    } on DioError catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
+
+  Future<Transaction> createTransaction(CreateTransaction transaction) async {
+    try {
+      final response = await _dio.post(
+        '/transactions',
+        data: transaction.toJson(),
+      );
+
+      return Transaction.fromJson(response.data);
+    } on DioError catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
 }
