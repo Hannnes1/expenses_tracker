@@ -5,7 +5,12 @@ import 'package:dotenv/dotenv.dart';
 /// [setup] must be called before any variable is used.
 class EnvVars {
   static void setup() {
-    final env = DotEnv(includePlatformEnvironment: true)..load(['.env']);
+    final env = DotEnv(includePlatformEnvironment: true);
+
+    // If we are in production, the environment variables will be set by docker.
+    if (env['DART_ENV'] != 'production') {
+      env.load();
+    }
 
     dbHost = env['DB_HOST']!;
     dbPort = int.parse(env['DB_PORT']!);
