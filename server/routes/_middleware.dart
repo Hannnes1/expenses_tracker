@@ -45,21 +45,15 @@ Middleware authMiddleware() {
         return Response(statusCode: HttpStatus.unauthorized);
       }
 
-      handler = handler.use(
-        userInfoProvider(
-          UserInfo(
-            id: userId,
-          ),
+      print('USER ID: $userId');
+
+      context = context.provide(
+        () => UserInfo(
+          id: userId,
         ),
       );
 
       return handler(context);
     };
   };
-}
-
-Middleware userInfoProvider(UserInfo userInfo) {
-  return provider<UserInfo>(
-    (context) => userInfo,
-  );
 }
