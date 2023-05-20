@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:expensetrack/core/env_vars.dart';
 import 'package:expensetrack/core/services/logger.dart';
 import 'package:expensetrack/features/authentication/repositories/auth_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,7 +11,7 @@ part 'dio.g.dart';
 @riverpod
 Dio dio(DioRef ref) {
   return initializeDio(
-    baseUrl: 'http://192.168.1.214:8080',
+    baseUrl: kReleaseMode ? EnvVars.productionApiUrl : EnvVars.debugApiUrl,
     logger: ref.watch(loggerProvider('Dio')),
     authRepository: ref.watch(authRepositoryProvider),
   );
