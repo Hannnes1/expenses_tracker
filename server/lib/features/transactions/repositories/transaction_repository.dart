@@ -64,4 +64,42 @@ class TransactionRepository {
 
     return DbTransaction.fromDatabase(result.first['transactions']!);
   }
+
+  Future<DbTransaction> updateTransaction(DbTransaction transaction) async {
+    final result = await connection.mappedResultsQuery(
+      'UPDATE transactions SET '
+      'date = @date, '
+      'text = @text, '
+      'amount = @amount, '
+      'account_id = @accountId, '
+      'category_id = @categoryId, '
+      'fixed_cost = @fixedCost, '
+      'description = @description '
+      'WHERE id = @id AND user_id = @userId '
+      'RETURNING *',
+      substitutionValues: {
+        'id': transaction.id,
+        'userId': transaction.userId,
+        'date': transaction.date,
+        'text': transaction.text,
+        'amount': transaction.amount,
+        'accountId': transaction.accountId,
+        'categoryId': transaction.categoryId,
+        'fixedCost': transaction.fixedCost,
+        'description': transaction.description,
+      },
+    );
+
+    return DbTransaction.fromDatabase(result.first['transactions']!);
+  }
+
+  Future<void> deleteTransaction(String userId, String transactionId) async {
+    await connection.execute(
+      'DELETE FROM transactions WHERE user_id = @userId AND id = @transactionId',
+      substitutionValues: {
+        'userId': userId,
+        'transactionId': transactionId,
+      },
+    );
+  }
 }

@@ -64,4 +64,27 @@ class TransactionsRepository {
       throw _errorService.httpHandler(e);
     }
   }
+
+  Future<Transaction> updateTransaction(String id, CreateTransaction transaction) async {
+    try {
+      final response = await _dio.patch(
+        '/transactions/$id',
+        data: transaction.toJson(),
+      );
+
+      return Transaction.fromJson(response.data);
+    } on DioError catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
+
+  Future<void> deleteTransaction(String id) async {
+    try {
+      await _dio.delete(
+        '/transactions/$id',
+      );
+    } on DioError catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
 }

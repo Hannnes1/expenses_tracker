@@ -2,6 +2,7 @@ import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
+import 'package:expensetrack/core/widgets/unfocuser.dart';
 import 'package:expensetrack/features/statistics/controllers/statistics_overview.dart';
 import 'package:expensetrack/features/transactions/controllers/accounts.dart';
 import 'package:expensetrack/features/transactions/controllers/categories.dart';
@@ -13,7 +14,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared/shared.dart';
 
 class CreateTransactionPage extends ConsumerStatefulWidget {
-  const CreateTransactionPage({super.key});
+  const CreateTransactionPage({
+    super.key,
+    this.transactionId,
+  });
+
+  /// To edit an existing transaction, pass the transaction ID.
+  final String? transactionId;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CreateTransactionPageState();
@@ -31,6 +38,30 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   DateTime? _selectedDate;
   Category? _selectedCategory;
   Account? _selectedAccount;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.transactionId != null) {
+      _loadTransaction();
+    }
+  }
+
+  Future<void> _loadTransaction() async {
+    final transaction = await ref.read(transactionProvider(widget.transactionId!).future);
+
+    _dateController.text = transaction.date.localDate();
+    _textController.text = transaction.text;
+    _amountController.text = transaction.amount.toString();
+    _descriptionController.text = transaction.description ?? '';
+    _isFixedCost = transaction.fixedCost;
+    _selectedDate = transaction.date;
+    _selectedCategory = transaction.category;
+    _selectedAccount = transaction.account;
+
+    setState(() {});
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final date = await showDatePicker(
@@ -50,6 +81,7 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
     required AutoDisposeFutureProvider<List<T>> provider,
     required String Function(T) selectedItemString,
     required Widget Function(T) itemBuilder,
+    required T? value,
     required void Function(T?) onChanged,
     required String? Function(T?) validator,
     required String labelText,
@@ -67,6 +99,7 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
             ),
           ),
           data: (data) => DropdownButtonFormField<T>(
+            value: value,
             validator: validator,
             decoration: InputDecoration(
               labelText: labelText,
@@ -144,17 +177,24 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
       return null;
     }
 
-    final created = await ref.read(transactionsRepositoryProvider).createTransaction(
-          CreateTransaction(
-            date: _selectedDate!,
-            text: _textController.text,
-            amount: double.parse(_amountController.text),
-            accountId: _selectedAccount!.id,
-            categoryId: _selectedCategory!.id,
-            fixedCost: _isFixedCost,
-            description: _descriptionController.text,
-          ),
-        );
+    final transaction = CreateTransaction(
+      date: _selectedDate!,
+      text: _textController.text,
+      amount: double.parse(_amountController.text),
+      accountId: _selectedAccount!.id,
+      categoryId: _selectedCategory!.id,
+      fixedCost: _isFixedCost,
+      description: _descriptionController.text,
+    );
+
+    late Transaction created;
+    if (widget.transactionId == null) {
+      created = await ref.read(transactionsRepositoryProvider).createTransaction(transaction);
+    } else {
+      created = await ref.read(transactionsRepositoryProvider).updateTransaction(widget.transactionId!, transaction);
+
+      ref.invalidate(transactionProvider(widget.transactionId!));
+    }
 
     ref.invalidate(statisticsOverviewProvider);
     ref.invalidate(paginatedTransactionsProvider);
@@ -179,149 +219,155 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
           await ref.read(accountsProvider.future);
           await ref.read(categoriesProvider.future);
         },
-        child: Form(
-          key: _formKey,
-          child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Stack(
-                  children: [
-                    // I would have liked to place the GestureDetector as a parent
-                    // of the TextFormField, but it didn't work. Even with
-                    // [IgnorePointer] between the two.
-                    TextFormField(
-                      controller: _dateController,
-                      validator: _dateValidator,
-                      decoration: const InputDecoration(
-                        labelText: 'Date',
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: GestureDetector(
-                        onTap: () => _selectDate(context),
-                      ),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  controller: _textController,
-                  validator: _textValidator,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Text',
-                  ),
-                ),
-                TextFormField(
-                  controller: _amountController,
-                  validator: _amountValidator,
-                  keyboardType: TextInputType.number,
-                  // Allow +, -, numbers and decimal points.
-                  // The actual format is validated in [_amountValidator].
-                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\+|-|\.'))],
-                  decoration: const InputDecoration(
-                    labelText: 'Amount',
-                  ),
-                ),
-                TextFormField(
-                  controller: _descriptionController,
-                  maxLines: null,
-                  keyboardType: TextInputType.text,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                  ),
-                ),
-                _buildDropdownButton(
-                  provider: categoriesProvider,
-                  selectedItemString: (e) => e.name,
-                  validator: _categoryValidator,
-                  labelText: 'Category',
-                  errorText: 'Categories could not be loaded',
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedCategory = value;
-                    });
-                  },
-                  itemBuilder: (e) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Unfocuser(
+          child: Form(
+            key: _formKey,
+            child: ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  Stack(
                     children: [
-                      Text(
-                        e.name,
-                      ),
-                      if (e.description != null)
-                        Text(
-                          e.description!,
-                          style: textTheme.labelSmall,
+                      // I would have liked to place the GestureDetector as a parent
+                      // of the TextFormField, but it didn't work. Even with
+                      // [IgnorePointer] between the two.
+                      TextFormField(
+                        controller: _dateController,
+                        validator: _dateValidator,
+                        decoration: const InputDecoration(
+                          labelText: 'Date',
                         ),
+                      ),
+                      Positioned.fill(
+                        child: GestureDetector(
+                          onTap: () => _selectDate(context),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                _buildDropdownButton(
-                  provider: accountsProvider,
-                  selectedItemString: (e) => e.name,
-                  validator: _accountValidator,
-                  labelText: 'Account',
-                  errorText: 'Accounts could not be loaded',
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedAccount = value;
-                    });
-                  },
-                  itemBuilder: (e) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        e.name,
-                      ),
-                      if (e.description != null)
-                        Text(
-                          e.description!,
-                          style: textTheme.labelSmall,
-                        ),
-                    ],
-                  ),
-                ),
-                CheckboxListTile(
-                  value: _isFixedCost,
-                  title: const Text('Fixed cost'),
-                  onChanged: (value) {
-                    setState(() {
-                      _isFixedCost = value!;
-                    });
-                  },
-                ),
-                FilledButton(
-                  onPressed: () async {
-                    final transaction = await _save();
-
-                    if (transaction == null) {
-                      return;
-                    }
-
-                    ref.read(routerProvider).go('/transaction/${transaction.id}');
-                  },
-                  child: const Text('Save'),
-                ),
-                FilledButton.tonal(
-                  onPressed: () async {
-                    final transaction = await _save();
-
-                    if (transaction == null) {
-                      return;
-                    }
-
-                    ref.read(routerProvider).pushReplacement('/create-transaction');
-                  },
-                  child: const Text('Save & add another'),
-                ),
-              ]
-                  .map(
-                    (e) => Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: e,
+                  TextFormField(
+                    controller: _textController,
+                    validator: _textValidator,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: const InputDecoration(
+                      labelText: 'Text',
                     ),
-                  )
-                  .toList()),
+                  ),
+                  TextFormField(
+                    controller: _amountController,
+                    validator: _amountValidator,
+                    keyboardType: TextInputType.number,
+                    // Allow +, -, numbers and decimal points.
+                    // The actual format is validated in [_amountValidator].
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\+|-|\.'))],
+                    decoration: const InputDecoration(
+                      labelText: 'Amount',
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _descriptionController,
+                    maxLines: null,
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                    ),
+                  ),
+                  _buildDropdownButton(
+                    provider: categoriesProvider,
+                    selectedItemString: (e) => e.name,
+                    validator: _categoryValidator,
+                    value: _selectedCategory,
+                    labelText: 'Category',
+                    errorText: 'Categories could not be loaded',
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedCategory = value;
+                      });
+                    },
+                    itemBuilder: (e) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          e.name,
+                        ),
+                        if (e.description != null)
+                          Text(
+                            e.description!,
+                            style: textTheme.labelSmall,
+                          ),
+                      ],
+                    ),
+                  ),
+                  _buildDropdownButton(
+                    provider: accountsProvider,
+                    selectedItemString: (e) => e.name,
+                    validator: _accountValidator,
+                    value: _selectedAccount,
+                    labelText: 'Account',
+                    errorText: 'Accounts could not be loaded',
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedAccount = value;
+                      });
+                    },
+                    itemBuilder: (e) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          e.name,
+                        ),
+                        if (e.description != null)
+                          Text(
+                            e.description!,
+                            style: textTheme.labelSmall,
+                          ),
+                      ],
+                    ),
+                  ),
+                  CheckboxListTile(
+                    value: _isFixedCost,
+                    title: const Text('Fixed cost'),
+                    onChanged: (value) {
+                      setState(() {
+                        _isFixedCost = value!;
+                      });
+                    },
+                  ),
+                  FilledButton(
+                    onPressed: () async {
+                      final transaction = await _save();
+
+                      if (transaction == null) {
+                        return;
+                      }
+
+                      ref.read(routerProvider).go('/transaction/${transaction.id}');
+                    },
+                    child: const Text('Save'),
+                  ),
+                  // Only show this button if a new transaction is being created.
+                  if (widget.transactionId == null)
+                    FilledButton.tonal(
+                      onPressed: () async {
+                        final transaction = await _save();
+
+                        if (transaction == null) {
+                          return;
+                        }
+
+                        ref.read(routerProvider).pushReplacement('/create-transaction');
+                      },
+                      child: const Text('Save & add another'),
+                    ),
+                ]
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: e,
+                      ),
+                    )
+                    .toList()),
+          ),
         ),
       ),
     );

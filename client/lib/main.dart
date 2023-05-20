@@ -1,7 +1,6 @@
 import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/theme/theme.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
-import 'package:expensetrack/core/widgets/unfocuser.dart';
 import 'package:expensetrack/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +56,7 @@ class App extends ConsumerWidget {
             end: const Alignment(1.0, 0.3),
             tileMode: TileMode.clamp,
           ),
-          child: Unfocuser(
-            child: child!,
-          ),
+          child: child!,
         );
       },
     );

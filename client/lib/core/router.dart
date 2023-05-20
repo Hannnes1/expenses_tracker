@@ -37,6 +37,17 @@ final routerProvider = Provider<GoRouter>((ref) {
                 transactionId: state.pathParameters['id']!,
               ),
             ),
+            routes: [
+              GoRoute(
+                path: 'edit',
+                pageBuilder: (context, state) => _adaptiveRoute(
+                  key: state.pageKey,
+                  child: CreateTransactionPage(
+                    transactionId: state.pathParameters['id']!,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

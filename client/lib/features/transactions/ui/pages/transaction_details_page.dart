@@ -1,9 +1,14 @@
 import 'package:expensetrack/core/extensions.dart';
+import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/card_with_title.dart';
+import 'package:expensetrack/core/widgets/confirmation_dialog.dart';
 import 'package:expensetrack/core/widgets/currency_text.dart';
+import 'package:expensetrack/core/widgets/overflow_menu.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
+import 'package:expensetrack/features/statistics/controllers/statistics_overview.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
+import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -15,6 +20,27 @@ class TransactionDetailsPage extends ConsumerWidget {
   });
 
   final String transactionId;
+
+  Future<void> _deleteTransaction(BuildContext context, WidgetRef ref) async {
+    final confirmation = await showDialog<bool>(
+      context: context,
+      builder: (context) => const ConfirmationDialog(
+        title: 'Remove Transaction?',
+        content: 'Are you sure you want to delete this transaction?',
+        confirmText: 'Delete',
+        denyText: 'Cancel',
+      ),
+    );
+
+    if (confirmation ?? false) {
+      await ref.read(transactionsRepositoryProvider).deleteTransaction(transactionId);
+
+      ref.invalidate(paginatedTransactionsProvider);
+      ref.invalidate(statisticsOverviewProvider);
+
+      ref.read(routerProvider).pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,6 +56,22 @@ class TransactionDetailsPage extends ConsumerWidget {
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: title,
+        actions: [
+          OverflowMenu(
+            items: [
+              OverflowMenuItem(
+                icon: Icons.edit,
+                title: 'Edit',
+                onPressed: () => ref.read(routerProvider).go('/transaction/$transactionId/edit'),
+              ),
+              OverflowMenuItem(
+                icon: Icons.delete,
+                title: 'Delete',
+                onPressed: () => _deleteTransaction(context, ref),
+              ),
+            ],
+          ),
+        ],
       );
     }
 
