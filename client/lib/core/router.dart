@@ -49,6 +49,13 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          GoRoute(
+            path: 'licenses',
+            pageBuilder: (context, state) => _adaptiveRoute(
+              key: state.pageKey,
+              child: const LicensePage(),
+            ),
+          ),
         ],
       ),
     ],

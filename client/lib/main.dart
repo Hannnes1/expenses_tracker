@@ -32,7 +32,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'Expense Track',
       // themeMode: ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,

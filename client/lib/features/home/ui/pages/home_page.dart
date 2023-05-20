@@ -1,5 +1,6 @@
 import 'package:expensetrack/features/authentication/services/auth_service.dart';
 import 'package:expensetrack/features/authentication/ui/widgets/sign_in_widget.dart';
+import 'package:expensetrack/features/home/ui/pages/menu_page.dart';
 import 'package:expensetrack/features/statistics/ui/pages/statistics_page.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transactions_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       children: [
         authenticated ? const StatisticsPage() : const SignInWidget(),
         authenticated ? const TransactionsPage() : const SignInWidget(),
-        const Center(child: Text('Menu')),
+        const MenuPage(),
       ],
     );
 

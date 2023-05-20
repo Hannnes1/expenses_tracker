@@ -48,4 +48,9 @@ class AuthRepository {
 
     await _auth.signInWithCredential(credential);
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+    await _googleSignIn.disconnect();
+  }
 }
