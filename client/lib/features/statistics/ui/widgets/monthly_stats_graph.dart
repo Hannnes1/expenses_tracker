@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
@@ -37,7 +39,7 @@ class MonthlyStatsGraph extends ConsumerWidget {
             loading: () => const ShimmerLoading(
               child: LoadingPlaceholder(),
             ),
-            data: (data) => data.isEmpty
+            data: (data) => data.length < 2
                 ? const Center(
                     child: Text('No data to show'),
                   )
@@ -114,7 +116,9 @@ class _Graph extends ConsumerWidget {
 
     final monthlySum = _monthlySum();
 
-    final yAxisInterval = (_maxY - _minY) ~/ 4 ~/ 1000 * 1000.0;
+    // Set the interval to a quarter of the range, rounded to the nearest
+    // thousand. Limit the interval to a minimum of 1000 (so it won't be zero).
+    final yAxisInterval = max((_maxY - _minY) ~/ 4 ~/ 1000 * 1000.0, 1000.0);
 
     Widget buildBottomTitle(double value, TitleMeta meta) {
       final month = _monthlySum().keys.toList()[value.toInt()];
