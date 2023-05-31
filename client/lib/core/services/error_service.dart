@@ -35,8 +35,6 @@ class ErrorService {
 
     final requestId = exception.requestOptions.headers['X-Request-ID'];
 
-    // The message part of the log should not include the stack trace
-    // that is why only the first line is included there.
     _log.e(
       parsedException.toString() + (requestId == null ? '' : ' - Request ID: $requestId'),
       exception,
