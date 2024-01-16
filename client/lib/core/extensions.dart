@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:material_color_utilities/palettes/core_palette.dart';
 
 extension DateTimeExtentions on DateTime {
   /// Format the [DateTime] as the local date.
@@ -69,4 +71,46 @@ extension AutoDisposeExtension on AutoDisposeRef {
     final timer = Timer(duration, () => link.close());
     onDispose(() => timer.cancel());
   }
+}
+
+/// Adds colors not present in [ColorScheme].
+///
+/// Most of these getters will be unnecessary once [ColorScheme] is updated to
+/// include them. See https://github.com/flutter/flutter/issues/115912.
+extension ColorSchemeExtensions on ColorScheme {
+  bool get _darkMode => brightness == Brightness.dark;
+
+  Color get seedColor => primary;
+
+  CorePalette get colorPalette => CorePalette.of(seedColor.value);
+
+  Color get surfaceContainerLowest {
+    return Color(colorPalette.neutral.get(_darkMode ? 4 : 100));
+  }
+
+  Color get surfaceContainerLow {
+    return Color(colorPalette.neutral.get(_darkMode ? 10 : 96));
+  }
+
+  Color get surfaceContainer {
+    return Color(colorPalette.neutral.get(_darkMode ? 12 : 94));
+  }
+
+  Color get surfaceContainerHigh {
+    return Color(colorPalette.neutral.get(_darkMode ? 17 : 92));
+  }
+
+  Color get surfaceContainerHighest {
+    return Color(colorPalette.neutral.get(_darkMode ? 22 : 90));
+  }
+
+  /// The color of a disabled elements, for example a disabled button.
+  ///
+  /// This is copied from the style of a [FilledButton].
+  Color get disabled => onSurface.withOpacity(0.12);
+
+  /// The color for text on [disabled] elements.
+  ///
+  /// This is copied from the style of a [FilledButton].
+  Color get onDisabled => onSurface.withOpacity(0.38);
 }

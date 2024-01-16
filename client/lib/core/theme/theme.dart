@@ -1,3 +1,4 @@
+import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/theme/color_schemes.dart';
 import 'package:expensetrack/core/theme/custom_colors.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,10 @@ ThemeData _baseTheme(ColorScheme colorScheme) {
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
+    ),
+    cardTheme: CardTheme(
+      color: colorScheme.surfaceContainerHighest,
+      elevation: 0,
     ),
   );
 }
