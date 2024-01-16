@@ -179,12 +179,12 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
 
     final transaction = CreateTransaction(
       date: _selectedDate!,
-      text: _textController.text,
+      text: _textController.text.trim(),
       amount: double.parse(_amountController.text),
       accountId: _selectedAccount!.id,
       categoryId: _selectedCategory!.id,
       fixedCost: _isFixedCost,
-      description: _descriptionController.text,
+      description: _descriptionController.text.trim(),
     );
 
     late Transaction created;
