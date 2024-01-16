@@ -9,47 +9,109 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared/shared.dart';
 
+/// A list of colors to use when drawing the graph separated by category.
+List<Color> lineChartColors = const [
+  Color(0xFF3498db),
+  Color(0xFF2ecc71),
+  Color(0xFFff6f61),
+  Color(0xFFffd700),
+  Color(0xFFda70d6),
+  Color(0xFF008080),
+  Color(0xFFfa8072),
+  Color(0xFF00ffff),
+  Color(0xFFff5733),
+  Color(0xFF00ffff),
+];
+
 /// A graph that shows the monthly cash flow for each category.
-class MonthlyStatsGraph extends ConsumerWidget {
-  const MonthlyStatsGraph({
-    super.key,
-    this.showSeparated = true,
-    this.showSum = false,
-  });
-
-  /// Whether to show each category as a separated line.
-  final bool showSeparated;
-
-  /// Whether to show the sum of all categories as a line.
-  final bool showSum;
+class MonthlyStatsGraph extends ConsumerStatefulWidget {
+  const MonthlyStatsGraph({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: 300,
-      child: ref.watch(categorizedMonthlyCategoryTotalsProvider).when(
-            // Don't show loading indicator when a dependency is reloaded,
-            // which happens when pulling to refresh the statistics page.
-            skipLoadingOnReload: true,
-            error: (error, stackTrace) => ProviderError(
-              error: error,
-              stackTrace: stackTrace,
-              errorText: 'The statistics could not be loaded.',
-            ),
-            loading: () => const ShimmerLoading(
-              child: LoadingPlaceholder(),
-            ),
-            data: (data) => data.length < 2
-                ? const Center(
-                    child: Text('No data to show'),
-                  )
-                : _Graph(
-                    data: data,
-                    showSeparated: showSeparated,
-                    showSum: showSum,
-                  ),
+  ConsumerState<ConsumerStatefulWidget> createState() => _MonthlyStatsGraphState();
+}
+
+class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
+  bool _showSeparated = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return ref.watch(categorizedMonthlyCategoryTotalsProvider).when(
+          // Don't show loading indicator when a dependency is reloaded,
+          // which happens when pulling to refresh the statistics page.
+          skipLoadingOnReload: true,
+          error: (error, stackTrace) => ProviderError(
+            error: error,
+            stackTrace: stackTrace,
+            errorText: 'The statistics could not be loaded.',
           ),
-    );
+          loading: () => const ShimmerLoading(
+            child: LoadingPlaceholder(),
+          ),
+          data: (data) => Column(
+            children: [
+              SizedBox(
+                height: 300,
+                child: data.length < 2
+                    ? const Center(
+                        child: Text('No data to show'),
+                      )
+                    : _Graph(
+                        data: data,
+                        showSeparated: _showSeparated,
+                      ),
+              ),
+              SwitchListTile(
+                title: const Text('Show separated'),
+                value: _showSeparated,
+                onChanged: (value) {
+                  setState(() {
+                    _showSeparated = value;
+                  });
+                },
+              ),
+              ClipRect(
+                child: AnimatedAlign(
+                  duration: const Duration(milliseconds: 200),
+                  alignment: Alignment.topLeft,
+                  heightFactor: _showSeparated ? 1 : 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Legend:',
+                        style: textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      ...data.entries.map(
+                        (e) => Row(
+                          children: [
+                            Container(
+                              width: 16,
+                              height: 16,
+                              color: lineChartColors[data.keys.toList().indexOf(e.key)],
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              e.key.name,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
   }
 }
 
@@ -57,13 +119,11 @@ class _Graph extends ConsumerWidget {
   const _Graph({
     required this.data,
     required this.showSeparated,
-    required this.showSum,
   });
 
   final Map<Category, List<MonthlyCategoryTotals>> data;
 
   final bool showSeparated;
-  final bool showSum;
 
   Map<DateTime, num> _monthlySum() {
     final sum = <DateTime, num>{};
@@ -129,9 +189,13 @@ class _Graph extends ConsumerWidget {
       );
     }
 
-    LineChartBarData drawLineChartBar({required List<FlSpot> spots}) {
+    LineChartBarData drawLineChartBar({
+      required List<FlSpot> spots,
+      Color? color,
+      bool fill = true,
+    }) {
       return LineChartBarData(
-        color: colorScheme.primary,
+        color: color ?? colorScheme.primary,
         barWidth: 2,
         isStrokeCapRound: true,
         dotData: const FlDotData(
@@ -139,7 +203,7 @@ class _Graph extends ConsumerWidget {
         ),
         spots: spots,
         belowBarData: BarAreaData(
-          show: true,
+          show: fill,
           color: colorScheme.primary.withOpacity(0.2),
         ),
       );
@@ -208,9 +272,11 @@ class _Graph extends ConsumerWidget {
                       ),
                     )
                     .toList(),
+                color: lineChartColors[data.keys.toList().indexOf(category.key)],
+                fill: false,
               ),
             ),
-          if (showSum)
+          if (!showSeparated)
             drawLineChartBar(
               spots: monthlySum.entries
                   .map(

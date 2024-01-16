@@ -81,10 +81,7 @@ class StatisticsPage extends ConsumerWidget {
                   const CardWithTitle(
                     title: 'Month by Month',
                     subtitle: 'Your cash flow month by month.',
-                    child: MonthlyStatsGraph(
-                      showSum: true,
-                      showSeparated: false,
-                    ),
+                    child: MonthlyStatsGraph(),
                   ),
                 ],
               ),
