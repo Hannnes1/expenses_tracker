@@ -27,7 +27,7 @@ class CategoriesRepository {
       );
 
       return (response.data as List).map((e) => Category.fromJson(e)).toList();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }

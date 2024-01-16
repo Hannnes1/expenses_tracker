@@ -25,7 +25,7 @@ class StatisticsRepository {
       final response = await _dio.get('/statistics');
 
       return StatisticsOverview.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }

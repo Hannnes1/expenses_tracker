@@ -35,7 +35,7 @@ class TransactionsRepository {
       );
 
       return (response.data as List).map((e) => Transaction.fromJson(e)).toList();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }
@@ -47,7 +47,7 @@ class TransactionsRepository {
       );
 
       return Transaction.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }
@@ -60,7 +60,7 @@ class TransactionsRepository {
       );
 
       return Transaction.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }
@@ -73,7 +73,7 @@ class TransactionsRepository {
       );
 
       return Transaction.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }
@@ -83,7 +83,7 @@ class TransactionsRepository {
       await _dio.delete(
         '/transactions/$id',
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }

@@ -4,7 +4,7 @@ import 'package:postgres/postgres.dart';
 import 'env_vars.dart';
 
 Middleware dbConnectionProvider() {
-  return provider<Future<PostgreSQLConnection>>(
+  return provider<Future<Connection>>(
     (context) async {
       return await PgClient.getConnection();
     },
@@ -12,22 +12,25 @@ Middleware dbConnectionProvider() {
 }
 
 class PgClient {
-  static PostgreSQLConnection? _connection;
+  static Connection? _connection;
 
-  static Future<PostgreSQLConnection> getConnection() async {
-    if (_connection != null && !_connection!.isClosed) {
+  static Future<Connection> getConnection() async {
+    if (_connection != null && _connection!.isOpen) {
       return _connection!;
     }
 
-    _connection = PostgreSQLConnection(
-      EnvVars.dbHost,
-      EnvVars.dbPort,
-      EnvVars.dbName,
-      username: EnvVars.dbUser,
-      password: EnvVars.dbPassword,
+    _connection = await Connection.open(
+      Endpoint(
+        host: EnvVars.dbHost,
+        port: EnvVars.dbPort,
+        database: EnvVars.dbName,
+        username: EnvVars.dbUser,
+        password: EnvVars.dbPassword,
+      ),
+      settings: ConnectionSettings(
+        sslMode: SslMode.disable,
+      ),
     );
-
-    await _connection!.open();
 
     return _connection!;
   }

@@ -48,7 +48,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             _selectedIndex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
             icon: Icon(MdiIcons.chartLine),
             label: 'Statistics',

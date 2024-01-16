@@ -50,9 +50,20 @@ class SimpleLogPrinter extends LogPrinter {
     this.includeMethodName = true,
   ]);
 
+  // Colors from this table:
+  // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#256-colors
+  static final _levelColors = {
+    Level.trace: const AnsiColor.fg(240),
+    Level.debug: const AnsiColor.fg(247),
+    Level.info: const AnsiColor.fg(12),
+    Level.warning: const AnsiColor.fg(208),
+    Level.error: const AnsiColor.fg(196),
+    Level.fatal: const AnsiColor.fg(199),
+  };
+
   @override
   List<String> log(LogEvent event) {
-    final color = PrettyPrinter.levelColors[event.level];
+    final color = _levelColors[event.level];
     final methodName = includeMethodName ? _getMethodName() : '';
 
     final methodNameSection = methodName.isNotEmpty ? ' | $methodName' : '';

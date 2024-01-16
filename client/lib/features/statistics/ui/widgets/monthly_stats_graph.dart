@@ -134,7 +134,7 @@ class _Graph extends ConsumerWidget {
         color: colorScheme.primary,
         barWidth: 2,
         isStrokeCapRound: true,
-        dotData: FlDotData(
+        dotData: const FlDotData(
           show: false,
         ),
         spots: spots,
@@ -170,7 +170,7 @@ class _Graph extends ConsumerWidget {
           },
         ),
         titlesData: FlTitlesData(
-          topTitles: AxisTitles(
+          topTitles: const AxisTitles(
             sideTitles: SideTitles(
               showTitles: false,
             ),
@@ -182,7 +182,7 @@ class _Graph extends ConsumerWidget {
               getTitlesWidget: buildBottomTitle,
             ),
           ),
-          leftTitles: AxisTitles(
+          leftTitles: const AxisTitles(
             sideTitles: SideTitles(
               showTitles: false,
             ),

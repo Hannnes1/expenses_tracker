@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 /// Apply styles that are shared between light and dark themes.
 ThemeData _baseTheme(ColorScheme colorScheme) {
   return ThemeData.from(colorScheme: colorScheme).copyWith(
-    useMaterial3: true,
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),

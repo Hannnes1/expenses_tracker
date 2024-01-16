@@ -38,7 +38,7 @@ Dio initializeDio({required String baseUrl, required Logger logger, required Aut
 
         return handler.next(options);
       },
-      onError: (DioError error, ErrorInterceptorHandler handler) async {
+      onError: (DioException error, ErrorInterceptorHandler handler) async {
         logger.d(_errorLogString(error));
 
         return handler.next(error);
@@ -59,7 +59,7 @@ const _endSeparator =
     '------------------------------------------------------------------------------------------------';
 
 /// Returns string for logging error in interceptor.
-String _errorLogString(DioError error) {
+String _errorLogString(DioException error) {
   return '''ERROR ---$_startSeparator
 got error response: uri: ${error.requestOptions.uri} | method: ${error.requestOptions.method}
 status code: ${error.response?.statusCode}

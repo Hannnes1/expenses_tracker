@@ -120,7 +120,6 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
       // In the codelab (https://docs.flutter.dev/cookbook/effects/shimmer-loading),
       // this is done in the build method. However, this is will not work, as
       // the docs for `findRenderObject` says.
-      // TODO: Is `addPostFrameCallback` the right way to do this?
       _offsetWithinShimmer = _shimmer!.getDescendantOffset(
         descendant: context.findRenderObject() as RenderBox,
       );

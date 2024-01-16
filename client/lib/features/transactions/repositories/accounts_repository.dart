@@ -27,7 +27,7 @@ class AccountsRepository {
       );
 
       return (response.data as List).map((e) => Account.fromJson(e)).toList();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
   }

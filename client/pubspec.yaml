@@ -10,14 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  go_router: ^7.0.0
+  go_router: ^13.0.1
   flutter_riverpod: ^2.3.6
   riverpod_annotation: ^2.1.1
-  material_design_icons_flutter: ^6.0.7096
+  material_design_icons_flutter: ^7.0.7296
   shared:
     path: ../server/packages/shared
   dio: ^5.1.1
-  logger: ^1.3.0
+  logger: ^2.0.2+1
   firebase_crashlytics: ^3.2.0
   firebase_core: ^2.11.0
   intl: any
@@ -25,16 +25,16 @@ dependencies:
     sdk: flutter
   firebase_auth: ^4.6.1
   google_sign_in: ^6.1.0
-  fl_chart: ^0.62.0
+  fl_chart: ^0.66.0
   sliver_tools: ^0.2.10
   flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  custom_lint: ^0.3.4
-  riverpod_lint: ^1.3.1
+  flutter_lints: ^3.0.1
+  custom_lint: ^0.5.8
+  riverpod_lint: ^2.3.7
   build_runner: ^2.3.3
   riverpod_generator: ^2.2.1
 

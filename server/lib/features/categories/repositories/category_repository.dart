@@ -7,7 +7,7 @@ import '../models/db_category.dart';
 Middleware categoryRepositoryProvider() {
   return provider<Future<CategoryRepository>>(
     (context) async => CategoryRepository(
-      await context.read<Future<PostgreSQLConnection>>(),
+      await context.read<Future<Connection>>(),
     ),
   );
 }
@@ -15,7 +15,7 @@ Middleware categoryRepositoryProvider() {
 class CategoryRepository {
   CategoryRepository(this.connection);
 
-  final PostgreSQLConnection connection;
+  final Connection connection;
 
   /// Get a list of categorys by their IDs.
   Future<List<DbCategory>> getCategoriesByIds(Set<String> ids) async {
@@ -23,17 +23,17 @@ class CategoryRepository {
       return [];
     }
 
-    final results = await connection.mappedResultsQuery(
+    final results = await connection.executeNamed(
       'SELECT * FROM categories WHERE id IN (${repeatParameters('id', ids.length)})',
-      substitutionValues: repeatSubstitutionValues('id', ids),
+      parameters: repeatparameters('id', ids),
     );
 
-    return results.map((e) => DbCategory.fromDatabase(e['categories']!)).toList();
+    return results.map((e) => DbCategory.fromDatabase(e.toColumnMap())).toList();
   }
 
   Future<List<DbCategory>> getCategories(String userId) async {
-    final results = await connection.mappedResultsQuery('SELECT * FROM categories');
+    final results = await connection.executeNamed('SELECT * FROM categories');
 
-    return results.map((e) => DbCategory.fromDatabase(e['categories']!)).toList();
+    return results.map((e) => DbCategory.fromDatabase(e.toColumnMap())).toList();
   }
 }

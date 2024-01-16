@@ -19,7 +19,7 @@ class ErrorService {
   final Logger _log;
 
   /// Return a standardized exeception based on the input.
-  Future<Exception> httpHandler(DioError exception) async {
+  Future<Exception> httpHandler(DioException exception) async {
     final statusCode = exception.response?.statusCode;
 
     late Exception parsedException;
@@ -37,8 +37,8 @@ class ErrorService {
 
     _log.e(
       parsedException.toString() + (requestId == null ? '' : ' - Request ID: $requestId'),
-      exception,
-      exception.stackTrace,
+      error: exception,
+      stackTrace: exception.stackTrace,
     );
 
     return parsedException;

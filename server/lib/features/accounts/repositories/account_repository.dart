@@ -7,7 +7,7 @@ import '../models/db_account.dart';
 Middleware accountRepositoryProvider() {
   return provider<Future<AccountRepository>>(
     (context) async => AccountRepository(
-      await context.read<Future<PostgreSQLConnection>>(),
+      await context.read<Future<Connection>>(),
     ),
   );
 }
@@ -15,7 +15,7 @@ Middleware accountRepositoryProvider() {
 class AccountRepository {
   AccountRepository(this.connection);
 
-  final PostgreSQLConnection connection;
+  final Connection connection;
 
   /// Get a list of accounts by their IDs.
   Future<List<DbAccount>> getAccountsByIds(Set<String> ids) async {
@@ -23,20 +23,20 @@ class AccountRepository {
       return [];
     }
 
-    final results = await connection.mappedResultsQuery(
+    final results = await connection.executeNamed(
       'SELECT * FROM accounts WHERE id IN (${repeatParameters('id', ids.length)})',
-      substitutionValues: repeatSubstitutionValues('id', ids),
+      parameters: repeatparameters('id', ids),
     );
 
-    return results.map((e) => DbAccount.fromDatabase(e['accounts']!)).toList();
+    return results.map((e) => DbAccount.fromDatabase(e.toColumnMap())).toList();
   }
 
   Future<List<DbAccount>> getAccounts(String userId) async {
-    final results = await connection.mappedResultsQuery(
+    final results = await connection.executeNamed(
       'SELECT * FROM accounts WHERE user_id = @userId',
-      substitutionValues: {'userId': userId},
+      parameters: {'userId': userId},
     );
 
-    return results.map((e) => DbAccount.fromDatabase(e['accounts']!)).toList();
+    return results.map((e) => DbAccount.fromDatabase(e.toColumnMap())).toList();
   }
 }
