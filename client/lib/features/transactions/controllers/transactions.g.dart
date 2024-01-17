@@ -7,7 +7,7 @@ part of 'transactions.dart';
 // **************************************************************************
 
 String _$paginatedTransactionsHash() =>
-    r'11aa96c1cd15ad994d66672564e732485d94dafa';
+    r'1be373f962f4ea07eb1f5cb13bbbd9bff810ceb3';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,9 +29,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-typedef PaginatedTransactionsRef
-    = AutoDisposeFutureProviderRef<List<Transaction>>;
 
 /// See also [paginatedTransactions].
 @ProviderFor(paginatedTransactions)
@@ -81,10 +78,10 @@ class PaginatedTransactionsProvider
     extends AutoDisposeFutureProvider<List<Transaction>> {
   /// See also [paginatedTransactions].
   PaginatedTransactionsProvider(
-    this.page,
-  ) : super.internal(
+    int page,
+  ) : this._internal(
           (ref) => paginatedTransactions(
-            ref,
+            ref as PaginatedTransactionsRef,
             page,
           ),
           from: paginatedTransactionsProvider,
@@ -96,9 +93,44 @@ class PaginatedTransactionsProvider
           dependencies: PaginatedTransactionsFamily._dependencies,
           allTransitiveDependencies:
               PaginatedTransactionsFamily._allTransitiveDependencies,
+          page: page,
         );
 
+  PaginatedTransactionsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+  }) : super.internal();
+
   final int page;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Transaction>> Function(PaginatedTransactionsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: PaginatedTransactionsProvider._internal(
+        (ref) => create(ref as PaginatedTransactionsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Transaction>> createElement() {
+    return _PaginatedTransactionsProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -114,8 +146,22 @@ class PaginatedTransactionsProvider
   }
 }
 
-String _$transactionHash() => r'6062fbb2b6834f839db668fc3bff36c997238286';
-typedef TransactionRef = AutoDisposeFutureProviderRef<Transaction>;
+mixin PaginatedTransactionsRef
+    on AutoDisposeFutureProviderRef<List<Transaction>> {
+  /// The parameter `page` of this provider.
+  int get page;
+}
+
+class _PaginatedTransactionsProviderElement
+    extends AutoDisposeFutureProviderElement<List<Transaction>>
+    with PaginatedTransactionsRef {
+  _PaginatedTransactionsProviderElement(super.provider);
+
+  @override
+  int get page => (origin as PaginatedTransactionsProvider).page;
+}
+
+String _$transactionHash() => r'a96e467c8bd05e6e2a70dca0d8d1a2c4d7442200';
 
 /// See also [transaction].
 @ProviderFor(transaction)
@@ -163,10 +209,10 @@ class TransactionFamily extends Family<AsyncValue<Transaction>> {
 class TransactionProvider extends AutoDisposeFutureProvider<Transaction> {
   /// See also [transaction].
   TransactionProvider(
-    this.id,
-  ) : super.internal(
+    String id,
+  ) : this._internal(
           (ref) => transaction(
-            ref,
+            ref as TransactionRef,
             id,
           ),
           from: transactionProvider,
@@ -178,9 +224,43 @@ class TransactionProvider extends AutoDisposeFutureProvider<Transaction> {
           dependencies: TransactionFamily._dependencies,
           allTransitiveDependencies:
               TransactionFamily._allTransitiveDependencies,
+          id: id,
         );
 
+  TransactionProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
   final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<Transaction> Function(TransactionRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TransactionProvider._internal(
+        (ref) => create(ref as TransactionRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Transaction> createElement() {
+    return _TransactionProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -195,4 +275,18 @@ class TransactionProvider extends AutoDisposeFutureProvider<Transaction> {
     return _SystemHash.finish(hash);
   }
 }
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+
+mixin TransactionRef on AutoDisposeFutureProviderRef<Transaction> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _TransactionProviderElement
+    extends AutoDisposeFutureProviderElement<Transaction> with TransactionRef {
+  _TransactionProviderElement(super.provider);
+
+  @override
+  String get id => (origin as TransactionProvider).id;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

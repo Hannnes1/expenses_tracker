@@ -65,7 +65,7 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
                       ),
               ),
               SwitchListTile(
-                title: const Text('Show separated'),
+                title: const Text('Show categorized'),
                 value: _showSeparated,
                 onChanged: (value) {
                   setState(() {

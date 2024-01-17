@@ -20,7 +20,7 @@ class StatisticsPage extends ConsumerWidget {
         onRefresh: () async => await ref.refresh(statisticsOverviewProvider.future),
         child: ListView(
           padding: const EdgeInsets.all(16),
-          children: ref.watch(statisticsOverviewProvider).when(
+          children: ref.watch(statisticsPageDataProvider).when(
                 error: (error, stackTrace) => [
                   ProviderError(
                     error: error,
@@ -33,57 +33,85 @@ class StatisticsPage extends ConsumerWidget {
                     height: 200,
                   ),
                 ].map((e) => ShimmerLoading(child: e)).toList(),
-                data: (statistics) => [
-                  CardWithTitle(
-                    title: 'Monthly Average',
-                    subtitle: 'Your average monthly cash flow the last 12 months.',
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Average fixed cash flow: '),
-                            CurrencyText(
-                              statistics.yearMonthlyAverage.averageFixedCost,
-                              style: textTheme.titleMedium,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Average variable cash flow: '),
-                            CurrencyText(
-                              statistics.yearMonthlyAverage.averageVariableCost,
-                              style: textTheme.titleMedium,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Total average: '),
-                            CurrencyText(
-                              statistics.yearMonthlyAverage.totalAverage,
-                              style: textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                      ],
+                data: (data) {
+                  final statistics = data.$1;
+                  final categories = data.$2;
+
+                  return [
+                    CardWithTitle(
+                      title: 'Monthly average',
+                      subtitle: 'Your average monthly cash flow the last 12 months.',
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Average fixed cash flow: '),
+                              CurrencyText(
+                                statistics.yearMonthlyAverage.averageFixedCost,
+                                style: textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Average variable cash flow: '),
+                              CurrencyText(
+                                statistics.yearMonthlyAverage.averageVariableCost,
+                                style: textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Total average: '),
+                              CurrencyText(
+                                statistics.yearMonthlyAverage.totalAverage,
+                                style: textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const CardWithTitle(
-                    title: 'Month by Month',
-                    subtitle: 'Your cash flow month by month.',
-                    child: MonthlyStatsGraph(),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CardWithTitle(
+                      title: 'Category breakdown',
+                      subtitle: 'Categorized average monthly cash flow the last 12 months.',
+                      child: Column(
+                        children: [
+                          ...statistics.last12MonthsCategoryAverage.entries.map(
+                            (category) => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(categories.firstWhere((e) => e.id == category.key).name),
+                                CurrencyText(
+                                  category.value,
+                                  style: textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const CardWithTitle(
+                      title: 'Month by month',
+                      subtitle: 'Your cash flow month by month.',
+                      child: MonthlyStatsGraph(),
+                    ),
+                  ];
+                },
               ),
         ),
       ),

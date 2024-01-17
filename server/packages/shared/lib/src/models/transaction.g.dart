@@ -6,8 +6,8 @@ part of 'transaction.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Transaction _$$_TransactionFromJson(Map<String, dynamic> json) =>
-    _$_Transaction(
+_$TransactionImpl _$$TransactionImplFromJson(Map<String, dynamic> json) =>
+    _$TransactionImpl(
       id: json['id'] as String,
       date: DateTime.parse(json['date'] as String),
       text: json['text'] as String,
@@ -18,7 +18,7 @@ _$_Transaction _$$_TransactionFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
+Map<String, dynamic> _$$TransactionImplToJson(_$TransactionImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'date': instance.date.toIso8601String(),
@@ -30,8 +30,9 @@ Map<String, dynamic> _$$_TransactionToJson(_$_Transaction instance) =>
       'description': instance.description,
     };
 
-_$_CreateTransaction _$$_CreateTransactionFromJson(Map<String, dynamic> json) =>
-    _$_CreateTransaction(
+_$CreateTransactionImpl _$$CreateTransactionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateTransactionImpl(
       date: DateTime.parse(json['date'] as String),
       text: json['text'] as String,
       amount: json['amount'] as num,
@@ -41,8 +42,8 @@ _$_CreateTransaction _$$_CreateTransactionFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_CreateTransactionToJson(
-        _$_CreateTransaction instance) =>
+Map<String, dynamic> _$$CreateTransactionImplToJson(
+        _$CreateTransactionImpl instance) =>
     <String, dynamic>{
       'date': instance.date.toIso8601String(),
       'text': instance.text,

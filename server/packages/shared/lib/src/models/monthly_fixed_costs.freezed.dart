@@ -77,22 +77,22 @@ class _$MonthlyFixedCostsCopyWithImpl<$Res, $Val extends MonthlyFixedCosts>
 }
 
 /// @nodoc
-abstract class _$$_MonthlyFixedCostsCopyWith<$Res>
+abstract class _$$MonthlyFixedCostsImplCopyWith<$Res>
     implements $MonthlyFixedCostsCopyWith<$Res> {
-  factory _$$_MonthlyFixedCostsCopyWith(_$_MonthlyFixedCosts value,
-          $Res Function(_$_MonthlyFixedCosts) then) =
-      __$$_MonthlyFixedCostsCopyWithImpl<$Res>;
+  factory _$$MonthlyFixedCostsImplCopyWith(_$MonthlyFixedCostsImpl value,
+          $Res Function(_$MonthlyFixedCostsImpl) then) =
+      __$$MonthlyFixedCostsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime month, num fixedCostTotal, num variableCostTotal});
 }
 
 /// @nodoc
-class __$$_MonthlyFixedCostsCopyWithImpl<$Res>
-    extends _$MonthlyFixedCostsCopyWithImpl<$Res, _$_MonthlyFixedCosts>
-    implements _$$_MonthlyFixedCostsCopyWith<$Res> {
-  __$$_MonthlyFixedCostsCopyWithImpl(
-      _$_MonthlyFixedCosts _value, $Res Function(_$_MonthlyFixedCosts) _then)
+class __$$MonthlyFixedCostsImplCopyWithImpl<$Res>
+    extends _$MonthlyFixedCostsCopyWithImpl<$Res, _$MonthlyFixedCostsImpl>
+    implements _$$MonthlyFixedCostsImplCopyWith<$Res> {
+  __$$MonthlyFixedCostsImplCopyWithImpl(_$MonthlyFixedCostsImpl _value,
+      $Res Function(_$MonthlyFixedCostsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +102,7 @@ class __$$_MonthlyFixedCostsCopyWithImpl<$Res>
     Object? fixedCostTotal = null,
     Object? variableCostTotal = null,
   }) {
-    return _then(_$_MonthlyFixedCosts(
+    return _then(_$MonthlyFixedCostsImpl(
       month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
@@ -121,14 +121,14 @@ class __$$_MonthlyFixedCostsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MonthlyFixedCosts implements _MonthlyFixedCosts {
-  _$_MonthlyFixedCosts(
+class _$MonthlyFixedCostsImpl implements _MonthlyFixedCosts {
+  _$MonthlyFixedCostsImpl(
       {required this.month,
       required this.fixedCostTotal,
       required this.variableCostTotal});
 
-  factory _$_MonthlyFixedCosts.fromJson(Map<String, dynamic> json) =>
-      _$$_MonthlyFixedCostsFromJson(json);
+  factory _$MonthlyFixedCostsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MonthlyFixedCostsImplFromJson(json);
 
   /// The month for which the totals are calculated.
   ///
@@ -146,10 +146,10 @@ class _$_MonthlyFixedCosts implements _MonthlyFixedCosts {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MonthlyFixedCosts &&
+            other is _$MonthlyFixedCostsImpl &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.fixedCostTotal, fixedCostTotal) ||
                 other.fixedCostTotal == fixedCostTotal) &&
@@ -165,13 +165,13 @@ class _$_MonthlyFixedCosts implements _MonthlyFixedCosts {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MonthlyFixedCostsCopyWith<_$_MonthlyFixedCosts> get copyWith =>
-      __$$_MonthlyFixedCostsCopyWithImpl<_$_MonthlyFixedCosts>(
+  _$$MonthlyFixedCostsImplCopyWith<_$MonthlyFixedCostsImpl> get copyWith =>
+      __$$MonthlyFixedCostsImplCopyWithImpl<_$MonthlyFixedCostsImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MonthlyFixedCostsToJson(
+    return _$$MonthlyFixedCostsImplToJson(
       this,
     );
   }
@@ -181,10 +181,10 @@ abstract class _MonthlyFixedCosts implements MonthlyFixedCosts {
   factory _MonthlyFixedCosts(
       {required final DateTime month,
       required final num fixedCostTotal,
-      required final num variableCostTotal}) = _$_MonthlyFixedCosts;
+      required final num variableCostTotal}) = _$MonthlyFixedCostsImpl;
 
   factory _MonthlyFixedCosts.fromJson(Map<String, dynamic> json) =
-      _$_MonthlyFixedCosts.fromJson;
+      _$MonthlyFixedCostsImpl.fromJson;
 
   @override
 
@@ -198,6 +198,6 @@ abstract class _MonthlyFixedCosts implements MonthlyFixedCosts {
   num get variableCostTotal;
   @override
   @JsonKey(ignore: true)
-  _$$_MonthlyFixedCostsCopyWith<_$_MonthlyFixedCosts> get copyWith =>
+  _$$MonthlyFixedCostsImplCopyWith<_$MonthlyFixedCostsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

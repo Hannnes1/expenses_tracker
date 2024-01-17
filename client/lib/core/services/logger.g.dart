@@ -29,8 +29,6 @@ class _SystemHash {
   }
 }
 
-typedef LoggerRef = AutoDisposeProviderRef<Logger>;
-
 /// Get a logger for the specified [className].
 ///
 /// [className] does not have to be a class, but should be a string that
@@ -134,11 +132,11 @@ class LoggerProvider extends AutoDisposeProvider<Logger> {
   ///
   /// Copied from [logger].
   LoggerProvider(
-    this.className, [
-    this.extraOutput,
-  ]) : super.internal(
+    String className, [
+    List<LogOutput>? extraOutput,
+  ]) : this._internal(
           (ref) => logger(
-            ref,
+            ref as LoggerRef,
             className,
             extraOutput,
           ),
@@ -150,10 +148,47 @@ class LoggerProvider extends AutoDisposeProvider<Logger> {
                   : _$loggerHash,
           dependencies: LoggerFamily._dependencies,
           allTransitiveDependencies: LoggerFamily._allTransitiveDependencies,
+          className: className,
+          extraOutput: extraOutput,
         );
+
+  LoggerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.className,
+    required this.extraOutput,
+  }) : super.internal();
 
   final String className;
   final List<LogOutput>? extraOutput;
+
+  @override
+  Override overrideWith(
+    Logger Function(LoggerRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LoggerProvider._internal(
+        (ref) => create(ref as LoggerRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        className: className,
+        extraOutput: extraOutput,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<Logger> createElement() {
+    return _LoggerProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -172,6 +207,24 @@ class LoggerProvider extends AutoDisposeProvider<Logger> {
   }
 }
 
+mixin LoggerRef on AutoDisposeProviderRef<Logger> {
+  /// The parameter `className` of this provider.
+  String get className;
+
+  /// The parameter `extraOutput` of this provider.
+  List<LogOutput>? get extraOutput;
+}
+
+class _LoggerProviderElement extends AutoDisposeProviderElement<Logger>
+    with LoggerRef {
+  _LoggerProviderElement(super.provider);
+
+  @override
+  String get className => (origin as LoggerProvider).className;
+  @override
+  List<LogOutput>? get extraOutput => (origin as LoggerProvider).extraOutput;
+}
+
 String _$providerLoggerHash() => r'1d4e3e3952d4940ede7ac02e7c5f52ac818bc799';
 
 /// See also [providerLogger].
@@ -187,4 +240,5 @@ final providerLoggerProvider = AutoDisposeProvider<Logger>.internal(
 );
 
 typedef ProviderLoggerRef = AutoDisposeProviderRef<Logger>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

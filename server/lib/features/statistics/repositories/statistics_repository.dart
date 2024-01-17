@@ -42,7 +42,7 @@ class StatisticsRepository {
   }
 
   Future<YearMonthlyAverage> getYearMonthlyAverage(String userId) async {
-    final result = await connection.executeNamed( 
+    final result = await connection.executeNamed(
       'SELECT * FROM year_monthly_average WHERE user_id = @userId',
       parameters: {
         'userId': userId,
@@ -57,5 +57,20 @@ class StatisticsRepository {
     }
 
     return YearMonthlyAverage.fromDatabase(result.first.toColumnMap());
+  }
+
+  Future<Map<String, num>> getLast12MonthsCategoryAverage(String userId) async {
+    final result = await connection.executeNamed(
+      'SELECT * FROM last_12_months_category_average WHERE user_id = @userId ORDER BY average_amount DESC',
+      parameters: {
+        'userId': userId,
+      },
+    );
+
+    return Map.fromIterable(
+      result.map((e) => e.toColumnMap()),
+      key: (e) => e['category_id'] as String,
+      value: (e) => num.parse(e['average_amount']),
+    );
   }
 }

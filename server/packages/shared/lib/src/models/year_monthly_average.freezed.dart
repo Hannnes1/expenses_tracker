@@ -68,22 +68,22 @@ class _$YearMonthlyAverageCopyWithImpl<$Res, $Val extends YearMonthlyAverage>
 }
 
 /// @nodoc
-abstract class _$$_YearMonthlyAverageCopyWith<$Res>
+abstract class _$$YearMonthlyAverageImplCopyWith<$Res>
     implements $YearMonthlyAverageCopyWith<$Res> {
-  factory _$$_YearMonthlyAverageCopyWith(_$_YearMonthlyAverage value,
-          $Res Function(_$_YearMonthlyAverage) then) =
-      __$$_YearMonthlyAverageCopyWithImpl<$Res>;
+  factory _$$YearMonthlyAverageImplCopyWith(_$YearMonthlyAverageImpl value,
+          $Res Function(_$YearMonthlyAverageImpl) then) =
+      __$$YearMonthlyAverageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({num averageFixedCost, num averageVariableCost});
 }
 
 /// @nodoc
-class __$$_YearMonthlyAverageCopyWithImpl<$Res>
-    extends _$YearMonthlyAverageCopyWithImpl<$Res, _$_YearMonthlyAverage>
-    implements _$$_YearMonthlyAverageCopyWith<$Res> {
-  __$$_YearMonthlyAverageCopyWithImpl(
-      _$_YearMonthlyAverage _value, $Res Function(_$_YearMonthlyAverage) _then)
+class __$$YearMonthlyAverageImplCopyWithImpl<$Res>
+    extends _$YearMonthlyAverageCopyWithImpl<$Res, _$YearMonthlyAverageImpl>
+    implements _$$YearMonthlyAverageImplCopyWith<$Res> {
+  __$$YearMonthlyAverageImplCopyWithImpl(_$YearMonthlyAverageImpl _value,
+      $Res Function(_$YearMonthlyAverageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_YearMonthlyAverageCopyWithImpl<$Res>
     Object? averageFixedCost = null,
     Object? averageVariableCost = null,
   }) {
-    return _then(_$_YearMonthlyAverage(
+    return _then(_$YearMonthlyAverageImpl(
       averageFixedCost: null == averageFixedCost
           ? _value.averageFixedCost
           : averageFixedCost // ignore: cast_nullable_to_non_nullable
@@ -107,13 +107,13 @@ class __$$_YearMonthlyAverageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_YearMonthlyAverage extends _YearMonthlyAverage {
-  _$_YearMonthlyAverage(
+class _$YearMonthlyAverageImpl extends _YearMonthlyAverage {
+  _$YearMonthlyAverageImpl(
       {required this.averageFixedCost, required this.averageVariableCost})
       : super._();
 
-  factory _$_YearMonthlyAverage.fromJson(Map<String, dynamic> json) =>
-      _$$_YearMonthlyAverageFromJson(json);
+  factory _$YearMonthlyAverageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$YearMonthlyAverageImplFromJson(json);
 
   @override
   final num averageFixedCost;
@@ -126,10 +126,10 @@ class _$_YearMonthlyAverage extends _YearMonthlyAverage {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_YearMonthlyAverage &&
+            other is _$YearMonthlyAverageImpl &&
             (identical(other.averageFixedCost, averageFixedCost) ||
                 other.averageFixedCost == averageFixedCost) &&
             (identical(other.averageVariableCost, averageVariableCost) ||
@@ -144,13 +144,13 @@ class _$_YearMonthlyAverage extends _YearMonthlyAverage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_YearMonthlyAverageCopyWith<_$_YearMonthlyAverage> get copyWith =>
-      __$$_YearMonthlyAverageCopyWithImpl<_$_YearMonthlyAverage>(
+  _$$YearMonthlyAverageImplCopyWith<_$YearMonthlyAverageImpl> get copyWith =>
+      __$$YearMonthlyAverageImplCopyWithImpl<_$YearMonthlyAverageImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_YearMonthlyAverageToJson(
+    return _$$YearMonthlyAverageImplToJson(
       this,
     );
   }
@@ -159,11 +159,11 @@ class _$_YearMonthlyAverage extends _YearMonthlyAverage {
 abstract class _YearMonthlyAverage extends YearMonthlyAverage {
   factory _YearMonthlyAverage(
       {required final num averageFixedCost,
-      required final num averageVariableCost}) = _$_YearMonthlyAverage;
+      required final num averageVariableCost}) = _$YearMonthlyAverageImpl;
   _YearMonthlyAverage._() : super._();
 
   factory _YearMonthlyAverage.fromJson(Map<String, dynamic> json) =
-      _$_YearMonthlyAverage.fromJson;
+      _$YearMonthlyAverageImpl.fromJson;
 
   @override
   num get averageFixedCost;
@@ -171,6 +171,6 @@ abstract class _YearMonthlyAverage extends YearMonthlyAverage {
   num get averageVariableCost;
   @override
   @JsonKey(ignore: true)
-  _$$_YearMonthlyAverageCopyWith<_$_YearMonthlyAverage> get copyWith =>
+  _$$YearMonthlyAverageImplCopyWith<_$YearMonthlyAverageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

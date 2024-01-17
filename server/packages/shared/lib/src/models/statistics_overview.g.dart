@@ -6,9 +6,9 @@ part of 'statistics_overview.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_StatisticsOverview _$$_StatisticsOverviewFromJson(
+_$StatisticsOverviewImpl _$$StatisticsOverviewImplFromJson(
         Map<String, dynamic> json) =>
-    _$_StatisticsOverview(
+    _$StatisticsOverviewImpl(
       yearMonthlyAverage: YearMonthlyAverage.fromJson(
           json['yearMonthlyAverage'] as Map<String, dynamic>),
       monthlyFixedCosts: (json['monthlyFixedCosts'] as List<dynamic>)
@@ -17,12 +17,15 @@ _$_StatisticsOverview _$$_StatisticsOverviewFromJson(
       monthlyCategoryTotals: (json['monthlyCategoryTotals'] as List<dynamic>)
           .map((e) => MonthlyCategoryTotals.fromJson(e as Map<String, dynamic>))
           .toList(),
+      last12MonthsCategoryAverage:
+          Map<String, num>.from(json['last12MonthsCategoryAverage'] as Map),
     );
 
-Map<String, dynamic> _$$_StatisticsOverviewToJson(
-        _$_StatisticsOverview instance) =>
+Map<String, dynamic> _$$StatisticsOverviewImplToJson(
+        _$StatisticsOverviewImpl instance) =>
     <String, dynamic>{
       'yearMonthlyAverage': instance.yearMonthlyAverage,
       'monthlyFixedCosts': instance.monthlyFixedCosts,
       'monthlyCategoryTotals': instance.monthlyCategoryTotals,
+      'last12MonthsCategoryAverage': instance.last12MonthsCategoryAverage,
     };

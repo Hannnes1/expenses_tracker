@@ -12,12 +12,14 @@ Future<Response> getOverview(RequestContext context) async {
   final yearMonthlyAverage = await statisticsRepository.getYearMonthlyAverage(userId);
   final monthlyFixedCosts = await statisticsRepository.getMonthlyFixedCosts(userId);
   final monthlyCategoryTotals = await statisticsRepository.getMonthlyCategoryTotals(userId);
+  final last12MonthsCategoryAverage = await statisticsRepository.getLast12MonthsCategoryAverage(userId);
 
   return Response.json(
     body: StatisticsOverview(
       yearMonthlyAverage: yearMonthlyAverage,
       monthlyFixedCosts: monthlyFixedCosts,
       monthlyCategoryTotals: monthlyCategoryTotals,
+      last12MonthsCategoryAverage: last12MonthsCategoryAverage,
     ),
   );
 }

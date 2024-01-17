@@ -10,5 +10,9 @@ part 'categories.g.dart';
 Future<List<Category>> categories(CategoriesRef ref) async {
   ref.cacheFor(kDefaultCacheDuration);
 
-  return await ref.watch(categoriesRepositoryProvider).getCategories();
+  final categories = await ref.watch(categoriesRepositoryProvider).getCategories();
+
+  categories.sort((a, b) => a.name.compareTo(b.name));
+
+  return categories;
 }

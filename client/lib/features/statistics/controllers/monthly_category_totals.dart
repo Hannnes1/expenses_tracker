@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:expensetrack/features/statistics/controllers/statistics_overview.dart';
 import 'package:expensetrack/features/transactions/controllers/categories.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,7 +9,7 @@ part 'monthly_category_totals.g.dart';
 
 /// A map of categories and their data points.
 @riverpod
-Future<Map<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCategoryTotals(
+Future<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCategoryTotals(
   CategorizedMonthlyCategoryTotalsRef ref,
 ) async {
   final monthlyCategoryTotals = (await ref.watch(statisticsOverviewProvider.future)).monthlyCategoryTotals;
@@ -16,7 +18,9 @@ Future<Map<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCategoryTot
 
   final categories = await ref.watch(categoriesProvider.future);
 
-  final dataPoints = <Category, List<MonthlyCategoryTotals>>{};
+  final dataPoints = SplayTreeMap<Category, List<MonthlyCategoryTotals>>(
+    (key1, key2) => key1.name.compareTo(key2.name),
+  );
 
   for (final categoryId in categoryIdsWithData) {
     final category = categories.firstWhere((element) => element.id == categoryId);

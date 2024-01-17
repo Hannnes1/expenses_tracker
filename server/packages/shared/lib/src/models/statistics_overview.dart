@@ -12,6 +12,7 @@ class StatisticsOverview with _$StatisticsOverview {
     required YearMonthlyAverage yearMonthlyAverage,
     required List<MonthlyFixedCosts> monthlyFixedCosts,
     required List<MonthlyCategoryTotals> monthlyCategoryTotals,
+    required Map<String, num> last12MonthsCategoryAverage,
   }) = _StatisticsOverview;
 
 factory StatisticsOverview.fromJson(Map<String, dynamic> json) => 

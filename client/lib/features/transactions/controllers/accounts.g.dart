@@ -6,7 +6,7 @@ part of 'accounts.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$accountsHash() => r'886613fafd104864e98779e3dae305a5d0784011';
+String _$accountsHash() => r'f152cd776d19a9f5bb2124f1ada66c06bfd37eef';
 
 /// See also [accounts].
 @ProviderFor(accounts)
@@ -20,4 +20,5 @@ final accountsProvider = AutoDisposeFutureProvider<List<Account>>.internal(
 );
 
 typedef AccountsRef = AutoDisposeFutureProviderRef<List<Account>>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

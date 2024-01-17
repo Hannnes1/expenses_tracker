@@ -7,14 +7,14 @@ part of 'monthly_category_totals.dart';
 // **************************************************************************
 
 String _$categorizedMonthlyCategoryTotalsHash() =>
-    r'ea2689875d9caed7ee4252d4a4e6634f1846b315';
+    r'84c6b11edf88ddb14ed3bfd9e683f3e77873ce91';
 
 /// A map of categories and their data points.
 ///
 /// Copied from [categorizedMonthlyCategoryTotals].
 @ProviderFor(categorizedMonthlyCategoryTotals)
 final categorizedMonthlyCategoryTotalsProvider = AutoDisposeFutureProvider<
-    Map<Category, List<MonthlyCategoryTotals>>>.internal(
+    SplayTreeMap<Category, List<MonthlyCategoryTotals>>>.internal(
   categorizedMonthlyCategoryTotals,
   name: r'categorizedMonthlyCategoryTotalsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -24,6 +24,7 @@ final categorizedMonthlyCategoryTotalsProvider = AutoDisposeFutureProvider<
   allTransitiveDependencies: null,
 );
 
-typedef CategorizedMonthlyCategoryTotalsRef
-    = AutoDisposeFutureProviderRef<Map<Category, List<MonthlyCategoryTotals>>>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+typedef CategorizedMonthlyCategoryTotalsRef = AutoDisposeFutureProviderRef<
+    SplayTreeMap<Category, List<MonthlyCategoryTotals>>>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -96,11 +96,12 @@ class _$MonthlyCategoryTotalsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_MonthlyCategoryTotalsCopyWith<$Res>
+abstract class _$$MonthlyCategoryTotalsImplCopyWith<$Res>
     implements $MonthlyCategoryTotalsCopyWith<$Res> {
-  factory _$$_MonthlyCategoryTotalsCopyWith(_$_MonthlyCategoryTotals value,
-          $Res Function(_$_MonthlyCategoryTotals) then) =
-      __$$_MonthlyCategoryTotalsCopyWithImpl<$Res>;
+  factory _$$MonthlyCategoryTotalsImplCopyWith(
+          _$MonthlyCategoryTotalsImpl value,
+          $Res Function(_$MonthlyCategoryTotalsImpl) then) =
+      __$$MonthlyCategoryTotalsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -112,11 +113,12 @@ abstract class _$$_MonthlyCategoryTotalsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MonthlyCategoryTotalsCopyWithImpl<$Res>
-    extends _$MonthlyCategoryTotalsCopyWithImpl<$Res, _$_MonthlyCategoryTotals>
-    implements _$$_MonthlyCategoryTotalsCopyWith<$Res> {
-  __$$_MonthlyCategoryTotalsCopyWithImpl(_$_MonthlyCategoryTotals _value,
-      $Res Function(_$_MonthlyCategoryTotals) _then)
+class __$$MonthlyCategoryTotalsImplCopyWithImpl<$Res>
+    extends _$MonthlyCategoryTotalsCopyWithImpl<$Res,
+        _$MonthlyCategoryTotalsImpl>
+    implements _$$MonthlyCategoryTotalsImplCopyWith<$Res> {
+  __$$MonthlyCategoryTotalsImplCopyWithImpl(_$MonthlyCategoryTotalsImpl _value,
+      $Res Function(_$MonthlyCategoryTotalsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -128,7 +130,7 @@ class __$$_MonthlyCategoryTotalsCopyWithImpl<$Res>
     Object? positiveAmount = null,
     Object? totalAmount = null,
   }) {
-    return _then(_$_MonthlyCategoryTotals(
+    return _then(_$MonthlyCategoryTotalsImpl(
       month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
@@ -155,16 +157,16 @@ class __$$_MonthlyCategoryTotalsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MonthlyCategoryTotals implements _MonthlyCategoryTotals {
-  _$_MonthlyCategoryTotals(
+class _$MonthlyCategoryTotalsImpl implements _MonthlyCategoryTotals {
+  _$MonthlyCategoryTotalsImpl(
       {required this.month,
       required this.categoryId,
       required this.negativeAmount,
       required this.positiveAmount,
       required this.totalAmount});
 
-  factory _$_MonthlyCategoryTotals.fromJson(Map<String, dynamic> json) =>
-      _$$_MonthlyCategoryTotalsFromJson(json);
+  factory _$MonthlyCategoryTotalsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MonthlyCategoryTotalsImplFromJson(json);
 
   /// The month for which the totals are calculated.
   ///
@@ -186,10 +188,10 @@ class _$_MonthlyCategoryTotals implements _MonthlyCategoryTotals {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MonthlyCategoryTotals &&
+            other is _$MonthlyCategoryTotalsImpl &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
@@ -209,13 +211,13 @@ class _$_MonthlyCategoryTotals implements _MonthlyCategoryTotals {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MonthlyCategoryTotalsCopyWith<_$_MonthlyCategoryTotals> get copyWith =>
-      __$$_MonthlyCategoryTotalsCopyWithImpl<_$_MonthlyCategoryTotals>(
-          this, _$identity);
+  _$$MonthlyCategoryTotalsImplCopyWith<_$MonthlyCategoryTotalsImpl>
+      get copyWith => __$$MonthlyCategoryTotalsImplCopyWithImpl<
+          _$MonthlyCategoryTotalsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MonthlyCategoryTotalsToJson(
+    return _$$MonthlyCategoryTotalsImplToJson(
       this,
     );
   }
@@ -227,10 +229,10 @@ abstract class _MonthlyCategoryTotals implements MonthlyCategoryTotals {
       required final String categoryId,
       required final num negativeAmount,
       required final num positiveAmount,
-      required final num totalAmount}) = _$_MonthlyCategoryTotals;
+      required final num totalAmount}) = _$MonthlyCategoryTotalsImpl;
 
   factory _MonthlyCategoryTotals.fromJson(Map<String, dynamic> json) =
-      _$_MonthlyCategoryTotals.fromJson;
+      _$MonthlyCategoryTotalsImpl.fromJson;
 
   @override
 
@@ -248,6 +250,6 @@ abstract class _MonthlyCategoryTotals implements MonthlyCategoryTotals {
   num get totalAmount;
   @override
   @JsonKey(ignore: true)
-  _$$_MonthlyCategoryTotalsCopyWith<_$_MonthlyCategoryTotals> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MonthlyCategoryTotalsImplCopyWith<_$MonthlyCategoryTotalsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

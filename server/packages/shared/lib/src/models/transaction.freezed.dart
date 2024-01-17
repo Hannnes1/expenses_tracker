@@ -131,11 +131,11 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
 }
 
 /// @nodoc
-abstract class _$$_TransactionCopyWith<$Res>
+abstract class _$$TransactionImplCopyWith<$Res>
     implements $TransactionCopyWith<$Res> {
-  factory _$$_TransactionCopyWith(
-          _$_Transaction value, $Res Function(_$_Transaction) then) =
-      __$$_TransactionCopyWithImpl<$Res>;
+  factory _$$TransactionImplCopyWith(
+          _$TransactionImpl value, $Res Function(_$TransactionImpl) then) =
+      __$$TransactionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -155,11 +155,11 @@ abstract class _$$_TransactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TransactionCopyWithImpl<$Res>
-    extends _$TransactionCopyWithImpl<$Res, _$_Transaction>
-    implements _$$_TransactionCopyWith<$Res> {
-  __$$_TransactionCopyWithImpl(
-      _$_Transaction _value, $Res Function(_$_Transaction) _then)
+class __$$TransactionImplCopyWithImpl<$Res>
+    extends _$TransactionCopyWithImpl<$Res, _$TransactionImpl>
+    implements _$$TransactionImplCopyWith<$Res> {
+  __$$TransactionImplCopyWithImpl(
+      _$TransactionImpl _value, $Res Function(_$TransactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -174,7 +174,7 @@ class __$$_TransactionCopyWithImpl<$Res>
     Object? fixedCost = null,
     Object? description = freezed,
   }) {
-    return _then(_$_Transaction(
+    return _then(_$TransactionImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -213,8 +213,8 @@ class __$$_TransactionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Transaction implements _Transaction {
-  _$_Transaction(
+class _$TransactionImpl implements _Transaction {
+  _$TransactionImpl(
       {required this.id,
       required this.date,
       required this.text,
@@ -224,8 +224,8 @@ class _$_Transaction implements _Transaction {
       required this.fixedCost,
       this.description});
 
-  factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionFromJson(json);
+  factory _$TransactionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionImplFromJson(json);
 
   @override
   final String id;
@@ -250,10 +250,10 @@ class _$_Transaction implements _Transaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Transaction &&
+            other is _$TransactionImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.text, text) || other.text == text) &&
@@ -275,12 +275,12 @@ class _$_Transaction implements _Transaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
-      __$$_TransactionCopyWithImpl<_$_Transaction>(this, _$identity);
+  _$$TransactionImplCopyWith<_$TransactionImpl> get copyWith =>
+      __$$TransactionImplCopyWithImpl<_$TransactionImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionToJson(
+    return _$$TransactionImplToJson(
       this,
     );
   }
@@ -295,10 +295,10 @@ abstract class _Transaction implements Transaction {
       required final Account account,
       required final Category category,
       required final bool fixedCost,
-      final String? description}) = _$_Transaction;
+      final String? description}) = _$TransactionImpl;
 
   factory _Transaction.fromJson(Map<String, dynamic> json) =
-      _$_Transaction.fromJson;
+      _$TransactionImpl.fromJson;
 
   @override
   String get id;
@@ -318,7 +318,7 @@ abstract class _Transaction implements Transaction {
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
+  _$$TransactionImplCopyWith<_$TransactionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -413,11 +413,11 @@ class _$CreateTransactionCopyWithImpl<$Res, $Val extends CreateTransaction>
 }
 
 /// @nodoc
-abstract class _$$_CreateTransactionCopyWith<$Res>
+abstract class _$$CreateTransactionImplCopyWith<$Res>
     implements $CreateTransactionCopyWith<$Res> {
-  factory _$$_CreateTransactionCopyWith(_$_CreateTransaction value,
-          $Res Function(_$_CreateTransaction) then) =
-      __$$_CreateTransactionCopyWithImpl<$Res>;
+  factory _$$CreateTransactionImplCopyWith(_$CreateTransactionImpl value,
+          $Res Function(_$CreateTransactionImpl) then) =
+      __$$CreateTransactionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -431,11 +431,11 @@ abstract class _$$_CreateTransactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CreateTransactionCopyWithImpl<$Res>
-    extends _$CreateTransactionCopyWithImpl<$Res, _$_CreateTransaction>
-    implements _$$_CreateTransactionCopyWith<$Res> {
-  __$$_CreateTransactionCopyWithImpl(
-      _$_CreateTransaction _value, $Res Function(_$_CreateTransaction) _then)
+class __$$CreateTransactionImplCopyWithImpl<$Res>
+    extends _$CreateTransactionCopyWithImpl<$Res, _$CreateTransactionImpl>
+    implements _$$CreateTransactionImplCopyWith<$Res> {
+  __$$CreateTransactionImplCopyWithImpl(_$CreateTransactionImpl _value,
+      $Res Function(_$CreateTransactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -449,7 +449,7 @@ class __$$_CreateTransactionCopyWithImpl<$Res>
     Object? fixedCost = null,
     Object? description = freezed,
   }) {
-    return _then(_$_CreateTransaction(
+    return _then(_$CreateTransactionImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -484,8 +484,8 @@ class __$$_CreateTransactionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CreateTransaction implements _CreateTransaction {
-  _$_CreateTransaction(
+class _$CreateTransactionImpl implements _CreateTransaction {
+  _$CreateTransactionImpl(
       {required this.date,
       required this.text,
       required this.amount,
@@ -494,8 +494,8 @@ class _$_CreateTransaction implements _CreateTransaction {
       required this.fixedCost,
       required this.description});
 
-  factory _$_CreateTransaction.fromJson(Map<String, dynamic> json) =>
-      _$$_CreateTransactionFromJson(json);
+  factory _$CreateTransactionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateTransactionImplFromJson(json);
 
   @override
   final DateTime date;
@@ -518,10 +518,10 @@ class _$_CreateTransaction implements _CreateTransaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CreateTransaction &&
+            other is _$CreateTransactionImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.amount, amount) || other.amount == amount) &&
@@ -543,13 +543,13 @@ class _$_CreateTransaction implements _CreateTransaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CreateTransactionCopyWith<_$_CreateTransaction> get copyWith =>
-      __$$_CreateTransactionCopyWithImpl<_$_CreateTransaction>(
+  _$$CreateTransactionImplCopyWith<_$CreateTransactionImpl> get copyWith =>
+      __$$CreateTransactionImplCopyWithImpl<_$CreateTransactionImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CreateTransactionToJson(
+    return _$$CreateTransactionImplToJson(
       this,
     );
   }
@@ -563,10 +563,10 @@ abstract class _CreateTransaction implements CreateTransaction {
       required final String accountId,
       required final String categoryId,
       required final bool fixedCost,
-      required final String? description}) = _$_CreateTransaction;
+      required final String? description}) = _$CreateTransactionImpl;
 
   factory _CreateTransaction.fromJson(Map<String, dynamic> json) =
-      _$_CreateTransaction.fromJson;
+      _$CreateTransactionImpl.fromJson;
 
   @override
   DateTime get date;
@@ -584,6 +584,6 @@ abstract class _CreateTransaction implements CreateTransaction {
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_CreateTransactionCopyWith<_$_CreateTransaction> get copyWith =>
+  _$$CreateTransactionImplCopyWith<_$CreateTransactionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

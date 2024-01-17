@@ -24,4 +24,23 @@ final statisticsOverviewProvider =
 
 typedef StatisticsOverviewRef
     = AutoDisposeFutureProviderRef<StatisticsOverview>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+String _$statisticsPageDataHash() =>
+    r'739b933b0546ea05770fe953d7e3fc14d9c3edff';
+
+/// See also [statisticsPageData].
+@ProviderFor(statisticsPageData)
+final statisticsPageDataProvider =
+    AutoDisposeFutureProvider<(StatisticsOverview, List<Category>)>.internal(
+  statisticsPageData,
+  name: r'statisticsPageDataProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$statisticsPageDataHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef StatisticsPageDataRef
+    = AutoDisposeFutureProviderRef<(StatisticsOverview, List<Category>)>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
