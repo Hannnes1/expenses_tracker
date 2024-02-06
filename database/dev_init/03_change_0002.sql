@@ -10,4 +10,4 @@ WHERE
 GROUP BY
     user_id, category_id;
 
-INSERT INTO schema_changes (version_number, script_name) VALUES (1, '03_change_0002.sql');
+INSERT INTO schema_changes (version_number, script_name) VALUES (2, '03_change_0002.sql');
