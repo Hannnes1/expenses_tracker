@@ -10,7 +10,7 @@ class SignInWithGoogleButton extends ConsumerWidget {
     return FilledButton(
       onPressed: ref.read(authRepositoryProvider).signInWithGoogle,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.white),
+        backgroundColor: WidgetStateProperty.all(Colors.white),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,3 @@
-import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/theme/color_schemes.dart';
 import 'package:expensetrack/core/theme/custom_colors.dart';
 import 'package:flutter/material.dart';

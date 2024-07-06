@@ -52,9 +52,9 @@ class App extends ConsumerWidget {
         return Shimmer(
           linearGradient: LinearGradient(
             colors: [
-              Color.lerp(colors.background, colors.primary, 0.05)!,
-              Color.lerp(colors.background, colors.primary, 0.1)!,
-              Color.lerp(colors.background, colors.primary, 0.05)!,
+              Color.lerp(colors.surface, colors.primary, 0.05)!,
+              Color.lerp(colors.surface, colors.primary, 0.1)!,
+              Color.lerp(colors.surface, colors.primary, 0.05)!,
             ],
             stops: const [0.1, 0.3, 0.4],
             begin: const Alignment(-1.0, -0.3),
