@@ -7,7 +7,7 @@ part of 'transactions.dart';
 // **************************************************************************
 
 String _$paginatedTransactionsHash() =>
-    r'1be373f962f4ea07eb1f5cb13bbbd9bff810ceb3';
+    r'aa01efe22ee13fe97ea16303c9d37d8a3e32f61c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -288,5 +288,24 @@ class _TransactionProviderElement
   @override
   String get id => (origin as TransactionProvider).id;
 }
+
+String _$transactionsFilterControllerHash() =>
+    r'0599894097f7a50472a16c9bf75717ad9a204529';
+
+/// See also [TransactionsFilterController].
+@ProviderFor(TransactionsFilterController)
+final transactionsFilterControllerProvider = AutoDisposeNotifierProvider<
+    TransactionsFilterController, TransactionsFilterState>.internal(
+  TransactionsFilterController.new,
+  name: r'transactionsFilterControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$transactionsFilterControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TransactionsFilterController
+    = AutoDisposeNotifier<TransactionsFilterState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,5 +1,6 @@
 import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/router.dart';
+import 'package:expensetrack/core/widgets/date_picker.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/core/widgets/unfocuser.dart';
@@ -29,7 +30,6 @@ class CreateTransactionPage extends ConsumerStatefulWidget {
 class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _dateController = TextEditingController();
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -51,7 +51,6 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   Future<void> _loadTransaction() async {
     final transaction = await ref.read(transactionProvider(widget.transactionId!).future);
 
-    _dateController.text = transaction.date.localDate();
     _textController.text = transaction.text;
     _amountController.text = transaction.amount.toString();
     _descriptionController.text = transaction.description ?? '';
@@ -61,20 +60,6 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
     _selectedAccount = transaction.account;
 
     setState(() {});
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final date = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(4000),
-    );
-
-    if (date != null) {
-      _dateController.text = date.localDate();
-      _selectedDate = date;
-    }
   }
 
   Widget _buildDropdownButton<T>({
@@ -225,24 +210,15 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
             child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
-                  Stack(
-                    children: [
-                      // I would have liked to place the GestureDetector as a parent
-                      // of the TextFormField, but it didn't work. Even with
-                      // [IgnorePointer] between the two.
-                      TextFormField(
-                        controller: _dateController,
-                        validator: _dateValidator,
-                        decoration: const InputDecoration(
-                          labelText: 'Date',
-                        ),
-                      ),
-                      Positioned.fill(
-                        child: GestureDetector(
-                          onTap: () => _selectDate(context),
-                        ),
-                      ),
-                    ],
+                  DatePicker(
+                    labelText: 'Date',
+                    selectedDate: _selectedDate,
+                    validator: _dateValidator,
+                    onDateSelected: (date) {
+                      setState(() {
+                        _selectedDate = date;
+                      });
+                    },
                   ),
                   TextFormField(
                     controller: _textController,

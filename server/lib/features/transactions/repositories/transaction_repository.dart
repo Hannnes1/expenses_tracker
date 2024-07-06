@@ -1,5 +1,6 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:postgres/postgres.dart';
+import 'package:shared/shared.dart';
 
 import '../../../core/db_helpers.dart';
 import '../models/db_transaction.dart';
@@ -18,13 +19,50 @@ class TransactionRepository {
   final Connection connection;
 
   /// Get a paginated list of transactions.
-  Future<List<DbTransaction>> getTransactions(String userId, int offset, [int limit = 20]) async {
+  Future<List<DbTransaction>> getTransactions(
+    String userId,
+    int offset, {
+    int limit = 20,
+    TransactionsOrder order = TransactionsOrder.dateDesc,
+    DateTime? startDate,
+    DateTime? endDate,
+    List<String> categories = const [],
+  }) async {
+    final orderQuery = switch (order) {
+      // If the sort order is by date, we also sort by created_at secondarily to ensure
+      // a consistent order when multiple transactions have the same date.
+      TransactionsOrder.dateDesc => 'date DESC, created_at DESC',
+      TransactionsOrder.dateAsc => 'date ASC, created_at ASC',
+      TransactionsOrder.amountDesc => 'amount DESC',
+      TransactionsOrder.amountAsc => 'amount ASC',
+    };
+
+    var dateQuery = '';
+
+    if (startDate != null) {
+      dateQuery += ' AND date >= @startDate';
+    }
+
+    if (endDate != null) {
+      dateQuery += ' AND date <= @endDate';
+    }
+
+    var categoriesQuery = '';
+    if (categories.isNotEmpty) {
+      categoriesQuery += 'AND category_id IN (${repeatParameters('id', categories.length)})';
+    }
+
     final result = await connection.executeNamed(
-      'SELECT * FROM transactions WHERE user_id = @userId ORDER BY date DESC LIMIT @limit OFFSET @offset',
+      'SELECT * FROM transactions '
+      'WHERE user_id = @userId $dateQuery $categoriesQuery '
+      'ORDER BY $orderQuery LIMIT @limit OFFSET @offset',
       parameters: {
         'userId': userId,
         'limit': limit,
         'offset': offset,
+        if (startDate != null) 'startDate': startDate,
+        if (endDate != null) 'endDate': endDate,
+        if (categories.isNotEmpty) ...repeatparameters('id', categories),
       },
     );
 

@@ -24,6 +24,10 @@ class TransactionsRepository {
   Future<List<Transaction>> getTransactions({
     required int offset,
     int limit = kTransactionPageLimit,
+    TransactionsOrder order = TransactionsOrder.dateDesc,
+    DateTime? startDate,
+    DateTime? endDate,
+    List<String> categories = const [],
   }) async {
     try {
       final response = await _dio.get(
@@ -31,6 +35,10 @@ class TransactionsRepository {
         queryParameters: {
           'offset': offset,
           'limit': limit,
+          'order': order.toString(),
+          'startDate': startDate?.toIso8601String(),
+          'endDate': endDate?.toIso8601String(),
+          'categories': categories.join(','),
         },
       );
 

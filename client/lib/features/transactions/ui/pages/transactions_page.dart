@@ -4,6 +4,7 @@ import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/currency_text.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
+import 'package:expensetrack/features/transactions/ui/widgets/transactions_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +14,18 @@ class TransactionsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Transactions'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () => TransactionsFilter.show(context),
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => ref.read(routerProvider).go('/create-transaction'),
         child: const Icon(Icons.add),

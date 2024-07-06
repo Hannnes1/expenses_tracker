@@ -30,17 +30,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       ],
     );
 
-    final title = const [
-      'Statistics',
-      'Transactions',
-      'Menu',
-    ][_selectedIndex];
-
     return Scaffold(
       body: body,
-      appBar: AppBar(
-        title: Text(title),
-      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (index) {

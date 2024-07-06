@@ -16,6 +16,9 @@ class StatisticsPage extends ConsumerWidget {
     final textTheme = theme.textTheme;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Statistics'),
+      ),
       body: RefreshIndicator(
         onRefresh: () async => await ref.refresh(statisticsOverviewProvider.future),
         child: ListView(

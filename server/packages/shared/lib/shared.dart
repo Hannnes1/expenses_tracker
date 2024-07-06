@@ -6,3 +6,4 @@ export 'src/models/year_monthly_average.dart';
 export 'src/models/statistics_overview.dart';
 export 'src/models/transaction.dart';
 export 'src/models/user.dart';
+export 'src/enums/transactions_order.dart';

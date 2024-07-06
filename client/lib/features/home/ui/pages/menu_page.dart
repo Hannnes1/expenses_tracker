@@ -9,6 +9,9 @@ class MenuPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Menu'),
+      ),
       body: ListView(
         children: ListTile.divideTiles(
           context: context,
