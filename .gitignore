@@ -5,3 +5,5 @@
 # Flutter/Dart specific files
 .dart_tool/
 build/
+
+*.tar
