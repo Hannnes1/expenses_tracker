@@ -1,4 +1,3 @@
-import 'package:expensetrack/core/extensions.dart';
 import 'package:expensetrack/core/router.dart';
 import 'package:expensetrack/core/widgets/date_picker.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';

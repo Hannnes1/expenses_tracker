@@ -30,17 +30,6 @@ class StatisticsRepository {
     return result.map((e) => MonthlyCategoryTotals.fromDatabase(e.toColumnMap())).toList();
   }
 
-  Future<List<MonthlyFixedCosts>> getMonthlyFixedCosts(String userId) async {
-    final result = await connection.executeNamed(
-      'SELECT * FROM monthly_fixed_costs WHERE user_id = @userId',
-      parameters: {
-        'userId': userId,
-      },
-    );
-
-    return result.map((e) => MonthlyFixedCosts.fromDatabase(e.toColumnMap())).toList();
-  }
-
   Future<YearMonthlyAverage> getYearMonthlyAverage(String userId) async {
     final result = await connection.executeNamed(
       'SELECT * FROM year_monthly_average WHERE user_id = @userId',
