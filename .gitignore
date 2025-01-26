@@ -1,6 +1,7 @@
 # User specific files
 .vscode
 !.vscode/launch.json
+.idea
 
 # Flutter/Dart specific files
 .dart_tool/
