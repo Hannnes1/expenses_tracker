@@ -11,9 +11,6 @@ _$StatisticsOverviewImpl _$$StatisticsOverviewImplFromJson(
     _$StatisticsOverviewImpl(
       yearMonthlyAverage: YearMonthlyAverage.fromJson(
           json['yearMonthlyAverage'] as Map<String, dynamic>),
-      monthlyFixedCosts: (json['monthlyFixedCosts'] as List<dynamic>)
-          .map((e) => MonthlyFixedCosts.fromJson(e as Map<String, dynamic>))
-          .toList(),
       monthlyCategoryTotals: (json['monthlyCategoryTotals'] as List<dynamic>)
           .map((e) => MonthlyCategoryTotals.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -25,7 +22,6 @@ Map<String, dynamic> _$$StatisticsOverviewImplToJson(
         _$StatisticsOverviewImpl instance) =>
     <String, dynamic>{
       'yearMonthlyAverage': instance.yearMonthlyAverage,
-      'monthlyFixedCosts': instance.monthlyFixedCosts,
       'monthlyCategoryTotals': instance.monthlyCategoryTotals,
       'last12MonthsCategoryAverage': instance.last12MonthsCategoryAverage,
     };

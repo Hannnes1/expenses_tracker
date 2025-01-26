@@ -12,7 +12,7 @@ part of 'statistics_overview.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 StatisticsOverview _$StatisticsOverviewFromJson(Map<String, dynamic> json) {
   return _StatisticsOverview.fromJson(json);
@@ -22,15 +22,17 @@ StatisticsOverview _$StatisticsOverviewFromJson(Map<String, dynamic> json) {
 mixin _$StatisticsOverview {
   YearMonthlyAverage get yearMonthlyAverage =>
       throw _privateConstructorUsedError;
-  List<MonthlyFixedCosts> get monthlyFixedCosts =>
-      throw _privateConstructorUsedError;
   List<MonthlyCategoryTotals> get monthlyCategoryTotals =>
       throw _privateConstructorUsedError;
   Map<String, num> get last12MonthsCategoryAverage =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this StatisticsOverview to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $StatisticsOverviewCopyWith<StatisticsOverview> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,7 +45,6 @@ abstract class $StatisticsOverviewCopyWith<$Res> {
   @useResult
   $Res call(
       {YearMonthlyAverage yearMonthlyAverage,
-      List<MonthlyFixedCosts> monthlyFixedCosts,
       List<MonthlyCategoryTotals> monthlyCategoryTotals,
       Map<String, num> last12MonthsCategoryAverage});
 
@@ -60,11 +61,12 @@ class _$StatisticsOverviewCopyWithImpl<$Res, $Val extends StatisticsOverview>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? yearMonthlyAverage = null,
-    Object? monthlyFixedCosts = null,
     Object? monthlyCategoryTotals = null,
     Object? last12MonthsCategoryAverage = null,
   }) {
@@ -73,10 +75,6 @@ class _$StatisticsOverviewCopyWithImpl<$Res, $Val extends StatisticsOverview>
           ? _value.yearMonthlyAverage
           : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
               as YearMonthlyAverage,
-      monthlyFixedCosts: null == monthlyFixedCosts
-          ? _value.monthlyFixedCosts
-          : monthlyFixedCosts // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyFixedCosts>,
       monthlyCategoryTotals: null == monthlyCategoryTotals
           ? _value.monthlyCategoryTotals
           : monthlyCategoryTotals // ignore: cast_nullable_to_non_nullable
@@ -88,6 +86,8 @@ class _$StatisticsOverviewCopyWithImpl<$Res, $Val extends StatisticsOverview>
     ) as $Val);
   }
 
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage {
@@ -108,7 +108,6 @@ abstract class _$$StatisticsOverviewImplCopyWith<$Res>
   @useResult
   $Res call(
       {YearMonthlyAverage yearMonthlyAverage,
-      List<MonthlyFixedCosts> monthlyFixedCosts,
       List<MonthlyCategoryTotals> monthlyCategoryTotals,
       Map<String, num> last12MonthsCategoryAverage});
 
@@ -124,11 +123,12 @@ class __$$StatisticsOverviewImplCopyWithImpl<$Res>
       $Res Function(_$StatisticsOverviewImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? yearMonthlyAverage = null,
-    Object? monthlyFixedCosts = null,
     Object? monthlyCategoryTotals = null,
     Object? last12MonthsCategoryAverage = null,
   }) {
@@ -137,10 +137,6 @@ class __$$StatisticsOverviewImplCopyWithImpl<$Res>
           ? _value.yearMonthlyAverage
           : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
               as YearMonthlyAverage,
-      monthlyFixedCosts: null == monthlyFixedCosts
-          ? _value._monthlyFixedCosts
-          : monthlyFixedCosts // ignore: cast_nullable_to_non_nullable
-              as List<MonthlyFixedCosts>,
       monthlyCategoryTotals: null == monthlyCategoryTotals
           ? _value._monthlyCategoryTotals
           : monthlyCategoryTotals // ignore: cast_nullable_to_non_nullable
@@ -158,11 +154,9 @@ class __$$StatisticsOverviewImplCopyWithImpl<$Res>
 class _$StatisticsOverviewImpl implements _StatisticsOverview {
   _$StatisticsOverviewImpl(
       {required this.yearMonthlyAverage,
-      required final List<MonthlyFixedCosts> monthlyFixedCosts,
       required final List<MonthlyCategoryTotals> monthlyCategoryTotals,
       required final Map<String, num> last12MonthsCategoryAverage})
-      : _monthlyFixedCosts = monthlyFixedCosts,
-        _monthlyCategoryTotals = monthlyCategoryTotals,
+      : _monthlyCategoryTotals = monthlyCategoryTotals,
         _last12MonthsCategoryAverage = last12MonthsCategoryAverage;
 
   factory _$StatisticsOverviewImpl.fromJson(Map<String, dynamic> json) =>
@@ -170,15 +164,6 @@ class _$StatisticsOverviewImpl implements _StatisticsOverview {
 
   @override
   final YearMonthlyAverage yearMonthlyAverage;
-  final List<MonthlyFixedCosts> _monthlyFixedCosts;
-  @override
-  List<MonthlyFixedCosts> get monthlyFixedCosts {
-    if (_monthlyFixedCosts is EqualUnmodifiableListView)
-      return _monthlyFixedCosts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_monthlyFixedCosts);
-  }
-
   final List<MonthlyCategoryTotals> _monthlyCategoryTotals;
   @override
   List<MonthlyCategoryTotals> get monthlyCategoryTotals {
@@ -199,7 +184,7 @@ class _$StatisticsOverviewImpl implements _StatisticsOverview {
 
   @override
   String toString() {
-    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, monthlyFixedCosts: $monthlyFixedCosts, monthlyCategoryTotals: $monthlyCategoryTotals, last12MonthsCategoryAverage: $last12MonthsCategoryAverage)';
+    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, monthlyCategoryTotals: $monthlyCategoryTotals, last12MonthsCategoryAverage: $last12MonthsCategoryAverage)';
   }
 
   @override
@@ -210,24 +195,23 @@ class _$StatisticsOverviewImpl implements _StatisticsOverview {
             (identical(other.yearMonthlyAverage, yearMonthlyAverage) ||
                 other.yearMonthlyAverage == yearMonthlyAverage) &&
             const DeepCollectionEquality()
-                .equals(other._monthlyFixedCosts, _monthlyFixedCosts) &&
-            const DeepCollectionEquality()
                 .equals(other._monthlyCategoryTotals, _monthlyCategoryTotals) &&
             const DeepCollectionEquality().equals(
                 other._last12MonthsCategoryAverage,
                 _last12MonthsCategoryAverage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       yearMonthlyAverage,
-      const DeepCollectionEquality().hash(_monthlyFixedCosts),
       const DeepCollectionEquality().hash(_monthlyCategoryTotals),
       const DeepCollectionEquality().hash(_last12MonthsCategoryAverage));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StatisticsOverviewImplCopyWith<_$StatisticsOverviewImpl> get copyWith =>
@@ -245,7 +229,6 @@ class _$StatisticsOverviewImpl implements _StatisticsOverview {
 abstract class _StatisticsOverview implements StatisticsOverview {
   factory _StatisticsOverview(
           {required final YearMonthlyAverage yearMonthlyAverage,
-          required final List<MonthlyFixedCosts> monthlyFixedCosts,
           required final List<MonthlyCategoryTotals> monthlyCategoryTotals,
           required final Map<String, num> last12MonthsCategoryAverage}) =
       _$StatisticsOverviewImpl;
@@ -256,13 +239,14 @@ abstract class _StatisticsOverview implements StatisticsOverview {
   @override
   YearMonthlyAverage get yearMonthlyAverage;
   @override
-  List<MonthlyFixedCosts> get monthlyFixedCosts;
-  @override
   List<MonthlyCategoryTotals> get monthlyCategoryTotals;
   @override
   Map<String, num> get last12MonthsCategoryAverage;
+
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StatisticsOverviewImplCopyWith<_$StatisticsOverviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

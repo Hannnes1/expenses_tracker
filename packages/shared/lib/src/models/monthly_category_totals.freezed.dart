@@ -12,7 +12,7 @@ part of 'monthly_category_totals.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MonthlyCategoryTotals _$MonthlyCategoryTotalsFromJson(
     Map<String, dynamic> json) {
@@ -30,8 +30,12 @@ mixin _$MonthlyCategoryTotals {
   num get positiveAmount => throw _privateConstructorUsedError;
   num get totalAmount => throw _privateConstructorUsedError;
 
+  /// Serializes this MonthlyCategoryTotals to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MonthlyCategoryTotals
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MonthlyCategoryTotalsCopyWith<MonthlyCategoryTotals> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$MonthlyCategoryTotalsCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MonthlyCategoryTotals
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,6 +127,8 @@ class __$$MonthlyCategoryTotalsImplCopyWithImpl<$Res>
       $Res Function(_$MonthlyCategoryTotalsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MonthlyCategoryTotals
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -203,12 +211,14 @@ class _$MonthlyCategoryTotalsImpl implements _MonthlyCategoryTotals {
                 other.totalAmount == totalAmount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, month, categoryId,
       negativeAmount, positiveAmount, totalAmount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MonthlyCategoryTotals
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MonthlyCategoryTotalsImplCopyWith<_$MonthlyCategoryTotalsImpl>
@@ -234,11 +244,10 @@ abstract class _MonthlyCategoryTotals implements MonthlyCategoryTotals {
   factory _MonthlyCategoryTotals.fromJson(Map<String, dynamic> json) =
       _$MonthlyCategoryTotalsImpl.fromJson;
 
-  @override
-
   /// The month for which the totals are calculated.
   ///
   /// The rest of the date (day and time) should be ignored.
+  @override
   DateTime get month;
   @override
   String get categoryId;
@@ -248,8 +257,11 @@ abstract class _MonthlyCategoryTotals implements MonthlyCategoryTotals {
   num get positiveAmount;
   @override
   num get totalAmount;
+
+  /// Create a copy of MonthlyCategoryTotals
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MonthlyCategoryTotalsImplCopyWith<_$MonthlyCategoryTotalsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

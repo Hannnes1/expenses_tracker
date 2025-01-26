@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  start-database:
+    cmds:
+      - docker compose up --build
+
+  start-firebase:
+    dir: firebase
+    cmds:
+      - firebase emulators:start --import=./emulator-data
+
+  watch-server:
+    dir: server
+    cmds:
+      - dart_frog dev
+
+  watch:
+    deps: [start-database, start-firebase, watch-server]

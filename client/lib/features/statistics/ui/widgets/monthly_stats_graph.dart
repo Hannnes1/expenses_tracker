@@ -180,12 +180,17 @@ class _Graph extends ConsumerWidget {
     // thousand. Limit the interval to a minimum of 1000 (so it won't be zero).
     final yAxisInterval = max((_maxY - _minY) ~/ 4 ~/ 1000 * 1000.0, 1000.0);
 
-    Widget buildBottomTitle(double value, TitleMeta meta) {
-      final month = _monthlySum().keys.toList()[value.toInt()];
+    final monthLabelInterval = max(monthlySum.length / 8, 1.0);
 
-      return Text(
-        month.shortMonthName(),
-        style: textTheme.labelSmall,
+    Widget buildBottomTitle(double value, TitleMeta meta) {
+      final month = monthlySum.keys.toList()[value.toInt()];
+
+      return RotatedBox(
+        quarterTurns: 1,
+        child: Text(
+          month.shortMonthName(),
+          style: textTheme.labelSmall,
+        ),
       );
     }
 
@@ -242,8 +247,9 @@ class _Graph extends ConsumerWidget {
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              interval: 1,
+              interval: monthLabelInterval,
               getTitlesWidget: buildBottomTitle,
+              reservedSize: 30,
             ),
           ),
           leftTitles: const AxisTitles(

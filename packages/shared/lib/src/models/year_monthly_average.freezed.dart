@@ -12,7 +12,7 @@ part of 'year_monthly_average.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 YearMonthlyAverage _$YearMonthlyAverageFromJson(Map<String, dynamic> json) {
   return _YearMonthlyAverage.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$YearMonthlyAverage {
   num get averageFixedCost => throw _privateConstructorUsedError;
   num get averageVariableCost => throw _privateConstructorUsedError;
 
+  /// Serializes this YearMonthlyAverage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of YearMonthlyAverage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $YearMonthlyAverageCopyWith<YearMonthlyAverage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$YearMonthlyAverageCopyWithImpl<$Res, $Val extends YearMonthlyAverage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of YearMonthlyAverage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$YearMonthlyAverageImplCopyWithImpl<$Res>
       $Res Function(_$YearMonthlyAverageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of YearMonthlyAverage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,12 +144,14 @@ class _$YearMonthlyAverageImpl extends _YearMonthlyAverage {
                 other.averageVariableCost == averageVariableCost));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, averageFixedCost, averageVariableCost);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of YearMonthlyAverage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$YearMonthlyAverageImplCopyWith<_$YearMonthlyAverageImpl> get copyWith =>
@@ -169,8 +179,11 @@ abstract class _YearMonthlyAverage extends YearMonthlyAverage {
   num get averageFixedCost;
   @override
   num get averageVariableCost;
+
+  /// Create a copy of YearMonthlyAverage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$YearMonthlyAverageImplCopyWith<_$YearMonthlyAverageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
