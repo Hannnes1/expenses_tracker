@@ -15,7 +15,7 @@ dependencies:
   riverpod_annotation: ^2.1.1
   material_design_icons_flutter: ^7.0.7296
   shared:
-    path: ../server/packages/shared
+    path: ../packages/shared
   dio: ^5.1.1
   logger: ^2.0.2+1
   firebase_crashlytics: ^4.0.2
@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   firebase_auth: ^5.1.1
   google_sign_in: ^6.1.0
-  fl_chart: ^0.68.0
+  fl_chart: ^0.70.2
   sliver_tools: ^0.2.10
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^2.4.2
@@ -33,8 +33,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
-  custom_lint: ^0.6.4
+  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.1
   riverpod_lint: ^2.3.7
   build_runner: ^2.3.3
   riverpod_generator: ^2.2.1

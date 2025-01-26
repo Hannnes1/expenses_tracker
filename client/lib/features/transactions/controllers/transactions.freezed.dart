@@ -21,7 +21,9 @@ mixin _$TransactionsFilterState {
   DateTime? get endDate => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionsFilterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionsFilterStateCopyWith<TransactionsFilterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$TransactionsFilterStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionsFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -103,6 +107,8 @@ class __$$TransactionsFilterImplCopyWithImpl<$Res>
       $Res Function(_$TransactionsFilterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionsFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -178,7 +184,9 @@ class _$TransactionsFilterImpl implements _TransactionsFilter {
   int get hashCode => Object.hash(runtimeType, order, startDate, endDate,
       const DeepCollectionEquality().hash(_categories));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionsFilterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionsFilterImplCopyWith<_$TransactionsFilterImpl> get copyWith =>
@@ -201,8 +209,11 @@ abstract class _TransactionsFilter implements TransactionsFilterState {
   DateTime? get endDate;
   @override
   List<Category> get categories;
+
+  /// Create a copy of TransactionsFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionsFilterImplCopyWith<_$TransactionsFilterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
