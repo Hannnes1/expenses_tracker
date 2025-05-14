@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expensetrack/core/extensions.dart';
+import 'package:expensetrack/core/theme/custom_colors.dart';
 import 'package:expensetrack/core/widgets/provider_error.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/statistics/controllers/monthly_category_totals.dart';
@@ -88,23 +89,23 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
                       const SizedBox(
                         height: 8,
                       ),
-                      ...data.entries.map(
-                        (e) => Row(
-                          children: [
-                            Container(
-                              width: 16,
-                              height: 16,
-                              color: lineChartColors[data.keys.toList().indexOf(e.key)],
+                      ...data.entries.toList().map(
+                            (e) => Row(
+                              children: [
+                                Container(
+                                  width: 16,
+                                  height: 16,
+                                  color: lineChartColors[data.keys.toList().indexOf(e.key)],
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  e.key.name,
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              e.key.name,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
                     ],
                   ),
                 ),
@@ -171,6 +172,7 @@ class _Graph extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+    final customColors = theme.extension<CustomColors>()!;
 
     final yAxisPadding = (_maxY - _minY) * 0.1;
 
@@ -220,6 +222,38 @@ class _Graph extends ConsumerWidget {
         // padding.
         maxY: ((_maxY + yAxisPadding) / 1000).ceil() * 1000,
         minY: ((_minY - yAxisPadding) / 1000).floor() * 1000,
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            getTooltipItems: (showSeparated
+                ? (List<LineBarSpot> touchedSpots) {
+                    return touchedSpots.map((spot) {
+                      final category = data.keys.toList()[spot.barIndex];
+                      final month = data[category]![spot.x.toInt()].month;
+                      final value = spot.y;
+
+                      return LineTooltipItem(
+                        '${category.name} - ${month.shortMonthName()}:\n${value.formatCurrency()}',
+                        TextStyle(
+                          color: value.isNegative ? customColors.negative : customColors.positive,
+                        ),
+                      );
+                    }).toList();
+                  }
+                : (List<LineBarSpot> touchedSpots) {
+                    final month = monthlySum.keys.toList()[touchedSpots.first.x.toInt()];
+                    final value = touchedSpots.first.y;
+
+                    return [
+                      LineTooltipItem(
+                        '${month.shortMonthName()}:\n${value.formatCurrency()}',
+                        TextStyle(
+                          color: value.isNegative ? customColors.negative : customColors.positive,
+                        ),
+                      ),
+                    ];
+                  }),
+          ),
+        ),
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
