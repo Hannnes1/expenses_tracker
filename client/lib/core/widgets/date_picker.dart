@@ -50,6 +50,14 @@ class _DatePickerState extends State<DatePicker> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(4000),
+      builder: (context, child) {
+        // Not sure why, but I get  an error when providing the locale directly.
+        return Localizations.override(
+          context: context,
+          locale: const Locale('sv', 'SE'), // To have the week start on Monday.
+          child: child!,
+        );
+      },
     );
 
     if (date != null) {
