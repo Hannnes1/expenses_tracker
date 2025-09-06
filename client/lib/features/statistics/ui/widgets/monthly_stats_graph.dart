@@ -11,18 +11,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared/shared.dart';
 
 /// A list of colors to use when drawing the graph separated by category.
-List<Color> lineChartColors = const [
-  Color(0xFF3498db),
-  Color(0xFF2ecc71),
-  Color(0xFFff6f61),
-  Color(0xFFffd700),
-  Color(0xFFda70d6),
-  Color(0xFF008080),
-  Color(0xFFfa8072),
-  Color(0xFF00ffff),
-  Color(0xFFff5733),
-  Color(0xFF00ffff),
-];
+List<Color> _lineChartColors(Brightness brightness) {
+  const lightLineChartColors = <Color>[
+    Color(0xFFEF5350), // Light Red
+    Color(0xFF42A5F5), // Light Blue
+    Color(0xFF66BB6A), // Light Green
+    Color(0xFFFFA726), // Light Orange
+    Color(0xFF7E57C2), // Lavender
+    Color(0xFF26C6DA), // Light Cyan
+    Color(0xFFEC407A), // Light Pink
+    Color(0xFFB0BEC5), // Blue Grey
+    Color(0xFFD4E157), // Lime
+    Color(0xFF26A69A), // Teal
+    Color(0xFFFFEE58), // Yellow
+  ];
+
+  const darkLineChartColors = <Color>[
+    Color(0xFFE53935), // Red
+    Color(0xFF1E88E5), // Blue
+    Color(0xFF43A047), // Green
+    Color(0xFFFB8C00), // Orange
+    Color(0xFF8E24AA), // Purple
+    Color(0xFF00ACC1), // Teal
+    Color(0xFFD81B60), // Pink
+    Color(0xFF6D4C41), // Brown
+    Color(0xFFC0CA33), // Lime
+    Color(0xFF3949AB), // Indigo
+    Color(0xFFFFB300), // Amber
+  ];
+
+  return brightness == Brightness.dark ? lightLineChartColors : darkLineChartColors;
+}
 
 /// A graph that shows the monthly cash flow for each category.
 class MonthlyStatsGraph extends ConsumerStatefulWidget {
@@ -39,6 +58,8 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+
+    final lineColors = _lineChartColors(theme.brightness);
 
     return ref.watch(categorizedMonthlyCategoryTotalsProvider).when(
           // Don't show loading indicator when a dependency is reloaded,
@@ -95,7 +116,7 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
                                 Container(
                                   width: 16,
                                   height: 16,
-                                  color: lineChartColors[data.keys.toList().indexOf(e.key)],
+                                  color: lineColors[data.keys.toList().indexOf(e.key)],
                                 ),
                                 const SizedBox(
                                   width: 8,
@@ -173,6 +194,8 @@ class _Graph extends ConsumerWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
     final customColors = theme.extension<CustomColors>()!;
+
+    final lineColors = _lineChartColors(theme.brightness);
 
     final yAxisPadding = (_maxY - _minY) * 0.1;
 
@@ -312,7 +335,7 @@ class _Graph extends ConsumerWidget {
                       ),
                     )
                     .toList(),
-                color: lineChartColors[data.keys.toList().indexOf(category.key)],
+                color: lineColors[data.keys.toList().indexOf(category.key)],
                 fill: false,
               ),
             ),
