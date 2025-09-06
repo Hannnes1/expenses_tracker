@@ -6,12 +6,12 @@ import 'package:shared/shared.dart';
 part 'statistics_overview.g.dart';
 
 @riverpod
-Future<StatisticsOverview> statisticsOverview(StatisticsOverviewRef ref) async {
+Future<StatisticsOverview> statisticsOverview(Ref ref) async {
   return ref.watch(statisticsRepositoryProvider).getOverview();
 }
 
 @riverpod
-Future<(StatisticsOverview, List<Category>)> statisticsPageData(StatisticsPageDataRef ref) async {
+Future<(StatisticsOverview, List<Category>)> statisticsPageData(Ref ref) async {
   return (
     await ref.watch(statisticsOverviewProvider.future),
     await ref.watch(categoriesProvider.future),

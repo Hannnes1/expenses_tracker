@@ -7,7 +7,7 @@ import 'package:shared/shared.dart';
 part 'accounts.g.dart';
 
 @riverpod
-Future<List<Account>> accounts(AccountsRef ref) async {
+Future<List<Account>> accounts(Ref ref) async {
   ref.cacheFor(kDefaultCacheDuration);
 
   return await ref.watch(accountsRepositoryProvider).getAccounts();

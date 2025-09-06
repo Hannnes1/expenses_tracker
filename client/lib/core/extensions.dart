@@ -63,7 +63,7 @@ extension NumExtension on num {
   }
 }
 
-extension AutoDisposeExtension on AutoDisposeRef {
+extension AutoDisposeExtension on Ref {
   // When invoked keeps your provider alive for [duration]
   void cacheFor(Duration duration) {
     final link = keepAlive();
@@ -77,10 +77,10 @@ extension ColorSchemeExtensions on ColorScheme {
   /// The color of a disabled elements, for example a disabled button.
   ///
   /// This is copied from the style of a [FilledButton].
-  Color get disabled => onSurface.withOpacity(0.12);
+  Color get disabled => onSurface.withValues(alpha: 0.12);
 
   /// The color for text on [disabled] elements.
   ///
   /// This is copied from the style of a [FilledButton].
-  Color get onDisabled => onSurface.withOpacity(0.38);
+  Color get onDisabled => onSurface.withValues(alpha: 0.38);
 }

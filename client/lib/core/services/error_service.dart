@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'error_service.g.dart';
 
 @riverpod
-ErrorService errorService(ErrorServiceRef ref) {
+ErrorService errorService(Ref ref) {
   return ErrorService(ref.watch(loggerProvider('ErrorService')));
 }
 

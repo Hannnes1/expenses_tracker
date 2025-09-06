@@ -10,7 +10,7 @@ part 'monthly_category_totals.g.dart';
 /// A map of categories and their data points.
 @riverpod
 Future<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCategoryTotals(
-  CategorizedMonthlyCategoryTotalsRef ref,
+  Ref ref,
 ) async {
   final monthlyCategoryTotals = (await ref.watch(statisticsOverviewProvider.future)).monthlyCategoryTotals;
 

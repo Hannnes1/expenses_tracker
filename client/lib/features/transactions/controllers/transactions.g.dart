@@ -6,310 +6,213 @@ part of 'transactions.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$paginatedTransactionsHash() =>
-    r'aa01efe22ee13fe97ea16303c9d37d8a3e32f61c';
+@ProviderFor(paginatedTransactions)
+const paginatedTransactionsProvider = PaginatedTransactionsFamily._();
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
+final class PaginatedTransactionsProvider extends $FunctionalProvider<
+        AsyncValue<List<Transaction>>,
+        List<Transaction>,
+        FutureOr<List<Transaction>>>
+    with
+        $FutureModifier<List<Transaction>>,
+        $FutureProvider<List<Transaction>> {
+  const PaginatedTransactionsProvider._(
+      {required PaginatedTransactionsFamily super.from,
+      required int super.argument})
+      : super(
+          retry: null,
+          name: r'paginatedTransactionsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
+  @override
+  String debugGetCreateSourceHash() => _$paginatedTransactionsHash();
+
+  @override
+  String toString() {
+    return r'paginatedTransactionsProvider'
+        ''
+        '($argument)';
   }
 
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  @$internal
+  @override
+  $FutureProviderElement<List<Transaction>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Transaction>> create(Ref ref) {
+    final argument = this.argument as int;
+    return paginatedTransactions(
+      ref,
+      argument,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PaginatedTransactionsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
   }
 }
 
-/// See also [paginatedTransactions].
-@ProviderFor(paginatedTransactions)
-const paginatedTransactionsProvider = PaginatedTransactionsFamily();
+String _$paginatedTransactionsHash() =>
+    r'30c9878c99e3b98582119b922516264705db8cb0';
 
-/// See also [paginatedTransactions].
-class PaginatedTransactionsFamily
-    extends Family<AsyncValue<List<Transaction>>> {
-  /// See also [paginatedTransactions].
-  const PaginatedTransactionsFamily();
+final class PaginatedTransactionsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Transaction>>, int> {
+  const PaginatedTransactionsFamily._()
+      : super(
+          retry: null,
+          name: r'paginatedTransactionsProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
 
-  /// See also [paginatedTransactions].
   PaginatedTransactionsProvider call(
     int page,
-  ) {
-    return PaginatedTransactionsProvider(
-      page,
-    );
-  }
+  ) =>
+      PaginatedTransactionsProvider._(argument: page, from: this);
 
   @override
-  PaginatedTransactionsProvider getProviderOverride(
-    covariant PaginatedTransactionsProvider provider,
-  ) {
-    return call(
-      provider.page,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'paginatedTransactionsProvider';
+  String toString() => r'paginatedTransactionsProvider';
 }
 
-/// See also [paginatedTransactions].
-class PaginatedTransactionsProvider
-    extends AutoDisposeFutureProvider<List<Transaction>> {
-  /// See also [paginatedTransactions].
-  PaginatedTransactionsProvider(
-    int page,
-  ) : this._internal(
-          (ref) => paginatedTransactions(
-            ref as PaginatedTransactionsRef,
-            page,
-          ),
-          from: paginatedTransactionsProvider,
-          name: r'paginatedTransactionsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$paginatedTransactionsHash,
-          dependencies: PaginatedTransactionsFamily._dependencies,
-          allTransitiveDependencies:
-              PaginatedTransactionsFamily._allTransitiveDependencies,
-          page: page,
+@ProviderFor(transaction)
+const transactionProvider = TransactionFamily._();
+
+final class TransactionProvider extends $FunctionalProvider<
+        AsyncValue<Transaction>, Transaction, FutureOr<Transaction>>
+    with $FutureModifier<Transaction>, $FutureProvider<Transaction> {
+  const TransactionProvider._(
+      {required TransactionFamily super.from, required String super.argument})
+      : super(
+          retry: null,
+          name: r'transactionProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  PaginatedTransactionsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.page,
-  }) : super.internal();
-
-  final int page;
+  @override
+  String debugGetCreateSourceHash() => _$transactionHash();
 
   @override
-  Override overrideWith(
-    FutureOr<List<Transaction>> Function(PaginatedTransactionsRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: PaginatedTransactionsProvider._internal(
-        (ref) => create(ref as PaginatedTransactionsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        page: page,
-      ),
-    );
+  String toString() {
+    return r'transactionProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Transaction>> createElement() {
-    return _PaginatedTransactionsProviderElement(this);
+  $FutureProviderElement<Transaction> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Transaction> create(Ref ref) {
+    final argument = this.argument as String;
+    return transaction(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PaginatedTransactionsProvider && other.page == page;
+    return other is TransactionProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin PaginatedTransactionsRef
-    on AutoDisposeFutureProviderRef<List<Transaction>> {
-  /// The parameter `page` of this provider.
-  int get page;
-}
+String _$transactionHash() => r'afe1674ede1fdc6d2c1d5ee94747c2cd04bc6746';
 
-class _PaginatedTransactionsProviderElement
-    extends AutoDisposeFutureProviderElement<List<Transaction>>
-    with PaginatedTransactionsRef {
-  _PaginatedTransactionsProviderElement(super.provider);
+final class TransactionFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Transaction>, String> {
+  const TransactionFamily._()
+      : super(
+          retry: null,
+          name: r'transactionProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
 
-  @override
-  int get page => (origin as PaginatedTransactionsProvider).page;
-}
-
-String _$transactionHash() => r'a96e467c8bd05e6e2a70dca0d8d1a2c4d7442200';
-
-/// See also [transaction].
-@ProviderFor(transaction)
-const transactionProvider = TransactionFamily();
-
-/// See also [transaction].
-class TransactionFamily extends Family<AsyncValue<Transaction>> {
-  /// See also [transaction].
-  const TransactionFamily();
-
-  /// See also [transaction].
   TransactionProvider call(
     String id,
-  ) {
-    return TransactionProvider(
-      id,
-    );
-  }
+  ) =>
+      TransactionProvider._(argument: id, from: this);
 
   @override
-  TransactionProvider getProviderOverride(
-    covariant TransactionProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'transactionProvider';
+  String toString() => r'transactionProvider';
 }
 
-/// See also [transaction].
-class TransactionProvider extends AutoDisposeFutureProvider<Transaction> {
-  /// See also [transaction].
-  TransactionProvider(
-    String id,
-  ) : this._internal(
-          (ref) => transaction(
-            ref as TransactionRef,
-            id,
-          ),
-          from: transactionProvider,
-          name: r'transactionProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$transactionHash,
-          dependencies: TransactionFamily._dependencies,
-          allTransitiveDependencies:
-              TransactionFamily._allTransitiveDependencies,
-          id: id,
+@ProviderFor(TransactionsFilterController)
+const transactionsFilterControllerProvider =
+    TransactionsFilterControllerProvider._();
+
+final class TransactionsFilterControllerProvider extends $NotifierProvider<
+    TransactionsFilterController, TransactionsFilterState> {
+  const TransactionsFilterControllerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'transactionsFilterControllerProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  TransactionProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final String id;
-
   @override
-  Override overrideWith(
-    FutureOr<Transaction> Function(TransactionRef provider) create,
-  ) {
-    return ProviderOverride(
+  String debugGetCreateSourceHash() => _$transactionsFilterControllerHash();
+
+  @$internal
+  @override
+  TransactionsFilterController create() => TransactionsFilterController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TransactionsFilterState value) {
+    return $ProviderOverride(
       origin: this,
-      override: TransactionProvider._internal(
-        (ref) => create(ref as TransactionRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
+      providerOverride: $SyncValueProvider<TransactionsFilterState>(value),
     );
   }
-
-  @override
-  AutoDisposeFutureProviderElement<Transaction> createElement() {
-    return _TransactionProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is TransactionProvider && other.id == id;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin TransactionRef on AutoDisposeFutureProviderRef<Transaction> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
-
-class _TransactionProviderElement
-    extends AutoDisposeFutureProviderElement<Transaction> with TransactionRef {
-  _TransactionProviderElement(super.provider);
-
-  @override
-  String get id => (origin as TransactionProvider).id;
 }
 
 String _$transactionsFilterControllerHash() =>
     r'0599894097f7a50472a16c9bf75717ad9a204529';
 
-/// See also [TransactionsFilterController].
-@ProviderFor(TransactionsFilterController)
-final transactionsFilterControllerProvider = AutoDisposeNotifierProvider<
-    TransactionsFilterController, TransactionsFilterState>.internal(
-  TransactionsFilterController.new,
-  name: r'transactionsFilterControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$transactionsFilterControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$TransactionsFilterController
+    extends $Notifier<TransactionsFilterState> {
+  TransactionsFilterState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<TransactionsFilterState, TransactionsFilterState>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<TransactionsFilterState, TransactionsFilterState>,
+        TransactionsFilterState,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
 
-typedef _$TransactionsFilterController
-    = AutoDisposeNotifier<TransactionsFilterState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

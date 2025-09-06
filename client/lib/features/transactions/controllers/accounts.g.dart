@@ -6,21 +6,39 @@ part of 'accounts.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$accountsHash() => r'f152cd776d19a9f5bb2124f1ada66c06bfd37eef';
-
-/// See also [accounts].
 @ProviderFor(accounts)
-final accountsProvider = AutoDisposeFutureProvider<List<Account>>.internal(
-  accounts,
-  name: r'accountsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$accountsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const accountsProvider = AccountsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AccountsRef = AutoDisposeFutureProviderRef<List<Account>>;
+final class AccountsProvider extends $FunctionalProvider<
+        AsyncValue<List<Account>>, List<Account>, FutureOr<List<Account>>>
+    with $FutureModifier<List<Account>>, $FutureProvider<List<Account>> {
+  const AccountsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'accountsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$accountsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Account>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Account>> create(Ref ref) {
+    return accounts(ref);
+  }
+}
+
+String _$accountsHash() => r'af356efefecdd82df494d259856525b790077a0f';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

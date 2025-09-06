@@ -9,7 +9,7 @@ part 'transactions.freezed.dart';
 part 'transactions.g.dart';
 
 @riverpod
-Future<List<Transaction>> paginatedTransactions(PaginatedTransactionsRef ref, int page) async {
+Future<List<Transaction>> paginatedTransactions(Ref ref, int page) async {
   // Caching is required here to prevent loading when scrolling up.
   ref.cacheFor(kDefaultCacheDuration);
 
@@ -25,20 +25,20 @@ Future<List<Transaction>> paginatedTransactions(PaginatedTransactionsRef ref, in
 }
 
 @riverpod
-Future<Transaction> transaction(TransactionRef ref, String id) async {
+Future<Transaction> transaction(Ref ref, String id) async {
   ref.cacheFor(kDefaultCacheDuration);
 
   return await ref.watch(transactionsRepositoryProvider).getTransaction(id);
 }
 
 @freezed
-class TransactionsFilterState with _$TransactionsFilterState {
+sealed class TransactionsFilterState with _$TransactionsFilterState {
   const factory TransactionsFilterState({
     required TransactionsOrder order,
     required DateTime? startDate,
     required DateTime? endDate,
     required List<Category> categories,
-  }) = _TransactionsFilter;
+  }) = _TransactionsFilterState;
 }
 
 @riverpod

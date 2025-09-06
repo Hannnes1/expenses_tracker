@@ -6,24 +6,49 @@ part of 'accounts_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$accountsRepositoryHash() =>
-    r'b57b411cfdcad3d364f3d977b39caa02d956cca4';
-
-/// See also [accountsRepository].
 @ProviderFor(accountsRepository)
-final accountsRepositoryProvider =
-    AutoDisposeProvider<AccountsRepository>.internal(
-  accountsRepository,
-  name: r'accountsRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$accountsRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const accountsRepositoryProvider = AccountsRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AccountsRepositoryRef = AutoDisposeProviderRef<AccountsRepository>;
+final class AccountsRepositoryProvider extends $FunctionalProvider<
+    AccountsRepository,
+    AccountsRepository,
+    AccountsRepository> with $Provider<AccountsRepository> {
+  const AccountsRepositoryProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'accountsRepositoryProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$accountsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<AccountsRepository> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AccountsRepository create(Ref ref) {
+    return accountsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AccountsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AccountsRepository>(value),
+    );
+  }
+}
+
+String _$accountsRepositoryHash() =>
+    r'30aaa3af5dfcceedd6e1c8d9352791d9a21ce905';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

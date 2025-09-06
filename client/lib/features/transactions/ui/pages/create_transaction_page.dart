@@ -62,55 +62,55 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   }
 
   Widget _buildDropdownButton<T>({
-    required AutoDisposeFutureProvider<List<T>> provider,
+    required AsyncValue<List<T>> asyncValue,
     required String Function(T) selectedItemString,
     required Widget Function(T) itemBuilder,
-    required T? value,
+    required T? selection,
     required void Function(T?) onChanged,
     required String? Function(T?) validator,
     required String labelText,
     required String errorText,
   }) {
-    return ref.watch(provider).when(
-          error: (error, stackTrace) => ProviderError(
-            error: error,
-            stackTrace: stackTrace,
-            errorText: errorText,
-          ),
-          loading: () => const ShimmerLoading(
-            child: LoadingPlaceholder(
-              height: 50,
-            ),
-          ),
-          data: (data) => DropdownButtonFormField<T>(
-            value: value,
-            validator: validator,
-            decoration: InputDecoration(
-              labelText: labelText,
-            ),
-            selectedItemBuilder: (context) {
-              return data
-                  .map(
-                    (e) => Text(
-                      selectedItemString(e),
-                    ),
-                  )
-                  .toList();
-            },
-            // The categories and accounts should always be loaded before
-            // this page is shown, so we don't need to handle the loading in
-            // a fancy way.
-            items: data
-                .map(
-                  (e) => DropdownMenuItem(
-                    value: e,
-                    child: itemBuilder(e),
-                  ),
-                )
-                .toList(),
-            onChanged: onChanged,
-          ),
-        );
+    return asyncValue.when(
+      error: (error, stackTrace) => ProviderError(
+        error: error,
+        stackTrace: stackTrace,
+        errorText: errorText,
+      ),
+      loading: () => const ShimmerLoading(
+        child: LoadingPlaceholder(
+          height: 50,
+        ),
+      ),
+      data: (data) => DropdownButtonFormField<T>(
+        initialValue: selection,
+        validator: validator,
+        decoration: InputDecoration(
+          labelText: labelText,
+        ),
+        selectedItemBuilder: (context) {
+          return data
+              .map(
+                (e) => Text(
+                  selectedItemString(e),
+                ),
+              )
+              .toList();
+        },
+        // The categories and accounts should always be loaded before
+        // this page is shown, so we don't need to handle the loading in
+        // a fancy way.
+        items: data
+            .map(
+              (e) => DropdownMenuItem(
+                value: e,
+                child: itemBuilder(e),
+              ),
+            )
+            .toList(),
+        onChanged: onChanged,
+      ),
+    );
   }
 
   String? _dateValidator(String? value) {
@@ -248,10 +248,10 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
                     ),
                   ),
                   _buildDropdownButton(
-                    provider: categoriesProvider,
+                    asyncValue: ref.watch(categoriesProvider),
                     selectedItemString: (e) => e.name,
                     validator: _categoryValidator,
-                    value: _selectedCategory,
+                    selection: _selectedCategory,
                     labelText: 'Category',
                     errorText: 'Categories could not be loaded',
                     onChanged: (value) {
@@ -274,10 +274,10 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
                     ),
                   ),
                   _buildDropdownButton(
-                    provider: accountsProvider,
+                    asyncValue: ref.watch(accountsProvider),
                     selectedItemString: (e) => e.name,
                     validator: _accountValidator,
-                    value: _selectedAccount,
+                    selection: _selectedAccount,
                     labelText: 'Account',
                     errorText: 'Accounts could not be loaded',
                     onChanged: (value) {

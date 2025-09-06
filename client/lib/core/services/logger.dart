@@ -16,7 +16,7 @@ part 'logger.g.dart';
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
 @riverpod
-Logger logger(LoggerRef ref, String className, [List<LogOutput>? extraOutput]) {
+Logger logger(Ref ref, String className, [List<LogOutput>? extraOutput]) {
   return Logger(
     filter: LevelLogFilter(),
     printer: SimpleLogPrinter(className),
@@ -29,7 +29,7 @@ Logger logger(LoggerRef ref, String className, [List<LogOutput>? extraOutput]) {
 }
 
 @riverpod
-Logger providerLogger(ProviderLoggerRef ref) {
+Logger providerLogger(Ref ref) {
   return Logger(
     filter: LevelLogFilter(),
     // The ProviderLogger doesn't need a class, since the provider itself is identifying.
@@ -170,11 +170,13 @@ class LevelLogFilter extends LogFilter {
 class ProviderLogger extends ProviderObserver {
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
+    final container = context.container;
+    final provider = context.provider;
+
     final logger = container.read(providerLoggerProvider);
 
     // There is a bug in Firebase for Desktop that causes `toString` to throw an

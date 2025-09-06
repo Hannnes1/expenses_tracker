@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dio.g.dart';
 
 @riverpod
-Dio dio(DioRef ref) {
+Dio dio(Ref ref) {
   return initializeDio(
     baseUrl: kReleaseMode ? EnvVars.productionApiUrl : EnvVars.debugApiUrl,
     logger: ref.watch(loggerProvider('Dio')),

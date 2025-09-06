@@ -6,27 +6,50 @@ part of 'monthly_category_totals.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categorizedMonthlyCategoryTotalsHash() =>
-    r'84c6b11edf88ddb14ed3bfd9e683f3e77873ce91';
+/// A map of categories and their data points.
+@ProviderFor(categorizedMonthlyCategoryTotals)
+const categorizedMonthlyCategoryTotalsProvider =
+    CategorizedMonthlyCategoryTotalsProvider._();
 
 /// A map of categories and their data points.
-///
-/// Copied from [categorizedMonthlyCategoryTotals].
-@ProviderFor(categorizedMonthlyCategoryTotals)
-final categorizedMonthlyCategoryTotalsProvider = AutoDisposeFutureProvider<
-    SplayTreeMap<Category, List<MonthlyCategoryTotals>>>.internal(
-  categorizedMonthlyCategoryTotals,
-  name: r'categorizedMonthlyCategoryTotalsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$categorizedMonthlyCategoryTotalsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final class CategorizedMonthlyCategoryTotalsProvider
+    extends $FunctionalProvider<
+        AsyncValue<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>,
+        SplayTreeMap<Category, List<MonthlyCategoryTotals>>,
+        FutureOr<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>>
+    with
+        $FutureModifier<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>,
+        $FutureProvider<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> {
+  /// A map of categories and their data points.
+  const CategorizedMonthlyCategoryTotalsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'categorizedMonthlyCategoryTotalsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CategorizedMonthlyCategoryTotalsRef = AutoDisposeFutureProviderRef<
-    SplayTreeMap<Category, List<MonthlyCategoryTotals>>>;
+  @override
+  String debugGetCreateSourceHash() => _$categorizedMonthlyCategoryTotalsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>
+      $createElement($ProviderPointer pointer) =>
+          $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> create(
+      Ref ref) {
+    return categorizedMonthlyCategoryTotals(ref);
+  }
+}
+
+String _$categorizedMonthlyCategoryTotalsHash() =>
+    r'9c95cc3f1efc989ac35e72e41a31c1c7227aec7c';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

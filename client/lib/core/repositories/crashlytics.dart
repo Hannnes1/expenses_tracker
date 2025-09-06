@@ -8,6 +8,6 @@ part 'crashlytics.g.dart';
 ///
 /// Null will be returned if the app is running on the web.
 @riverpod
-FirebaseCrashlytics? crashlytics(CrashlyticsRef ref) {
+FirebaseCrashlytics? crashlytics(Ref ref) {
   return kIsWeb ? null : FirebaseCrashlytics.instance;
 }

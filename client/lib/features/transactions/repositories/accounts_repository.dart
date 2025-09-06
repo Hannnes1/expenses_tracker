@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:expensetrack/core/services/dio.dart';
 import 'package:expensetrack/core/services/error_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/shared.dart';
 
 part 'accounts_repository.g.dart';
 
 @riverpod
-AccountsRepository accountsRepository(AccountsRepositoryRef ref) {
+AccountsRepository accountsRepository(Ref ref) {
   return AccountsRepository(ref);
 }
 

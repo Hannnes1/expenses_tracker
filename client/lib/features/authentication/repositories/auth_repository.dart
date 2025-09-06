@@ -1,4 +1,3 @@
-import 'package:expensetrack/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -6,12 +5,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_repository.g.dart';
 
 @riverpod
-AuthRepository authRepository(AuthRepositoryRef ref) {
+AuthRepository authRepository(Ref ref) {
   return AuthRepository(
     auth.FirebaseAuth.instance,
-    GoogleSignIn(
-      clientId: DefaultFirebaseOptions.currentPlatform.iosClientId,
-    ),
+    GoogleSignIn.instance,
   );
 }
 
@@ -35,15 +32,14 @@ class AuthRepository {
 
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
-    final googleUser = await _googleSignIn.signIn();
+    final googleUser = await _googleSignIn.authenticate();
 
     // Obtain the auth details from the request
-    final googleAuth = await googleUser?.authentication;
+    final googleAuth = googleUser.authentication;
 
     // Create a new credential
     final credential = auth.GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      idToken: googleAuth.idToken,
     );
 
     await _auth.signInWithCredential(credential);

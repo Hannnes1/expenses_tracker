@@ -211,7 +211,7 @@ class _Graph extends ConsumerWidget {
         spots: spots,
         belowBarData: BarAreaData(
           show: fill,
-          color: colorScheme.primary.withOpacity(0.2),
+          color: colorScheme.primary.withValues(alpha: 0.2),
         ),
       );
     }

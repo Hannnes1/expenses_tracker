@@ -10,7 +10,7 @@ ThemeData _baseTheme(ColorScheme colorScheme) {
         borderRadius: BorderRadius.circular(8.0),
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: colorScheme.surfaceContainerHighest,
       elevation: 0,
     ),

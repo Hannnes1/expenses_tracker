@@ -120,7 +120,7 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
       // In the codelab (https://docs.flutter.dev/cookbook/effects/shimmer-loading),
       // this is done in the build method. However, this is will not work, as
       // the docs for `findRenderObject` says.
-      _offsetWithinShimmer = _shimmer!.getDescendantOffset(
+      _offsetWithinShimmer = _shimmer.getDescendantOffset(
         descendant: context.findRenderObject() as RenderBox,
       );
       setState(() {});
@@ -157,7 +157,7 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
       return const SizedBox();
     }
     final shimmerSize = _shimmer!.size;
-    final gradient = _shimmer!.gradient;
+    final gradient = _shimmer.gradient;
 
     return ShaderMask(
       blendMode: BlendMode.srcATop,

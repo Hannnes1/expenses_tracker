@@ -6,29 +6,6 @@ part of 'logger.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loggerHash() => r'9efb9d28b0466ad94203fb61f1eb739f1d24d3d6';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
 /// Get a logger for the specified [className].
 ///
 /// [className] does not have to be a class, but should be a string that
@@ -37,10 +14,8 @@ class _SystemHash {
 /// [extraOutput] can be used to specify additional locations that the output
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
-///
-/// Copied from [logger].
 @ProviderFor(logger)
-const loggerProvider = LoggerFamily();
+const loggerProvider = LoggerFamily._();
 
 /// Get a logger for the specified [className].
 ///
@@ -50,9 +25,8 @@ const loggerProvider = LoggerFamily();
 /// [extraOutput] can be used to specify additional locations that the output
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
-///
-/// Copied from [logger].
-class LoggerFamily extends Family<Logger> {
+final class LoggerProvider extends $FunctionalProvider<Logger, Logger, Logger>
+    with $Provider<Logger> {
   /// Get a logger for the specified [className].
   ///
   /// [className] does not have to be a class, but should be a string that
@@ -61,188 +35,155 @@ class LoggerFamily extends Family<Logger> {
   /// [extraOutput] can be used to specify additional locations that the output
   /// should be sent to. This is done during testing, to be able to
   /// read the output.
-  ///
-  /// Copied from [logger].
-  const LoggerFamily();
-
-  /// Get a logger for the specified [className].
-  ///
-  /// [className] does not have to be a class, but should be a string that
-  /// identifies where the log comes from.
-  ///
-  /// [extraOutput] can be used to specify additional locations that the output
-  /// should be sent to. This is done during testing, to be able to
-  /// read the output.
-  ///
-  /// Copied from [logger].
-  LoggerProvider call(
-    String className, [
-    List<LogOutput>? extraOutput,
-  ]) {
-    return LoggerProvider(
-      className,
-      extraOutput,
-    );
-  }
-
-  @override
-  LoggerProvider getProviderOverride(
-    covariant LoggerProvider provider,
-  ) {
-    return call(
-      provider.className,
-      provider.extraOutput,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'loggerProvider';
-}
-
-/// Get a logger for the specified [className].
-///
-/// [className] does not have to be a class, but should be a string that
-/// identifies where the log comes from.
-///
-/// [extraOutput] can be used to specify additional locations that the output
-/// should be sent to. This is done during testing, to be able to
-/// read the output.
-///
-/// Copied from [logger].
-class LoggerProvider extends AutoDisposeProvider<Logger> {
-  /// Get a logger for the specified [className].
-  ///
-  /// [className] does not have to be a class, but should be a string that
-  /// identifies where the log comes from.
-  ///
-  /// [extraOutput] can be used to specify additional locations that the output
-  /// should be sent to. This is done during testing, to be able to
-  /// read the output.
-  ///
-  /// Copied from [logger].
-  LoggerProvider(
-    String className, [
-    List<LogOutput>? extraOutput,
-  ]) : this._internal(
-          (ref) => logger(
-            ref as LoggerRef,
-            className,
-            extraOutput,
-          ),
-          from: loggerProvider,
+  const LoggerProvider._(
+      {required LoggerFamily super.from,
+      required (
+        String,
+        List<LogOutput>?,
+      )
+          super.argument})
+      : super(
+          retry: null,
           name: r'loggerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$loggerHash,
-          dependencies: LoggerFamily._dependencies,
-          allTransitiveDependencies: LoggerFamily._allTransitiveDependencies,
-          className: className,
-          extraOutput: extraOutput,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  LoggerProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.className,
-    required this.extraOutput,
-  }) : super.internal();
-
-  final String className;
-  final List<LogOutput>? extraOutput;
+  @override
+  String debugGetCreateSourceHash() => _$loggerHash();
 
   @override
-  Override overrideWith(
-    Logger Function(LoggerRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LoggerProvider._internal(
-        (ref) => create(ref as LoggerRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        className: className,
-        extraOutput: extraOutput,
-      ),
+  String toString() {
+    return r'loggerProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<Logger> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Logger create(Ref ref) {
+    final argument = this.argument as (
+      String,
+      List<LogOutput>?,
+    );
+    return logger(
+      ref,
+      argument.$1,
+      argument.$2,
     );
   }
 
-  @override
-  AutoDisposeProviderElement<Logger> createElement() {
-    return _LoggerProviderElement(this);
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Logger value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Logger>(value),
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LoggerProvider &&
-        other.className == className &&
-        other.extraOutput == extraOutput;
+    return other is LoggerProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, className.hashCode);
-    hash = _SystemHash.combine(hash, extraOutput.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin LoggerRef on AutoDisposeProviderRef<Logger> {
-  /// The parameter `className` of this provider.
-  String get className;
+String _$loggerHash() => r'38461bd2b795a8dc48fc829ea12d91fa70ca29b0';
 
-  /// The parameter `extraOutput` of this provider.
-  List<LogOutput>? get extraOutput;
-}
+/// Get a logger for the specified [className].
+///
+/// [className] does not have to be a class, but should be a string that
+/// identifies where the log comes from.
+///
+/// [extraOutput] can be used to specify additional locations that the output
+/// should be sent to. This is done during testing, to be able to
+/// read the output.
+final class LoggerFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+            Logger,
+            (
+              String,
+              List<LogOutput>?,
+            )> {
+  const LoggerFamily._()
+      : super(
+          retry: null,
+          name: r'loggerProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
 
-class _LoggerProviderElement extends AutoDisposeProviderElement<Logger>
-    with LoggerRef {
-  _LoggerProviderElement(super.provider);
+  /// Get a logger for the specified [className].
+  ///
+  /// [className] does not have to be a class, but should be a string that
+  /// identifies where the log comes from.
+  ///
+  /// [extraOutput] can be used to specify additional locations that the output
+  /// should be sent to. This is done during testing, to be able to
+  /// read the output.
+  LoggerProvider call(
+    String className, [
+    List<LogOutput>? extraOutput,
+  ]) =>
+      LoggerProvider._(argument: (
+        className,
+        extraOutput,
+      ), from: this);
 
   @override
-  String get className => (origin as LoggerProvider).className;
-  @override
-  List<LogOutput>? get extraOutput => (origin as LoggerProvider).extraOutput;
+  String toString() => r'loggerProvider';
 }
 
-String _$providerLoggerHash() => r'1d4e3e3952d4940ede7ac02e7c5f52ac818bc799';
-
-/// See also [providerLogger].
 @ProviderFor(providerLogger)
-final providerLoggerProvider = AutoDisposeProvider<Logger>.internal(
-  providerLogger,
-  name: r'providerLoggerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$providerLoggerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const providerLoggerProvider = ProviderLoggerProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ProviderLoggerRef = AutoDisposeProviderRef<Logger>;
+final class ProviderLoggerProvider
+    extends $FunctionalProvider<Logger, Logger, Logger> with $Provider<Logger> {
+  const ProviderLoggerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'providerLoggerProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$providerLoggerHash();
+
+  @$internal
+  @override
+  $ProviderElement<Logger> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Logger create(Ref ref) {
+    return providerLogger(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Logger value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Logger>(value),
+    );
+  }
+}
+
+String _$providerLoggerHash() => r'e88980c998b51acf2c038135271795bca6c51464';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

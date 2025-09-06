@@ -7,7 +7,7 @@ import 'package:shared/shared.dart';
 part 'categories.g.dart';
 
 @riverpod
-Future<List<Category>> categories(CategoriesRef ref) async {
+Future<List<Category>> categories(Ref ref) async {
   ref.cacheFor(kDefaultCacheDuration);
 
   final categories = await ref.watch(categoriesRepositoryProvider).getCategories();
