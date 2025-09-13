@@ -31,6 +31,8 @@ class AuthRepository {
   }
 
   Future<void> signInWithGoogle() async {
+    await _googleSignIn.initialize();
+
     // Trigger the authentication flow
     final googleUser = await _googleSignIn.authenticate();
 

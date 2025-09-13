@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "677224566709",
     "project_id": "expenses-tracker-8ef0a",
-    "storage_bucket": "expenses-tracker-8ef0a.appspot.com"
+    "storage_bucket": "expenses-tracker-8ef0a.firebasestorage.app"
   },
   "client": [
     {

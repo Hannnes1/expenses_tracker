@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '677224566709',
     projectId: 'expenses-tracker-8ef0a',
     authDomain: 'expenses-tracker-8ef0a.firebaseapp.com',
-    storageBucket: 'expenses-tracker-8ef0a.appspot.com',
+    storageBucket: 'expenses-tracker-8ef0a.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -60,7 +60,7 @@ class DefaultFirebaseOptions {
     appId: '1:677224566709:android:0468829dbf2d91fc6253fc',
     messagingSenderId: '677224566709',
     projectId: 'expenses-tracker-8ef0a',
-    storageBucket: 'expenses-tracker-8ef0a.appspot.com',
+    storageBucket: 'expenses-tracker-8ef0a.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -68,9 +68,10 @@ class DefaultFirebaseOptions {
     appId: '1:677224566709:ios:c579b7d2fd01b77a6253fc',
     messagingSenderId: '677224566709',
     projectId: 'expenses-tracker-8ef0a',
-    storageBucket: 'expenses-tracker-8ef0a.appspot.com',
+    storageBucket: 'expenses-tracker-8ef0a.firebasestorage.app',
     androidClientId: '677224566709-c5n22iateh887s481vsopli035qgr1v0.apps.googleusercontent.com',
     iosClientId: '677224566709-b89j27nfju5el7hvf9qbhravq48c5iri.apps.googleusercontent.com',
     iosBundleId: 'se.hultergard.expensetrack',
   );
+
 }
