@@ -167,7 +167,7 @@ class LevelLogFilter extends LogFilter {
   }
 }
 
-class ProviderLogger extends ProviderObserver {
+final class ProviderLogger extends ProviderObserver {
   @override
   void didUpdateProvider(
     ProviderObserverContext context,

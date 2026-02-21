@@ -17,12 +17,16 @@ class TransactionsPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Transactions'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              icon: const Icon(Icons.filter_list),
-              onPressed: () => TransactionsFilter.show(context),
-            ),
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () => TransactionsFilter.show(context),
+          ),
+          IconButton(
+            icon: const Icon(Icons.file_upload),
+            onPressed: () => ref.read(routerProvider).go('/import'),
+          ),
+          SizedBox(
+            width: 16,
           ),
         ],
       ),

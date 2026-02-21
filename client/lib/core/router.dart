@@ -1,5 +1,6 @@
 import 'package:expensetrack/features/home/ui/pages/home_page.dart';
 import 'package:expensetrack/features/transactions/ui/pages/create_transaction_page.dart';
+import 'package:expensetrack/features/transactions/ui/pages/import_page.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transaction_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -48,6 +49,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                 ),
               ),
             ],
+          ),
+          GoRoute(
+            path: 'import',
+            pageBuilder: (context, state) => _adaptiveRoute(
+              key: state.pageKey,
+              child: const ImportPage(),
+            ),
           ),
           GoRoute(
             path: 'licenses',
