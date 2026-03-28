@@ -23,14 +23,47 @@ Handler middleware(Handler handler) {
       .use(dbConnectionProvider())
       .use(authMiddleware())
       .use(authRepositoryProvider())
+      .use(corsMiddleware())
       .use(requestLogger());
 
   return handler;
 }
 
+Middleware corsMiddleware() {
+  return (handler) {
+    return (context) async {
+      if (context.request.method == HttpMethod.options) {
+        return Response(
+          statusCode: HttpStatus.ok,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          },
+        );
+      }
+      final response = await handler(context);
+      return response.copyWith(
+        headers: {
+          ...response.headers,
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+      );
+    };
+  };
+}
+
 Middleware authMiddleware() {
   return (handler) {
     return (context) async {
+      print('Auth middleware called for ${context.request.method} ${context.request.uri}');
+
+      if (context.request.method == HttpMethod.options) {
+        return handler(context);
+      }
+
       if (context.request.headers['Authorization']?.isEmpty ?? true) {
         return Response(statusCode: HttpStatus.unauthorized);
       }
@@ -44,8 +77,6 @@ Middleware authMiddleware() {
       if (userId == null) {
         return Response(statusCode: HttpStatus.unauthorized);
       }
-
-      print('USER ID: $userId');
 
       context = context.provide(
         () => UserInfo(

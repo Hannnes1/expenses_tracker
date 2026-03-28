@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:csv/csv.dart';
 import 'package:expensetrack/features/statistics/controllers/statistics_overview.dart';
@@ -32,11 +31,11 @@ class _ImportState extends ConsumerState<ImportPage> {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['csv'],
+      withData: true,
     );
 
-    if (result != null && result.files.single.path != null) {
-      final file = File(result.files.single.path!);
-      final content = await file.readAsString(encoding: utf8);
+    if (result != null && result.files.single.bytes != null) {
+      final content = utf8.decode(result.files.single.bytes!);
       final rows = csv.decode(content);
 
       final transactions = <ImportedTransaction>[];
@@ -44,7 +43,8 @@ class _ImportState extends ConsumerState<ImportPage> {
         final row = rows[i];
         final date = DateFormat('yyyy-MM-dd').parse(row[0].toString());
         final text = row[1].toString();
-        final amount = double.parse(row[2].toString());
+        final amountString = row[2].toString().replaceAll(',', '');
+        final amount = double.parse(amountString);
         transactions.add(ImportedTransaction(
           date: date,
           text: text,
@@ -103,6 +103,9 @@ class _ImportState extends ConsumerState<ImportPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     final categories = ref.watch(categoriesProvider);
     final accounts = ref.watch(accountsProvider);
 
@@ -154,7 +157,7 @@ class _ImportState extends ConsumerState<ImportPage> {
                   return TableSpan(
                     extent: FixedTableSpanExtent(56),
                     backgroundDecoration: TableSpanDecoration(
-                      color: row.isEven ? Colors.grey[200] : Colors.white,
+                      color: row.isEven ? colors.surfaceContainerHighest : colors.surface,
                     ),
                   );
                 },

@@ -5,6 +5,7 @@ import 'package:expensetrack/core/theme/theme.dart';
 import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,7 +14,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(mergeWith: Platform.environment);
+  await dotenv.load(
+    mergeWith: kIsWeb ? {} : Platform.environment,
+  );
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

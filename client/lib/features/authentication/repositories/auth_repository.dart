@@ -1,4 +1,6 @@
+import 'package:expensetrack/core/env_vars.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,7 +33,16 @@ class AuthRepository {
   }
 
   Future<void> signInWithGoogle() async {
-    await _googleSignIn.initialize();
+    if (kIsWeb) {
+      final provider = auth.GoogleAuthProvider();
+
+      await _auth.signInWithPopup(provider);
+      return;
+    }
+
+    await _googleSignIn.initialize(
+      clientId: EnvVars.googleClientId,
+    );
 
     // Trigger the authentication flow
     final googleUser = await _googleSignIn.authenticate();
@@ -49,6 +60,10 @@ class AuthRepository {
 
   Future<void> signOut() async {
     await _auth.signOut();
-    await _googleSignIn.disconnect();
+
+    if (!kIsWeb) {
+      await _googleSignIn.signOut();
+      await _googleSignIn.disconnect();
+    }
   }
 }

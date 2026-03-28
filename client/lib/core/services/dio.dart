@@ -28,7 +28,7 @@ Dio initializeDio({required String baseUrl, required Logger logger, required Aut
         final token = await authRepository.accessToken();
 
         options.headers.addAll({
-          'authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token',
         });
 
         // The server should always respond with JSON.

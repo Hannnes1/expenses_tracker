@@ -8,3 +8,6 @@
 build/
 
 *.tar
+
+# FVM Version Cache
+.fvm/
