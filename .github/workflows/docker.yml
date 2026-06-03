@@ -19,7 +19,7 @@ jobs:
         run: dart pub global activate dart_frog_cli
 
       - name: Install dependencies
-        run: dart pub get
+        run: cd server && dart pub get
 
       - name: Build server
         run: cd server && dart_frog build
