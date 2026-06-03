@@ -4,6 +4,10 @@ on:
   push:
     branches: [master]
 
+env:
+  REGISTRY: ghcr.io
+  OWNER: hannnes1
+
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -36,7 +40,7 @@ jobs:
         with:
           context: server/build
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/expenses-tracker:latest
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/expenses-tracker:latest
 
   frontend:
     runs-on: ubuntu-latest
@@ -69,4 +73,4 @@ jobs:
         with:
           context: client
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/expenses-tracker-web:latest
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/expenses-tracker-web:latest
