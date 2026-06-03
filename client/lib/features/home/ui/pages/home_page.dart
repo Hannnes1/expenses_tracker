@@ -4,8 +4,8 @@ import 'package:expensetrack/features/home/ui/pages/menu_page.dart';
 import 'package:expensetrack/features/statistics/ui/pages/statistics_page.dart';
 import 'package:expensetrack/features/transactions/ui/pages/transactions_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
