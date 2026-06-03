@@ -1,0 +1,70 @@
+name: Build and push Docker images
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dart_frog CLI
+        run: dart pub global activate dart_frog_cli
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Build server
+        run: cd server && dart_frog build
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v5
+        with:
+          context: server/build
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/expenses-tracker:latest
+
+  frontend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Create client .env
+        run: echo "${{ secrets.CLIENT_ENV }}" > client/.env
+
+      - name: Build web
+        run: cd client && flutter build web --release
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v5
+        with:
+          context: client
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/expenses-tracker-web:latest
