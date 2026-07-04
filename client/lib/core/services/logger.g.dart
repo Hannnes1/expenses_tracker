@@ -6,6 +6,8 @@ part of 'logger.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// Get a logger for the specified [className].
 ///
 /// [className] does not have to be a class, but should be a string that
@@ -14,8 +16,9 @@ part of 'logger.dart';
 /// [extraOutput] can be used to specify additional locations that the output
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
+
 @ProviderFor(logger)
-const loggerProvider = LoggerFamily._();
+final loggerProvider = LoggerFamily._();
 
 /// Get a logger for the specified [className].
 ///
@@ -25,6 +28,7 @@ const loggerProvider = LoggerFamily._();
 /// [extraOutput] can be used to specify additional locations that the output
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
+
 final class LoggerProvider extends $FunctionalProvider<Logger, Logger, Logger>
     with $Provider<Logger> {
   /// Get a logger for the specified [className].
@@ -35,7 +39,7 @@ final class LoggerProvider extends $FunctionalProvider<Logger, Logger, Logger>
   /// [extraOutput] can be used to specify additional locations that the output
   /// should be sent to. This is done during testing, to be able to
   /// read the output.
-  const LoggerProvider._(
+  LoggerProvider._(
       {required LoggerFamily super.from,
       required (
         String,
@@ -107,6 +111,7 @@ String _$loggerHash() => r'38461bd2b795a8dc48fc829ea12d91fa70ca29b0';
 /// [extraOutput] can be used to specify additional locations that the output
 /// should be sent to. This is done during testing, to be able to
 /// read the output.
+
 final class LoggerFamily extends $Family
     with
         $FunctionalFamilyOverride<
@@ -115,7 +120,7 @@ final class LoggerFamily extends $Family
               String,
               List<LogOutput>?,
             )> {
-  const LoggerFamily._()
+  LoggerFamily._()
       : super(
           retry: null,
           name: r'loggerProvider',
@@ -132,6 +137,7 @@ final class LoggerFamily extends $Family
   /// [extraOutput] can be used to specify additional locations that the output
   /// should be sent to. This is done during testing, to be able to
   /// read the output.
+
   LoggerProvider call(
     String className, [
     List<LogOutput>? extraOutput,
@@ -146,11 +152,11 @@ final class LoggerFamily extends $Family
 }
 
 @ProviderFor(providerLogger)
-const providerLoggerProvider = ProviderLoggerProvider._();
+final providerLoggerProvider = ProviderLoggerProvider._();
 
 final class ProviderLoggerProvider
     extends $FunctionalProvider<Logger, Logger, Logger> with $Provider<Logger> {
-  const ProviderLoggerProvider._()
+  ProviderLoggerProvider._()
       : super(
           from: null,
           argument: null,
@@ -184,6 +190,3 @@ final class ProviderLoggerProvider
 }
 
 String _$providerLoggerHash() => r'e88980c998b51acf2c038135271795bca6c51464';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -6,15 +6,13 @@ part of 'year_monthly_average.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$YearMonthlyAverageImpl _$$YearMonthlyAverageImplFromJson(
-        Map<String, dynamic> json) =>
-    _$YearMonthlyAverageImpl(
+_YearMonthlyAverage _$YearMonthlyAverageFromJson(Map<String, dynamic> json) =>
+    _YearMonthlyAverage(
       averageFixedCost: json['averageFixedCost'] as num,
       averageVariableCost: json['averageVariableCost'] as num,
     );
 
-Map<String, dynamic> _$$YearMonthlyAverageImplToJson(
-        _$YearMonthlyAverageImpl instance) =>
+Map<String, dynamic> _$YearMonthlyAverageToJson(_YearMonthlyAverage instance) =>
     <String, dynamic>{
       'averageFixedCost': instance.averageFixedCost,
       'averageVariableCost': instance.averageVariableCost,

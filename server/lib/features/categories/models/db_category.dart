@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'db_category.freezed.dart';
 
 @freezed
-class DbCategory with _$DbCategory {
+sealed class DbCategory with _$DbCategory {
   factory DbCategory({
     required String id,
     required String name,

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'db_transaction.freezed.dart';
 
 @freezed
-class DbTransaction with _$DbTransaction {
+sealed class DbTransaction with _$DbTransaction {
   factory DbTransaction({
     String? id,
     required String userId,

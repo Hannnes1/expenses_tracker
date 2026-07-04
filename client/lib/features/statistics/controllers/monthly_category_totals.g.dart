@@ -6,12 +6,16 @@ part of 'monthly_category_totals.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 /// A map of categories and their data points.
+
 @ProviderFor(categorizedMonthlyCategoryTotals)
-const categorizedMonthlyCategoryTotalsProvider =
+final categorizedMonthlyCategoryTotalsProvider =
     CategorizedMonthlyCategoryTotalsProvider._();
 
 /// A map of categories and their data points.
+
 final class CategorizedMonthlyCategoryTotalsProvider
     extends $FunctionalProvider<
         AsyncValue<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>,
@@ -21,7 +25,7 @@ final class CategorizedMonthlyCategoryTotalsProvider
         $FutureModifier<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>,
         $FutureProvider<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> {
   /// A map of categories and their data points.
-  const CategorizedMonthlyCategoryTotalsProvider._()
+  CategorizedMonthlyCategoryTotalsProvider._()
       : super(
           from: null,
           argument: null,
@@ -50,6 +54,3 @@ final class CategorizedMonthlyCategoryTotalsProvider
 
 String _$categorizedMonthlyCategoryTotalsHash() =>
     r'9c95cc3f1efc989ac35e72e41a31c1c7227aec7c';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

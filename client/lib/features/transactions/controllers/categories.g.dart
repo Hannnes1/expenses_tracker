@@ -6,13 +6,16 @@ part of 'categories.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(categories)
-const categoriesProvider = CategoriesProvider._();
+final categoriesProvider = CategoriesProvider._();
 
 final class CategoriesProvider extends $FunctionalProvider<
         AsyncValue<List<Category>>, List<Category>, FutureOr<List<Category>>>
     with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
-  const CategoriesProvider._()
+  CategoriesProvider._()
       : super(
           from: null,
           argument: null,
@@ -39,6 +42,3 @@ final class CategoriesProvider extends $FunctionalProvider<
 }
 
 String _$categoriesHash() => r'af0d71ae83325984429ecf424a45f1882778d093';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

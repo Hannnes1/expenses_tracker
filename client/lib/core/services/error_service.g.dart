@@ -6,13 +6,16 @@ part of 'error_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(errorService)
-const errorServiceProvider = ErrorServiceProvider._();
+final errorServiceProvider = ErrorServiceProvider._();
 
 final class ErrorServiceProvider
     extends $FunctionalProvider<ErrorService, ErrorService, ErrorService>
     with $Provider<ErrorService> {
-  const ErrorServiceProvider._()
+  ErrorServiceProvider._()
       : super(
           from: null,
           argument: null,
@@ -46,6 +49,3 @@ final class ErrorServiceProvider
 }
 
 String _$errorServiceHash() => r'd5fa0ea2b5bc45f9a74531d1aebb6334ed76e8d9';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

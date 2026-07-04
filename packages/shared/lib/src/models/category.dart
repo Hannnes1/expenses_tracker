@@ -4,7 +4,7 @@ part 'category.freezed.dart';
 part 'category.g.dart';
 
 @freezed
-class Category with _$Category {
+sealed class Category with _$Category {
   factory Category({
     required String id,
     required String name,

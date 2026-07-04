@@ -6,9 +6,9 @@ part of 'monthly_category_totals.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MonthlyCategoryTotalsImpl _$$MonthlyCategoryTotalsImplFromJson(
+_MonthlyCategoryTotals _$MonthlyCategoryTotalsFromJson(
         Map<String, dynamic> json) =>
-    _$MonthlyCategoryTotalsImpl(
+    _MonthlyCategoryTotals(
       month: DateTime.parse(json['month'] as String),
       categoryId: json['categoryId'] as String,
       negativeAmount: json['negativeAmount'] as num,
@@ -16,8 +16,8 @@ _$MonthlyCategoryTotalsImpl _$$MonthlyCategoryTotalsImplFromJson(
       totalAmount: json['totalAmount'] as num,
     );
 
-Map<String, dynamic> _$$MonthlyCategoryTotalsImplToJson(
-        _$MonthlyCategoryTotalsImpl instance) =>
+Map<String, dynamic> _$MonthlyCategoryTotalsToJson(
+        _MonthlyCategoryTotals instance) =>
     <String, dynamic>{
       'month': instance.month.toIso8601String(),
       'categoryId': instance.categoryId,

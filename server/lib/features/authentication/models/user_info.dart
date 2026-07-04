@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_info.freezed.dart';
 
 @freezed
-class UserInfo with _$UserInfo {
+sealed class UserInfo with _$UserInfo {
   factory UserInfo({
     required String id,
   }) = _UserInfo;

@@ -5,7 +5,7 @@ part 'transaction.freezed.dart';
 part 'transaction.g.dart';
 
 @freezed
-class Transaction with _$Transaction {
+sealed class Transaction with _$Transaction {
   factory Transaction({
     required String id,
     required DateTime date,
@@ -22,7 +22,7 @@ _$TransactionFromJson(json);
 }
 
 @freezed
-class CreateTransaction with _$CreateTransaction {
+sealed class CreateTransaction with _$CreateTransaction {
   factory CreateTransaction({
     required DateTime date,
     required String text,

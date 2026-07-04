@@ -6,14 +6,17 @@ part of 'statistics_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(statisticsRepository)
-const statisticsRepositoryProvider = StatisticsRepositoryProvider._();
+final statisticsRepositoryProvider = StatisticsRepositoryProvider._();
 
 final class StatisticsRepositoryProvider extends $FunctionalProvider<
     StatisticsRepository,
     StatisticsRepository,
     StatisticsRepository> with $Provider<StatisticsRepository> {
-  const StatisticsRepositoryProvider._()
+  StatisticsRepositoryProvider._()
       : super(
           from: null,
           argument: null,
@@ -49,6 +52,3 @@ final class StatisticsRepositoryProvider extends $FunctionalProvider<
 
 String _$statisticsRepositoryHash() =>
     r'bbf022abad3c47a7b862bd68711dd2125a834888';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'db_account.freezed.dart';
 
 @freezed
-class DbAccount with _$DbAccount {
+sealed class DbAccount with _$DbAccount {
   factory DbAccount({
     required String id,
     required String userId,

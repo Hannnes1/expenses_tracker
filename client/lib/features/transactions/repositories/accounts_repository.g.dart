@@ -6,14 +6,17 @@ part of 'accounts_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(accountsRepository)
-const accountsRepositoryProvider = AccountsRepositoryProvider._();
+final accountsRepositoryProvider = AccountsRepositoryProvider._();
 
 final class AccountsRepositoryProvider extends $FunctionalProvider<
     AccountsRepository,
     AccountsRepository,
     AccountsRepository> with $Provider<AccountsRepository> {
-  const AccountsRepositoryProvider._()
+  AccountsRepositoryProvider._()
       : super(
           from: null,
           argument: null,
@@ -49,6 +52,3 @@ final class AccountsRepositoryProvider extends $FunctionalProvider<
 
 String _$accountsRepositoryHash() =>
     r'30aaa3af5dfcceedd6e1c8d9352791d9a21ce905';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

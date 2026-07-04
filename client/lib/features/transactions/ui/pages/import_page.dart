@@ -28,7 +28,7 @@ class _ImportState extends ConsumerState<ImportPage> {
   List<ImportedTransaction> _importedTransactions = [];
 
   Future<void> _pickAndParseCsv() async {
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['csv'],
       withData: true,

@@ -4,7 +4,7 @@ part 'account.freezed.dart';
 part 'account.g.dart';
 
 @freezed
-class Account with _$Account {
+sealed class Account with _$Account {
   factory Account({
     required String id,
     required String name,

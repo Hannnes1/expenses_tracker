@@ -6,8 +6,11 @@ part of 'transactions.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(paginatedTransactions)
-const paginatedTransactionsProvider = PaginatedTransactionsFamily._();
+final paginatedTransactionsProvider = PaginatedTransactionsFamily._();
 
 final class PaginatedTransactionsProvider extends $FunctionalProvider<
         AsyncValue<List<Transaction>>,
@@ -16,7 +19,7 @@ final class PaginatedTransactionsProvider extends $FunctionalProvider<
     with
         $FutureModifier<List<Transaction>>,
         $FutureProvider<List<Transaction>> {
-  const PaginatedTransactionsProvider._(
+  PaginatedTransactionsProvider._(
       {required PaginatedTransactionsFamily super.from,
       required int super.argument})
       : super(
@@ -68,7 +71,7 @@ String _$paginatedTransactionsHash() =>
 
 final class PaginatedTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Transaction>>, int> {
-  const PaginatedTransactionsFamily._()
+  PaginatedTransactionsFamily._()
       : super(
           retry: null,
           name: r'paginatedTransactionsProvider',
@@ -87,12 +90,12 @@ final class PaginatedTransactionsFamily extends $Family
 }
 
 @ProviderFor(transaction)
-const transactionProvider = TransactionFamily._();
+final transactionProvider = TransactionFamily._();
 
 final class TransactionProvider extends $FunctionalProvider<
         AsyncValue<Transaction>, Transaction, FutureOr<Transaction>>
     with $FutureModifier<Transaction>, $FutureProvider<Transaction> {
-  const TransactionProvider._(
+  TransactionProvider._(
       {required TransactionFamily super.from, required String super.argument})
       : super(
           retry: null,
@@ -142,7 +145,7 @@ String _$transactionHash() => r'afe1674ede1fdc6d2c1d5ee94747c2cd04bc6746';
 
 final class TransactionFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Transaction>, String> {
-  const TransactionFamily._()
+  TransactionFamily._()
       : super(
           retry: null,
           name: r'transactionProvider',
@@ -161,12 +164,12 @@ final class TransactionFamily extends $Family
 }
 
 @ProviderFor(TransactionsFilterController)
-const transactionsFilterControllerProvider =
+final transactionsFilterControllerProvider =
     TransactionsFilterControllerProvider._();
 
 final class TransactionsFilterControllerProvider extends $NotifierProvider<
     TransactionsFilterController, TransactionsFilterState> {
-  const TransactionsFilterControllerProvider._()
+  TransactionsFilterControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -202,7 +205,6 @@ abstract class _$TransactionsFilterController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<TransactionsFilterState, TransactionsFilterState>;
     final element = ref.element as $ClassProviderElement<
@@ -210,9 +212,6 @@ abstract class _$TransactionsFilterController
         TransactionsFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

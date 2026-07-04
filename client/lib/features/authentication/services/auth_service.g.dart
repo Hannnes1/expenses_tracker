@@ -6,13 +6,16 @@ part of 'auth_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(authStateChange)
-const authStateChangeProvider = AuthStateChangeProvider._();
+final authStateChangeProvider = AuthStateChangeProvider._();
 
 final class AuthStateChangeProvider
     extends $FunctionalProvider<AsyncValue<User?>, User?, Stream<User?>>
     with $FutureModifier<User?>, $StreamProvider<User?> {
-  const AuthStateChangeProvider._()
+  AuthStateChangeProvider._()
       : super(
           from: null,
           argument: null,
@@ -40,11 +43,11 @@ final class AuthStateChangeProvider
 String _$authStateChangeHash() => r'cc0b802ac34de1160395a8d9eb589eff7d470ee6';
 
 @ProviderFor(currentUser)
-const currentUserProvider = CurrentUserProvider._();
+final currentUserProvider = CurrentUserProvider._();
 
 final class CurrentUserProvider extends $FunctionalProvider<User?, User?, User?>
     with $Provider<User?> {
-  const CurrentUserProvider._()
+  CurrentUserProvider._()
       : super(
           from: null,
           argument: null,
@@ -78,6 +81,3 @@ final class CurrentUserProvider extends $FunctionalProvider<User?, User?, User?>
 }
 
 String _$currentUserHash() => r'ece111aeae6981c7351b9d2fd1df703ba1fd6f2e';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

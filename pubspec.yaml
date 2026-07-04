@@ -11,8 +11,34 @@ workspace:
 dev_dependencies:
   melos: ^7.1.0
 
-scripts:
-  generate:
-    name: generate
-    run: melos exec -c 1 --depends-on="build_runner" --flutter -- "flutter pub run build_runner build --delete-conflicting-outputs"
-    description: Build all generated files for Flutter packages in this project.
+melos:
+  scripts:
+    generate:
+      name: generate
+      run: melos exec -c 1 --depends-on="build_runner" --flutter -- "flutter pub run build_runner build --delete-conflicting-outputs"
+      description: Build all generated files for Flutter packages in this project.
+
+    generate:dart:
+      name: generate:dart
+      run: melos exec -c 1 --depends-on="build_runner" --no-flutter -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Build all generated files for Dart-only packages in this project.
+
+    analyze:
+      name: analyze
+      run: melos exec -c 1 -- "dart analyze ."
+      description: Run static analysis on all packages in this project.
+
+    format:
+      name: format
+      run: melos exec -c 1 -- "dart format --output=none --set-exit-if-changed ."
+      description: Check formatting of all packages in this project.
+
+    format:fix:
+      name: format:fix
+      run: melos exec -c 1 -- "dart format ."
+      description: Apply formatting to all packages in this project.
+
+    test:
+      name: test
+      run: melos exec -c 1 --dir-exists="test" -- "dart test"
+      description: Run tests in all packages that have a test directory.

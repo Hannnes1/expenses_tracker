@@ -6,12 +6,15 @@ part of 'dio.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(dio)
-const dioProvider = DioProvider._();
+final dioProvider = DioProvider._();
 
 final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
     with $Provider<Dio> {
-  const DioProvider._()
+  DioProvider._()
       : super(
           from: null,
           argument: null,
@@ -45,6 +48,3 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
 }
 
 String _$dioHash() => r'55552d5711db27e3add72ea74f9b15237601f255';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

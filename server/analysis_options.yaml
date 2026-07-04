@@ -10,5 +10,6 @@ linter:
     prefer_relative_imports: true
 
 analyzer:
-  exclude: 
+  exclude:
     - "**/*.*.dart" # Generated files
+    - "build/**" # dart_frog production build output

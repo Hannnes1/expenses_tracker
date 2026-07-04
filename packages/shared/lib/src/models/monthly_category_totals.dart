@@ -4,7 +4,7 @@ part 'monthly_category_totals.freezed.dart';
 part 'monthly_category_totals.g.dart';
 
 @freezed
-class MonthlyCategoryTotals with _$MonthlyCategoryTotals {
+sealed class MonthlyCategoryTotals with _$MonthlyCategoryTotals {
   factory MonthlyCategoryTotals({
     /// The month for which the totals are calculated.
     ///

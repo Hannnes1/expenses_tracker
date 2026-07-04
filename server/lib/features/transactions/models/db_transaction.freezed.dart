@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,124 +9,67 @@ part of 'db_transaction.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$DbTransaction {
-  String? get id => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
-  num get amount => throw _privateConstructorUsedError;
-  String get accountId => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
-  bool get fixedCost => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get id;
+  String get userId;
+  DateTime get date;
+  String get text;
+  num get amount;
+  String get accountId;
+  String get categoryId;
+  bool get fixedCost;
+  String? get description;
+  DateTime? get createdAt;
 
-  @JsonKey(ignore: true)
-  $DbTransactionCopyWith<DbTransaction> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DbTransactionCopyWith<$Res> {
-  factory $DbTransactionCopyWith(
-          DbTransaction value, $Res Function(DbTransaction) then) =
-      _$DbTransactionCopyWithImpl<$Res, DbTransaction>;
-  @useResult
-  $Res call(
-      {String? id,
-      String userId,
-      DateTime date,
-      String text,
-      num amount,
-      String accountId,
-      String categoryId,
-      bool fixedCost,
-      String? description,
-      DateTime? createdAt});
-}
-
-/// @nodoc
-class _$DbTransactionCopyWithImpl<$Res, $Val extends DbTransaction>
-    implements $DbTransactionCopyWith<$Res> {
-  _$DbTransactionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of DbTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $DbTransactionCopyWith<DbTransaction> get copyWith =>
+      _$DbTransactionCopyWithImpl<DbTransaction>(
+          this as DbTransaction, _$identity);
+
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? userId = null,
-    Object? date = null,
-    Object? text = null,
-    Object? amount = null,
-    Object? accountId = null,
-    Object? categoryId = null,
-    Object? fixedCost = null,
-    Object? description = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      text: null == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as num,
-      accountId: null == accountId
-          ? _value.accountId
-          : accountId // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      fixedCost: null == fixedCost
-          ? _value.fixedCost
-          : fixedCost // ignore: cast_nullable_to_non_nullable
-              as bool,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DbTransaction &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.accountId, accountId) ||
+                other.accountId == accountId) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
+            (identical(other.fixedCost, fixedCost) ||
+                other.fixedCost == fixedCost) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, userId, date, text, amount,
+      accountId, categoryId, fixedCost, description, createdAt);
+
+  @override
+  String toString() {
+    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, createdAt: $createdAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$_DbTransactionCopyWith<$Res>
-    implements $DbTransactionCopyWith<$Res> {
-  factory _$$_DbTransactionCopyWith(
-          _$_DbTransaction value, $Res Function(_$_DbTransaction) then) =
-      __$$_DbTransactionCopyWithImpl<$Res>;
-  @override
+abstract mixin class $DbTransactionCopyWith<$Res> {
+  factory $DbTransactionCopyWith(
+          DbTransaction value, $Res Function(DbTransaction) _then) =
+      _$DbTransactionCopyWithImpl;
   @useResult
   $Res call(
       {String? id,
@@ -142,13 +85,15 @@ abstract class _$$_DbTransactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DbTransactionCopyWithImpl<$Res>
-    extends _$DbTransactionCopyWithImpl<$Res, _$_DbTransaction>
-    implements _$$_DbTransactionCopyWith<$Res> {
-  __$$_DbTransactionCopyWithImpl(
-      _$_DbTransaction _value, $Res Function(_$_DbTransaction) _then)
-      : super(_value, _then);
+class _$DbTransactionCopyWithImpl<$Res>
+    implements $DbTransactionCopyWith<$Res> {
+  _$DbTransactionCopyWithImpl(this._self, this._then);
 
+  final DbTransaction _self;
+  final $Res Function(DbTransaction) _then;
+
+  /// Create a copy of DbTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -163,55 +108,271 @@ class __$$_DbTransactionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$_DbTransaction(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
       date: null == date
-          ? _value.date
+          ? _self.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
       text: null == text
-          ? _value.text
+          ? _self.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
-          ? _value.amount
+          ? _self.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as num,
       accountId: null == accountId
-          ? _value.accountId
+          ? _self.accountId
           : accountId // ignore: cast_nullable_to_non_nullable
               as String,
       categoryId: null == categoryId
-          ? _value.categoryId
+          ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
       fixedCost: null == fixedCost
-          ? _value.fixedCost
+          ? _self.fixedCost
           : fixedCost // ignore: cast_nullable_to_non_nullable
               as bool,
       description: freezed == description
-          ? _value.description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [DbTransaction].
+extension DbTransactionPatterns on DbTransaction {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_DbTransaction value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_DbTransaction value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction():
+        return $default(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_DbTransaction value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String userId,
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            DateTime? createdAt)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction() when $default != null:
+        return $default(
+            _that.id,
+            _that.userId,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.createdAt);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String userId,
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            DateTime? createdAt)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction():
+        return $default(
+            _that.id,
+            _that.userId,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.createdAt);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? id,
+            String userId,
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            DateTime? createdAt)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _DbTransaction() when $default != null:
+        return $default(
+            _that.id,
+            _that.userId,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.createdAt);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
-class _$_DbTransaction implements _DbTransaction {
-  _$_DbTransaction(
+class _DbTransaction implements DbTransaction {
+  _DbTransaction(
       {this.id,
       required this.userId,
       required this.date,
@@ -244,16 +405,19 @@ class _$_DbTransaction implements _DbTransaction {
   @override
   final DateTime? createdAt;
 
+  /// Create a copy of DbTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, createdAt: $createdAt)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$DbTransactionCopyWith<_DbTransaction> get copyWith =>
+      __$DbTransactionCopyWithImpl<_DbTransaction>(this, _$identity);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DbTransaction &&
+            other is _DbTransaction &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.date, date) || other.date == date) &&
@@ -275,48 +439,100 @@ class _$_DbTransaction implements _DbTransaction {
   int get hashCode => Object.hash(runtimeType, id, userId, date, text, amount,
       accountId, categoryId, fixedCost, description, createdAt);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, createdAt: $createdAt)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$DbTransactionCopyWith<$Res>
+    implements $DbTransactionCopyWith<$Res> {
+  factory _$DbTransactionCopyWith(
+          _DbTransaction value, $Res Function(_DbTransaction) _then) =
+      __$DbTransactionCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? id,
+      String userId,
+      DateTime date,
+      String text,
+      num amount,
+      String accountId,
+      String categoryId,
+      bool fixedCost,
+      String? description,
+      DateTime? createdAt});
+}
+
+/// @nodoc
+class __$DbTransactionCopyWithImpl<$Res>
+    implements _$DbTransactionCopyWith<$Res> {
+  __$DbTransactionCopyWithImpl(this._self, this._then);
+
+  final _DbTransaction _self;
+  final $Res Function(_DbTransaction) _then;
+
+  /// Create a copy of DbTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$_DbTransactionCopyWith<_$_DbTransaction> get copyWith =>
-      __$$_DbTransactionCopyWithImpl<_$_DbTransaction>(this, _$identity);
+  $Res call({
+    Object? id = freezed,
+    Object? userId = null,
+    Object? date = null,
+    Object? text = null,
+    Object? amount = null,
+    Object? accountId = null,
+    Object? categoryId = null,
+    Object? fixedCost = null,
+    Object? description = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_DbTransaction(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      text: null == text
+          ? _self.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _self.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as num,
+      accountId: null == accountId
+          ? _self.accountId
+          : accountId // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryId: null == categoryId
+          ? _self.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String,
+      fixedCost: null == fixedCost
+          ? _self.fixedCost
+          : fixedCost // ignore: cast_nullable_to_non_nullable
+              as bool,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
 }
 
-abstract class _DbTransaction implements DbTransaction {
-  factory _DbTransaction(
-      {final String? id,
-      required final String userId,
-      required final DateTime date,
-      required final String text,
-      required final num amount,
-      required final String accountId,
-      required final String categoryId,
-      required final bool fixedCost,
-      required final String? description,
-      final DateTime? createdAt}) = _$_DbTransaction;
-
-  @override
-  String? get id;
-  @override
-  String get userId;
-  @override
-  DateTime get date;
-  @override
-  String get text;
-  @override
-  num get amount;
-  @override
-  String get accountId;
-  @override
-  String get categoryId;
-  @override
-  bool get fixedCost;
-  @override
-  String? get description;
-  @override
-  DateTime? get createdAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$_DbTransactionCopyWith<_$_DbTransaction> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

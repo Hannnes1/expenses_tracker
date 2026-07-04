@@ -4,7 +4,7 @@ part 'year_monthly_average.freezed.dart';
 part 'year_monthly_average.g.dart';
 
 @freezed
-class YearMonthlyAverage with _$YearMonthlyAverage {
+sealed class YearMonthlyAverage with _$YearMonthlyAverage {
   YearMonthlyAverage._();
 
   factory YearMonthlyAverage({

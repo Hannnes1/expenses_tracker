@@ -6,7 +6,7 @@ part 'statistics_overview.freezed.dart';
 part 'statistics_overview.g.dart';
 
 @freezed
-class StatisticsOverview with _$StatisticsOverview {
+sealed class StatisticsOverview with _$StatisticsOverview {
   factory StatisticsOverview({
     required YearMonthlyAverage yearMonthlyAverage,
     required List<MonthlyCategoryTotals> monthlyCategoryTotals,
