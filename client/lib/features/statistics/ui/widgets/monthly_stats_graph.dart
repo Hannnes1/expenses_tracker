@@ -10,37 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared/shared.dart';
 
-/// A list of colors to use when drawing the graph separated by category.
-List<Color> _lineChartColors(Brightness brightness) {
-  const lightLineChartColors = <Color>[
-    Color(0xFFEF5350), // Light Red
-    Color(0xFF42A5F5), // Light Blue
-    Color(0xFF66BB6A), // Light Green
-    Color(0xFFFFA726), // Light Orange
-    Color(0xFF7E57C2), // Lavender
-    Color(0xFF26C6DA), // Light Cyan
-    Color(0xFFEC407A), // Light Pink
-    Color(0xFFB0BEC5), // Blue Grey
-    Color(0xFFD4E157), // Lime
-    Color(0xFF26A69A), // Teal
-    Color(0xFFFFEE58), // Yellow
-  ];
+/// Generates [count] evenly-hued colors to use when drawing the graph
+/// separated by category, so the palette scales to any number of categories
+/// instead of colliding past a fixed palette size.
+List<Color> generateCategoryColors(int count, Brightness brightness) {
+  final saturation = brightness == Brightness.dark ? 0.55 : 0.65;
+  final lightness = brightness == Brightness.dark ? 0.70 : 0.45;
 
-  const darkLineChartColors = <Color>[
-    Color(0xFFE53935), // Red
-    Color(0xFF1E88E5), // Blue
-    Color(0xFF43A047), // Green
-    Color(0xFFFB8C00), // Orange
-    Color(0xFF8E24AA), // Purple
-    Color(0xFF00ACC1), // Teal
-    Color(0xFFD81B60), // Pink
-    Color(0xFF6D4C41), // Brown
-    Color(0xFFC0CA33), // Lime
-    Color(0xFF3949AB), // Indigo
-    Color(0xFFFFB300), // Amber
-  ];
-
-  return brightness == Brightness.dark ? lightLineChartColors : darkLineChartColors;
+  return List.generate(
+    count,
+    (i) => HSLColor.fromAHSL(1.0, (360 / count) * i, saturation, lightness)
+        .toColor(),
+  );
 }
 
 /// A graph that shows the monthly cash flow for each category.
@@ -48,7 +29,8 @@ class MonthlyStatsGraph extends ConsumerStatefulWidget {
   const MonthlyStatsGraph({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MonthlyStatsGraphState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _MonthlyStatsGraphState();
 }
 
 class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
@@ -58,8 +40,6 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-
-    final lineColors = _lineChartColors(theme.brightness);
 
     return ref.watch(categorizedMonthlyCategoryTotalsProvider).when(
           // Don't show loading indicator when a dependency is reloaded,
@@ -73,66 +53,72 @@ class _MonthlyStatsGraphState extends ConsumerState<MonthlyStatsGraph> {
           loading: () => const ShimmerLoading(
             child: LoadingPlaceholder(),
           ),
-          data: (data) => Column(
-            children: [
-              SizedBox(
-                height: 300,
-                child: data.length < 2
-                    ? const Center(
-                        child: Text('No data to show'),
-                      )
-                    : _Graph(
-                        data: data,
-                        showSeparated: _showSeparated,
-                      ),
-              ),
-              SwitchListTile(
-                title: const Text('Show categorized'),
-                value: _showSeparated,
-                onChanged: (value) {
-                  setState(() {
-                    _showSeparated = value;
-                  });
-                },
-              ),
-              ClipRect(
-                child: AnimatedAlign(
-                  duration: const Duration(milliseconds: 200),
-                  alignment: Alignment.topLeft,
-                  heightFactor: _showSeparated ? 1 : 0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Legend:',
-                        style: textTheme.titleSmall,
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      ...data.entries.toList().map(
-                            (e) => Row(
-                              children: [
-                                Container(
-                                  width: 16,
-                                  height: 16,
-                                  color: lineColors[data.keys.toList().indexOf(e.key)],
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  e.key.name,
-                                ),
-                              ],
+          data: (data) {
+            final lineColors =
+                generateCategoryColors(data.length, theme.brightness);
+
+            return Column(
+              children: [
+                SizedBox(
+                  height: 300,
+                  child: data.length < 2
+                      ? const Center(
+                          child: Text('No data to show'),
+                        )
+                      : _Graph(
+                          data: data,
+                          showSeparated: _showSeparated,
+                        ),
+                ),
+                SwitchListTile(
+                  title: const Text('Show categorized'),
+                  value: _showSeparated,
+                  onChanged: (value) {
+                    setState(() {
+                      _showSeparated = value;
+                    });
+                  },
+                ),
+                ClipRect(
+                  child: AnimatedAlign(
+                    duration: const Duration(milliseconds: 200),
+                    alignment: Alignment.topLeft,
+                    heightFactor: _showSeparated ? 1 : 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Legend:',
+                          style: textTheme.titleSmall,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ...data.entries.toList().map(
+                              (e) => Row(
+                                children: [
+                                  Container(
+                                    width: 16,
+                                    height: 16,
+                                    color: lineColors[
+                                        data.keys.toList().indexOf(e.key)],
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    e.key.name,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          },
         );
   }
 }
@@ -166,7 +152,10 @@ class _Graph extends ConsumerWidget {
   // Get the visible data point with the highest value.
   num get _maxY {
     if (showSeparated) {
-      return data.values.expand((element) => element).map((e) => e.totalAmount).reduce(
+      return data.values
+          .expand((element) => element)
+          .map((e) => e.totalAmount)
+          .reduce(
             // For each element, return the highest value.
             (value, element) => value > element ? value : element,
           );
@@ -179,7 +168,10 @@ class _Graph extends ConsumerWidget {
   // Get the visible data point with the lowest value.
   num get _minY {
     if (showSeparated) {
-      return data.values.expand((element) => element).map((e) => e.totalAmount).reduce(
+      return data.values
+          .expand((element) => element)
+          .map((e) => e.totalAmount)
+          .reduce(
             (value, element) => value < element ? value : element,
           );
     }
@@ -195,7 +187,7 @@ class _Graph extends ConsumerWidget {
     final textTheme = theme.textTheme;
     final customColors = theme.extension<CustomColors>()!;
 
-    final lineColors = _lineChartColors(theme.brightness);
+    final lineColors = generateCategoryColors(data.length, theme.brightness);
 
     final yAxisPadding = (_maxY - _minY) * 0.1;
 
@@ -257,20 +249,25 @@ class _Graph extends ConsumerWidget {
                       return LineTooltipItem(
                         '${category.name} - ${month.shortMonthName()}:\n${value.formatCurrency()}',
                         TextStyle(
-                          color: value.isNegative ? customColors.negative : customColors.positive,
+                          color: value.isNegative
+                              ? customColors.negative
+                              : customColors.positive,
                         ),
                       );
                     }).toList();
                   }
                 : (List<LineBarSpot> touchedSpots) {
-                    final month = monthlySum.keys.toList()[touchedSpots.first.x.toInt()];
+                    final month =
+                        monthlySum.keys.toList()[touchedSpots.first.x.toInt()];
                     final value = touchedSpots.first.y;
 
                     return [
                       LineTooltipItem(
                         '${month.shortMonthName()}:\n${value.formatCurrency()}',
                         TextStyle(
-                          color: value.isNegative ? customColors.negative : customColors.positive,
+                          color: value.isNegative
+                              ? customColors.negative
+                              : customColors.positive,
                         ),
                       ),
                     ];

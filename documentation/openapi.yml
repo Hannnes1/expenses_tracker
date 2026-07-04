@@ -102,6 +102,37 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Transaction"
+  /statistics:
+    get:
+      summary: Get statistics overview
+      description: >-
+        Retrieve an overview of the user's cash flow: average monthly cash flow, a per-category
+        breakdown of average monthly cash flow, and monthly cash flow totals per category
+        (zero-filled for months/categories without activity).
+      parameters:
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date
+          description: >-
+            The start of the period to compute statistics over (inclusive). Defaults to 1 year
+            before today if omitted.
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date
+          description: The end of the period to compute statistics over (inclusive). Defaults to today if omitted.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatisticsOverview"
+        "400":
+          description: Bad request, e.g. startDate or endDate is not a valid date.
   /accounts:
     get:
       summary: Get accounts
@@ -245,3 +276,66 @@ components:
           type: string
           nullable: true
           description: The identifier of the transaction to link to, or null to unlink.
+    StatisticsOverview:
+      type: object
+      readOnly: true
+      required:
+        - yearMonthlyAverage
+        - previousYearMonthlyAverage
+        - monthlyCategoryTotals
+        - categoryAverage
+      properties:
+        yearMonthlyAverage:
+          $ref: "#/components/schemas/YearMonthlyAverage"
+          description: The average monthly fixed/variable cash flow for the requested period.
+        previousYearMonthlyAverage:
+          $ref: "#/components/schemas/YearMonthlyAverage"
+          description: >-
+            The average monthly fixed/variable cash flow for the period of the same length
+            immediately preceding the requested period, used to show a trend.
+        monthlyCategoryTotals:
+          type: array
+          description: Monthly cash flow totals per category, from startDate onwards.
+          items:
+            $ref: "#/components/schemas/MonthlyCategoryTotals"
+        categoryAverage:
+          type: object
+          description: A map of category id to average monthly cash flow for that category, for the requested period.
+          additionalProperties:
+            type: number
+    YearMonthlyAverage:
+      type: object
+      required:
+        - averageFixedCost
+        - averageVariableCost
+      properties:
+        averageFixedCost:
+          type: number
+          description: The average monthly cash flow from fixed-cost transactions.
+        averageVariableCost:
+          type: number
+          description: The average monthly cash flow from non-fixed-cost transactions.
+    MonthlyCategoryTotals:
+      type: object
+      required:
+        - month
+        - categoryId
+        - negativeAmount
+        - positiveAmount
+        - totalAmount
+      properties:
+        month:
+          type: string
+          format: date-time
+          description: The month the totals are for. The day and time should be ignored.
+        categoryId:
+          type: string
+        negativeAmount:
+          type: number
+          description: The sum of negative (expense) transaction amounts for this category and month.
+        positiveAmount:
+          type: number
+          description: The sum of positive (income) transaction amounts for this category and month.
+        totalAmount:
+          type: number
+          description: The sum of all transaction amounts for this category and month.

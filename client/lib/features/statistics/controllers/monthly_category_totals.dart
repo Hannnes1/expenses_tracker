@@ -9,12 +9,16 @@ part 'monthly_category_totals.g.dart';
 
 /// A map of categories and their data points.
 @riverpod
-Future<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCategoryTotals(
+Future<SplayTreeMap<Category, List<MonthlyCategoryTotals>>>
+    categorizedMonthlyCategoryTotals(
   Ref ref,
 ) async {
-  final monthlyCategoryTotals = (await ref.watch(statisticsOverviewProvider.future)).monthlyCategoryTotals;
+  final monthlyCategoryTotals =
+      (await ref.watch(statisticsOverviewProvider.future))
+          .monthlyCategoryTotals;
 
-  final categoryIdsWithData = monthlyCategoryTotals.map((e) => e.categoryId).toSet();
+  final categoryIdsWithData =
+      monthlyCategoryTotals.map((e) => e.categoryId).toSet();
 
   final categories = await ref.watch(categoriesProvider.future);
 
@@ -23,9 +27,12 @@ Future<SplayTreeMap<Category, List<MonthlyCategoryTotals>>> categorizedMonthlyCa
   );
 
   for (final categoryId in categoryIdsWithData) {
-    final category = categories.firstWhere((element) => element.id == categoryId);
+    final category =
+        categories.firstWhere((element) => element.id == categoryId);
 
-    dataPoints[category] = monthlyCategoryTotals.where((element) => element.categoryId == categoryId).toList();
+    dataPoints[category] = monthlyCategoryTotals
+        .where((element) => element.categoryId == categoryId)
+        .toList();
   }
 
   return dataPoints;

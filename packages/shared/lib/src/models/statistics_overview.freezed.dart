@@ -15,8 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StatisticsOverview {
   YearMonthlyAverage get yearMonthlyAverage;
+  YearMonthlyAverage get previousYearMonthlyAverage;
   List<MonthlyCategoryTotals> get monthlyCategoryTotals;
-  Map<String, num> get last12MonthsCategoryAverage;
+  Map<String, num> get categoryAverage;
 
   /// Create a copy of StatisticsOverview
   /// with the given fields replaced by the non-null parameter values.
@@ -36,11 +37,14 @@ mixin _$StatisticsOverview {
             other is StatisticsOverview &&
             (identical(other.yearMonthlyAverage, yearMonthlyAverage) ||
                 other.yearMonthlyAverage == yearMonthlyAverage) &&
+            (identical(other.previousYearMonthlyAverage,
+                    previousYearMonthlyAverage) ||
+                other.previousYearMonthlyAverage ==
+                    previousYearMonthlyAverage) &&
             const DeepCollectionEquality()
                 .equals(other.monthlyCategoryTotals, monthlyCategoryTotals) &&
-            const DeepCollectionEquality().equals(
-                other.last12MonthsCategoryAverage,
-                last12MonthsCategoryAverage));
+            const DeepCollectionEquality()
+                .equals(other.categoryAverage, categoryAverage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,12 +52,13 @@ mixin _$StatisticsOverview {
   int get hashCode => Object.hash(
       runtimeType,
       yearMonthlyAverage,
+      previousYearMonthlyAverage,
       const DeepCollectionEquality().hash(monthlyCategoryTotals),
-      const DeepCollectionEquality().hash(last12MonthsCategoryAverage));
+      const DeepCollectionEquality().hash(categoryAverage));
 
   @override
   String toString() {
-    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, monthlyCategoryTotals: $monthlyCategoryTotals, last12MonthsCategoryAverage: $last12MonthsCategoryAverage)';
+    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, previousYearMonthlyAverage: $previousYearMonthlyAverage, monthlyCategoryTotals: $monthlyCategoryTotals, categoryAverage: $categoryAverage)';
   }
 }
 
@@ -65,10 +70,12 @@ abstract mixin class $StatisticsOverviewCopyWith<$Res> {
   @useResult
   $Res call(
       {YearMonthlyAverage yearMonthlyAverage,
+      YearMonthlyAverage previousYearMonthlyAverage,
       List<MonthlyCategoryTotals> monthlyCategoryTotals,
-      Map<String, num> last12MonthsCategoryAverage});
+      Map<String, num> categoryAverage});
 
   $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage;
+  $YearMonthlyAverageCopyWith<$Res> get previousYearMonthlyAverage;
 }
 
 /// @nodoc
@@ -85,21 +92,26 @@ class _$StatisticsOverviewCopyWithImpl<$Res>
   @override
   $Res call({
     Object? yearMonthlyAverage = null,
+    Object? previousYearMonthlyAverage = null,
     Object? monthlyCategoryTotals = null,
-    Object? last12MonthsCategoryAverage = null,
+    Object? categoryAverage = null,
   }) {
     return _then(_self.copyWith(
       yearMonthlyAverage: null == yearMonthlyAverage
           ? _self.yearMonthlyAverage
           : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
               as YearMonthlyAverage,
+      previousYearMonthlyAverage: null == previousYearMonthlyAverage
+          ? _self.previousYearMonthlyAverage
+          : previousYearMonthlyAverage // ignore: cast_nullable_to_non_nullable
+              as YearMonthlyAverage,
       monthlyCategoryTotals: null == monthlyCategoryTotals
           ? _self.monthlyCategoryTotals
           : monthlyCategoryTotals // ignore: cast_nullable_to_non_nullable
               as List<MonthlyCategoryTotals>,
-      last12MonthsCategoryAverage: null == last12MonthsCategoryAverage
-          ? _self.last12MonthsCategoryAverage
-          : last12MonthsCategoryAverage // ignore: cast_nullable_to_non_nullable
+      categoryAverage: null == categoryAverage
+          ? _self.categoryAverage
+          : categoryAverage // ignore: cast_nullable_to_non_nullable
               as Map<String, num>,
     ));
   }
@@ -111,6 +123,17 @@ class _$StatisticsOverviewCopyWithImpl<$Res>
   $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage {
     return $YearMonthlyAverageCopyWith<$Res>(_self.yearMonthlyAverage, (value) {
       return _then(_self.copyWith(yearMonthlyAverage: value));
+    });
+  }
+
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $YearMonthlyAverageCopyWith<$Res> get previousYearMonthlyAverage {
+    return $YearMonthlyAverageCopyWith<$Res>(_self.previousYearMonthlyAverage,
+        (value) {
+      return _then(_self.copyWith(previousYearMonthlyAverage: value));
     });
   }
 }
@@ -208,16 +231,20 @@ extension StatisticsOverviewPatterns on StatisticsOverview {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             YearMonthlyAverage yearMonthlyAverage,
+            YearMonthlyAverage previousYearMonthlyAverage,
             List<MonthlyCategoryTotals> monthlyCategoryTotals,
-            Map<String, num> last12MonthsCategoryAverage)?
+            Map<String, num> categoryAverage)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _StatisticsOverview() when $default != null:
-        return $default(_that.yearMonthlyAverage, _that.monthlyCategoryTotals,
-            _that.last12MonthsCategoryAverage);
+        return $default(
+            _that.yearMonthlyAverage,
+            _that.previousYearMonthlyAverage,
+            _that.monthlyCategoryTotals,
+            _that.categoryAverage);
       case _:
         return orElse();
     }
@@ -240,15 +267,19 @@ extension StatisticsOverviewPatterns on StatisticsOverview {
   TResult when<TResult extends Object?>(
     TResult Function(
             YearMonthlyAverage yearMonthlyAverage,
+            YearMonthlyAverage previousYearMonthlyAverage,
             List<MonthlyCategoryTotals> monthlyCategoryTotals,
-            Map<String, num> last12MonthsCategoryAverage)
+            Map<String, num> categoryAverage)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _StatisticsOverview():
-        return $default(_that.yearMonthlyAverage, _that.monthlyCategoryTotals,
-            _that.last12MonthsCategoryAverage);
+        return $default(
+            _that.yearMonthlyAverage,
+            _that.previousYearMonthlyAverage,
+            _that.monthlyCategoryTotals,
+            _that.categoryAverage);
     }
   }
 
@@ -268,15 +299,19 @@ extension StatisticsOverviewPatterns on StatisticsOverview {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             YearMonthlyAverage yearMonthlyAverage,
+            YearMonthlyAverage previousYearMonthlyAverage,
             List<MonthlyCategoryTotals> monthlyCategoryTotals,
-            Map<String, num> last12MonthsCategoryAverage)?
+            Map<String, num> categoryAverage)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _StatisticsOverview() when $default != null:
-        return $default(_that.yearMonthlyAverage, _that.monthlyCategoryTotals,
-            _that.last12MonthsCategoryAverage);
+        return $default(
+            _that.yearMonthlyAverage,
+            _that.previousYearMonthlyAverage,
+            _that.monthlyCategoryTotals,
+            _that.categoryAverage);
       case _:
         return null;
     }
@@ -288,15 +323,18 @@ extension StatisticsOverviewPatterns on StatisticsOverview {
 class _StatisticsOverview implements StatisticsOverview {
   _StatisticsOverview(
       {required this.yearMonthlyAverage,
+      required this.previousYearMonthlyAverage,
       required final List<MonthlyCategoryTotals> monthlyCategoryTotals,
-      required final Map<String, num> last12MonthsCategoryAverage})
+      required final Map<String, num> categoryAverage})
       : _monthlyCategoryTotals = monthlyCategoryTotals,
-        _last12MonthsCategoryAverage = last12MonthsCategoryAverage;
+        _categoryAverage = categoryAverage;
   factory _StatisticsOverview.fromJson(Map<String, dynamic> json) =>
       _$StatisticsOverviewFromJson(json);
 
   @override
   final YearMonthlyAverage yearMonthlyAverage;
+  @override
+  final YearMonthlyAverage previousYearMonthlyAverage;
   final List<MonthlyCategoryTotals> _monthlyCategoryTotals;
   @override
   List<MonthlyCategoryTotals> get monthlyCategoryTotals {
@@ -306,13 +344,12 @@ class _StatisticsOverview implements StatisticsOverview {
     return EqualUnmodifiableListView(_monthlyCategoryTotals);
   }
 
-  final Map<String, num> _last12MonthsCategoryAverage;
+  final Map<String, num> _categoryAverage;
   @override
-  Map<String, num> get last12MonthsCategoryAverage {
-    if (_last12MonthsCategoryAverage is EqualUnmodifiableMapView)
-      return _last12MonthsCategoryAverage;
+  Map<String, num> get categoryAverage {
+    if (_categoryAverage is EqualUnmodifiableMapView) return _categoryAverage;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_last12MonthsCategoryAverage);
+    return EqualUnmodifiableMapView(_categoryAverage);
   }
 
   /// Create a copy of StatisticsOverview
@@ -337,11 +374,14 @@ class _StatisticsOverview implements StatisticsOverview {
             other is _StatisticsOverview &&
             (identical(other.yearMonthlyAverage, yearMonthlyAverage) ||
                 other.yearMonthlyAverage == yearMonthlyAverage) &&
+            (identical(other.previousYearMonthlyAverage,
+                    previousYearMonthlyAverage) ||
+                other.previousYearMonthlyAverage ==
+                    previousYearMonthlyAverage) &&
             const DeepCollectionEquality()
                 .equals(other._monthlyCategoryTotals, _monthlyCategoryTotals) &&
-            const DeepCollectionEquality().equals(
-                other._last12MonthsCategoryAverage,
-                _last12MonthsCategoryAverage));
+            const DeepCollectionEquality()
+                .equals(other._categoryAverage, _categoryAverage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -349,12 +389,13 @@ class _StatisticsOverview implements StatisticsOverview {
   int get hashCode => Object.hash(
       runtimeType,
       yearMonthlyAverage,
+      previousYearMonthlyAverage,
       const DeepCollectionEquality().hash(_monthlyCategoryTotals),
-      const DeepCollectionEquality().hash(_last12MonthsCategoryAverage));
+      const DeepCollectionEquality().hash(_categoryAverage));
 
   @override
   String toString() {
-    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, monthlyCategoryTotals: $monthlyCategoryTotals, last12MonthsCategoryAverage: $last12MonthsCategoryAverage)';
+    return 'StatisticsOverview(yearMonthlyAverage: $yearMonthlyAverage, previousYearMonthlyAverage: $previousYearMonthlyAverage, monthlyCategoryTotals: $monthlyCategoryTotals, categoryAverage: $categoryAverage)';
   }
 }
 
@@ -368,11 +409,14 @@ abstract mixin class _$StatisticsOverviewCopyWith<$Res>
   @useResult
   $Res call(
       {YearMonthlyAverage yearMonthlyAverage,
+      YearMonthlyAverage previousYearMonthlyAverage,
       List<MonthlyCategoryTotals> monthlyCategoryTotals,
-      Map<String, num> last12MonthsCategoryAverage});
+      Map<String, num> categoryAverage});
 
   @override
   $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage;
+  @override
+  $YearMonthlyAverageCopyWith<$Res> get previousYearMonthlyAverage;
 }
 
 /// @nodoc
@@ -389,21 +433,26 @@ class __$StatisticsOverviewCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? yearMonthlyAverage = null,
+    Object? previousYearMonthlyAverage = null,
     Object? monthlyCategoryTotals = null,
-    Object? last12MonthsCategoryAverage = null,
+    Object? categoryAverage = null,
   }) {
     return _then(_StatisticsOverview(
       yearMonthlyAverage: null == yearMonthlyAverage
           ? _self.yearMonthlyAverage
           : yearMonthlyAverage // ignore: cast_nullable_to_non_nullable
               as YearMonthlyAverage,
+      previousYearMonthlyAverage: null == previousYearMonthlyAverage
+          ? _self.previousYearMonthlyAverage
+          : previousYearMonthlyAverage // ignore: cast_nullable_to_non_nullable
+              as YearMonthlyAverage,
       monthlyCategoryTotals: null == monthlyCategoryTotals
           ? _self._monthlyCategoryTotals
           : monthlyCategoryTotals // ignore: cast_nullable_to_non_nullable
               as List<MonthlyCategoryTotals>,
-      last12MonthsCategoryAverage: null == last12MonthsCategoryAverage
-          ? _self._last12MonthsCategoryAverage
-          : last12MonthsCategoryAverage // ignore: cast_nullable_to_non_nullable
+      categoryAverage: null == categoryAverage
+          ? _self._categoryAverage
+          : categoryAverage // ignore: cast_nullable_to_non_nullable
               as Map<String, num>,
     ));
   }
@@ -415,6 +464,17 @@ class __$StatisticsOverviewCopyWithImpl<$Res>
   $YearMonthlyAverageCopyWith<$Res> get yearMonthlyAverage {
     return $YearMonthlyAverageCopyWith<$Res>(_self.yearMonthlyAverage, (value) {
       return _then(_self.copyWith(yearMonthlyAverage: value));
+    });
+  }
+
+  /// Create a copy of StatisticsOverview
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $YearMonthlyAverageCopyWith<$Res> get previousYearMonthlyAverage {
+    return $YearMonthlyAverageCopyWith<$Res>(_self.previousYearMonthlyAverage,
+        (value) {
+      return _then(_self.copyWith(previousYearMonthlyAverage: value));
     });
   }
 }

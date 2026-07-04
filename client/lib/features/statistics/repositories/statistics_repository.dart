@@ -19,9 +19,18 @@ class StatisticsRepository {
   Dio get _dio => _ref.read(dioProvider);
   ErrorService get _errorService => _ref.read(errorServiceProvider);
 
-  Future<StatisticsOverview> getOverview() async {
+  Future<StatisticsOverview> getOverview({
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
     try {
-      final response = await _dio.get('/statistics');
+      final response = await _dio.get(
+        '/statistics',
+        queryParameters: {
+          if (startDate != null) 'startDate': startDate.toIso8601String(),
+          if (endDate != null) 'endDate': endDate.toIso8601String(),
+        },
+      );
 
       return StatisticsOverview.fromJson(response.data);
     } on DioException catch (e) {

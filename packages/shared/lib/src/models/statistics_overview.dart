@@ -9,10 +9,11 @@ part 'statistics_overview.g.dart';
 sealed class StatisticsOverview with _$StatisticsOverview {
   factory StatisticsOverview({
     required YearMonthlyAverage yearMonthlyAverage,
+    required YearMonthlyAverage previousYearMonthlyAverage,
     required List<MonthlyCategoryTotals> monthlyCategoryTotals,
-    required Map<String, num> last12MonthsCategoryAverage,
+    required Map<String, num> categoryAverage,
   }) = _StatisticsOverview;
 
-factory StatisticsOverview.fromJson(Map<String, dynamic> json) => 
-_$StatisticsOverviewFromJson(json);
+  factory StatisticsOverview.fromJson(Map<String, dynamic> json) =>
+      _$StatisticsOverviewFromJson(json);
 }

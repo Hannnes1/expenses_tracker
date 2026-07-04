@@ -46,7 +46,7 @@ final class StatisticsOverviewProvider extends $FunctionalProvider<
 }
 
 String _$statisticsOverviewHash() =>
-    r'0ffc7cf0ff7d6296a0d627b98b0c5f106e64fd93';
+    r'6771e373d014a2f0fd40514aba726b86179d8349';
 
 @ProviderFor(statisticsPageData)
 final statisticsPageDataProvider = StatisticsPageDataProvider._();

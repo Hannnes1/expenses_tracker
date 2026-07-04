@@ -10,16 +10,18 @@ _StatisticsOverview _$StatisticsOverviewFromJson(Map<String, dynamic> json) =>
     _StatisticsOverview(
       yearMonthlyAverage: YearMonthlyAverage.fromJson(
           json['yearMonthlyAverage'] as Map<String, dynamic>),
+      previousYearMonthlyAverage: YearMonthlyAverage.fromJson(
+          json['previousYearMonthlyAverage'] as Map<String, dynamic>),
       monthlyCategoryTotals: (json['monthlyCategoryTotals'] as List<dynamic>)
           .map((e) => MonthlyCategoryTotals.fromJson(e as Map<String, dynamic>))
           .toList(),
-      last12MonthsCategoryAverage:
-          Map<String, num>.from(json['last12MonthsCategoryAverage'] as Map),
+      categoryAverage: Map<String, num>.from(json['categoryAverage'] as Map),
     );
 
 Map<String, dynamic> _$StatisticsOverviewToJson(_StatisticsOverview instance) =>
     <String, dynamic>{
       'yearMonthlyAverage': instance.yearMonthlyAverage,
+      'previousYearMonthlyAverage': instance.previousYearMonthlyAverage,
       'monthlyCategoryTotals': instance.monthlyCategoryTotals,
-      'last12MonthsCategoryAverage': instance.last12MonthsCategoryAverage,
+      'categoryAverage': instance.categoryAverage,
     };
