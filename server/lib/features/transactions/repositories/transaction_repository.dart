@@ -27,6 +27,7 @@ class TransactionRepository {
     DateTime? startDate,
     DateTime? endDate,
     List<String> categories = const [],
+    String? search,
   }) async {
     final orderQuery = switch (order) {
       // If the sort order is by date, we also sort by created_at secondarily to ensure
@@ -49,12 +50,16 @@ class TransactionRepository {
 
     var categoriesQuery = '';
     if (categories.isNotEmpty) {
-      categoriesQuery += 'AND category_id IN (${repeatParameters('id', categories.length)})';
+      categoriesQuery +=
+          'AND category_id IN (${repeatParameters('id', categories.length)})';
     }
+
+    final searchQuery =
+        search != null && search.isNotEmpty ? 'AND text ILIKE @search' : '';
 
     final result = await connection.executeNamed(
       'SELECT * FROM transactions '
-      'WHERE user_id = @userId $dateQuery $categoriesQuery '
+      'WHERE user_id = @userId $dateQuery $categoriesQuery $searchQuery '
       'ORDER BY $orderQuery LIMIT @limit OFFSET @offset',
       parameters: {
         'userId': userId,
@@ -63,14 +68,18 @@ class TransactionRepository {
         if (startDate != null) 'startDate': startDate,
         if (endDate != null) 'endDate': endDate,
         if (categories.isNotEmpty) ...repeatparameters('id', categories),
+        if (search != null && search.isNotEmpty) 'search': '%$search%',
       },
     );
 
-    return result.map((e) => DbTransaction.fromDatabase(e.toColumnMap())).toList();
+    return result
+        .map((e) => DbTransaction.fromDatabase(e.toColumnMap()))
+        .toList();
   }
 
   /// Get a single transaction.
-  Future<DbTransaction> getTransaction(String userId, String transactionId) async {
+  Future<DbTransaction> getTransaction(
+      String userId, String transactionId) async {
     final result = await connection.executeNamed(
       'SELECT * FROM transactions WHERE user_id = @userId AND id = @transactionId',
       parameters: {
@@ -86,8 +95,8 @@ class TransactionRepository {
   Future<DbTransaction> createTransaction(DbTransaction transaction) async {
     final result = await connection.executeNamed(
       'INSERT INTO transactions'
-      '(user_id, date, text, amount, account_id, category_id, fixed_cost, description) VALUES'
-      '(@userId, @date, @text, @amount, @accountId, @categoryId, @fixedCost, @description)'
+      '(user_id, date, text, amount, account_id, category_id, fixed_cost, description, linked_transaction_id) VALUES'
+      '(@userId, @date, @text, @amount, @accountId, @categoryId, @fixedCost, @description, @linkedTransactionId)'
       'RETURNING *',
       parameters: {
         'userId': transaction.userId,
@@ -98,6 +107,7 @@ class TransactionRepository {
         'categoryId': transaction.categoryId,
         'fixedCost': transaction.fixedCost,
         'description': transaction.description,
+        'linkedTransactionId': transaction.linkedTransactionId,
       },
     );
 
@@ -113,7 +123,8 @@ class TransactionRepository {
       'account_id = @accountId, '
       'category_id = @categoryId, '
       'fixed_cost = @fixedCost, '
-      'description = @description '
+      'description = @description, '
+      'linked_transaction_id = @linkedTransactionId '
       'WHERE id = @id AND user_id = @userId '
       'RETURNING *',
       parameters: {
@@ -126,10 +137,48 @@ class TransactionRepository {
         'categoryId': transaction.categoryId,
         'fixedCost': transaction.fixedCost,
         'description': transaction.description,
+        'linkedTransactionId': transaction.linkedTransactionId,
       },
     );
 
     return DbTransaction.fromDatabase(result.first.toColumnMap());
+  }
+
+  /// Set or clear the transaction that this transaction is a reimbursement/refund for.
+  Future<DbTransaction> updateTransactionLink(
+    String userId,
+    String transactionId,
+    String? linkedTransactionId,
+  ) async {
+    final result = await connection.executeNamed(
+      'UPDATE transactions SET linked_transaction_id = @linkedTransactionId '
+      'WHERE id = @id AND user_id = @userId '
+      'RETURNING *',
+      parameters: {
+        'id': transactionId,
+        'userId': userId,
+        'linkedTransactionId': linkedTransactionId,
+      },
+    );
+
+    return DbTransaction.fromDatabase(result.first.toColumnMap());
+  }
+
+  /// Get all transactions that are linked to (i.e. reimburse/refund) the given transaction.
+  Future<List<DbTransaction>> getReimbursements(
+      String userId, String transactionId) async {
+    final result = await connection.executeNamed(
+      'SELECT * FROM transactions WHERE user_id = @userId AND linked_transaction_id = @transactionId '
+      'ORDER BY date DESC, created_at DESC',
+      parameters: {
+        'userId': userId,
+        'transactionId': transactionId,
+      },
+    );
+
+    return result
+        .map((e) => DbTransaction.fromDatabase(e.toColumnMap()))
+        .toList();
   }
 
   Future<void> deleteTransaction(String userId, String transactionId) async {

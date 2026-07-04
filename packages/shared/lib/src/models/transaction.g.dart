@@ -15,6 +15,7 @@ _Transaction _$TransactionFromJson(Map<String, dynamic> json) => _Transaction(
       category: Category.fromJson(json['category'] as Map<String, dynamic>),
       fixedCost: json['fixedCost'] as bool,
       description: json['description'] as String?,
+      linkedTransactionId: json['linkedTransactionId'] as String?,
     );
 
 Map<String, dynamic> _$TransactionToJson(_Transaction instance) =>
@@ -27,6 +28,7 @@ Map<String, dynamic> _$TransactionToJson(_Transaction instance) =>
       'category': instance.category,
       'fixedCost': instance.fixedCost,
       'description': instance.description,
+      'linkedTransactionId': instance.linkedTransactionId,
     };
 
 _CreateTransaction _$CreateTransactionFromJson(Map<String, dynamic> json) =>
@@ -38,6 +40,7 @@ _CreateTransaction _$CreateTransactionFromJson(Map<String, dynamic> json) =>
       categoryId: json['categoryId'] as String,
       fixedCost: json['fixedCost'] as bool,
       description: json['description'] as String?,
+      linkedTransactionId: json['linkedTransactionId'] as String?,
     );
 
 Map<String, dynamic> _$CreateTransactionToJson(_CreateTransaction instance) =>
@@ -49,4 +52,15 @@ Map<String, dynamic> _$CreateTransactionToJson(_CreateTransaction instance) =>
       'categoryId': instance.categoryId,
       'fixedCost': instance.fixedCost,
       'description': instance.description,
+      'linkedTransactionId': instance.linkedTransactionId,
+    };
+
+_LinkTransaction _$LinkTransactionFromJson(Map<String, dynamic> json) =>
+    _LinkTransaction(
+      linkedTransactionId: json['linkedTransactionId'] as String?,
+    );
+
+Map<String, dynamic> _$LinkTransactionToJson(_LinkTransaction instance) =>
+    <String, dynamic>{
+      'linkedTransactionId': instance.linkedTransactionId,
     };

@@ -31,6 +31,14 @@ Future<Transaction> transaction(Ref ref, String id) async {
   return await ref.watch(transactionsRepositoryProvider).getTransaction(id);
 }
 
+/// Transactions that are reimbursements/refunds for the transaction [id].
+@riverpod
+Future<List<Transaction>> reimbursements(Ref ref, String id) async {
+  ref.cacheFor(kDefaultCacheDuration);
+
+  return await ref.watch(transactionsRepositoryProvider).getReimbursements(id);
+}
+
 @freezed
 sealed class TransactionsFilterState with _$TransactionsFilterState {
   const factory TransactionsFilterState({

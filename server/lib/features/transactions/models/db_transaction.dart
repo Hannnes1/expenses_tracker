@@ -16,6 +16,7 @@ sealed class DbTransaction with _$DbTransaction {
     required String categoryId,
     required bool fixedCost,
     required String? description,
+    String? linkedTransactionId,
     DateTime? createdAt,
   }) = _DbTransaction;
 
@@ -30,6 +31,7 @@ sealed class DbTransaction with _$DbTransaction {
       categoryId: row['category_id'],
       fixedCost: row['fixed_cost'],
       description: row['description'],
+      linkedTransactionId: row['linked_transaction_id'],
       createdAt: row['created_at'],
     );
   }

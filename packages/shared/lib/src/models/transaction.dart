@@ -15,10 +15,11 @@ sealed class Transaction with _$Transaction {
     required Category category,
     required bool fixedCost,
     String? description,
+    String? linkedTransactionId,
   }) = _Transaction;
 
-factory Transaction.fromJson(Map<String, dynamic> json) => 
-_$TransactionFromJson(json);
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
 }
 
 @freezed
@@ -31,8 +32,19 @@ sealed class CreateTransaction with _$CreateTransaction {
     required String categoryId,
     required bool fixedCost,
     required String? description,
+    String? linkedTransactionId,
   }) = _CreateTransaction;
 
-factory CreateTransaction.fromJson(Map<String, dynamic> json) => 
-_$CreateTransactionFromJson(json);
+  factory CreateTransaction.fromJson(Map<String, dynamic> json) =>
+      _$CreateTransactionFromJson(json);
+}
+
+@freezed
+sealed class LinkTransaction with _$LinkTransaction {
+  factory LinkTransaction({
+    String? linkedTransactionId,
+  }) = _LinkTransaction;
+
+  factory LinkTransaction.fromJson(Map<String, dynamic> json) =>
+      _$LinkTransactionFromJson(json);
 }

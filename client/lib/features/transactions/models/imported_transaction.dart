@@ -9,6 +9,9 @@ class ImportedTransaction {
   Account? account;
   bool isFixedCost;
 
+  /// The existing transaction that this imported row is a reimbursement/refund for, if any.
+  Transaction? linkedTransaction;
+
   ImportedTransaction({
     required this.date,
     required this.text,
@@ -17,5 +20,6 @@ class ImportedTransaction {
     this.category,
     this.account,
     this.isFixedCost = false,
+    this.linkedTransaction,
   });
 }

@@ -19,8 +19,10 @@ Future<Response> createTransaction(RequestContext context) async {
     return Response.json(statusCode: HttpStatus.badRequest);
   }
 
-  final transactionRepository = await context.read<Future<TransactionRepository>>();
-  final transactionConversionService = await context.read<Future<TransactionConversionService>>();
+  final transactionRepository =
+      await context.read<Future<TransactionRepository>>();
+  final transactionConversionService =
+      await context.read<Future<TransactionConversionService>>();
 
   final userId = context.read<UserInfo>().id;
 
@@ -34,10 +36,13 @@ Future<Response> createTransaction(RequestContext context) async {
       categoryId: transaction.categoryId,
       fixedCost: transaction.fixedCost,
       description: transaction.description,
+      linkedTransactionId: transaction.linkedTransactionId,
     ),
   );
 
-  final newTransaction = (await transactionConversionService.convertTransactions([newDbTransaction])).first;
+  final newTransaction = (await transactionConversionService
+          .convertTransactions([newDbTransaction]))
+      .first;
 
   return Response.json(
     statusCode: HttpStatus.created,

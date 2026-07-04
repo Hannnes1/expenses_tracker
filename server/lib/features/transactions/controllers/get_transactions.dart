@@ -17,26 +17,37 @@ Future<Response> getTransactions(RequestContext context) async {
   late DateTime? startDate;
   late DateTime? endDate;
   late List<String> categories;
+  late String? search;
   try {
     offset = int.parse(queryParameters['offset'] ?? '0');
     limit = int.parse(queryParameters['limit'] ?? '20');
 
-    order = TransactionsOrder.fromString(queryParameters['order'] ?? 'dateDesc');
+    order =
+        TransactionsOrder.fromString(queryParameters['order'] ?? 'dateDesc');
 
-    final startDateString = queryParameters['startDate'], endDateString = queryParameters['endDate'];
+    final startDateString = queryParameters['startDate'],
+        endDateString = queryParameters['endDate'];
 
-    startDate = startDateString?.isEmpty ?? true ? null : DateTime.parse(startDateString!);
-    endDate = endDateString?.isEmpty ?? true ? null : DateTime.parse(endDateString!);
+    startDate = startDateString?.isEmpty ?? true
+        ? null
+        : DateTime.parse(startDateString!);
+    endDate =
+        endDateString?.isEmpty ?? true ? null : DateTime.parse(endDateString!);
 
     final categoryString = queryParameters['categories'];
 
-    categories = categoryString?.isEmpty ?? true ? [] : categoryString!.split(',');
+    categories =
+        categoryString?.isEmpty ?? true ? [] : categoryString!.split(',');
+
+    search = queryParameters['search'];
   } catch (e) {
     return Response.json(statusCode: HttpStatus.badRequest);
   }
 
-  final transactionRepository = await context.read<Future<TransactionRepository>>();
-  final transactionConversionService = await context.read<Future<TransactionConversionService>>();
+  final transactionRepository =
+      await context.read<Future<TransactionRepository>>();
+  final transactionConversionService =
+      await context.read<Future<TransactionConversionService>>();
 
   final userId = context.read<UserInfo>().id;
 
@@ -48,9 +59,11 @@ Future<Response> getTransactions(RequestContext context) async {
     startDate: startDate,
     endDate: endDate,
     categories: categories,
+    search: search,
   );
 
-  final transactions = await transactionConversionService.convertTransactions(dbTransactions);
+  final transactions =
+      await transactionConversionService.convertTransactions(dbTransactions);
 
   return Response.json(body: transactions);
 }

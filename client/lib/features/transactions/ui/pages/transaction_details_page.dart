@@ -9,8 +9,11 @@ import 'package:expensetrack/core/widgets/shimmer_loading.dart';
 import 'package:expensetrack/features/statistics/controllers/statistics_overview.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
 import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
+import 'package:expensetrack/features/transactions/ui/widgets/link_helpers.dart';
+import 'package:expensetrack/features/transactions/ui/widgets/transaction_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared/shared.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class TransactionDetailsPage extends ConsumerWidget {
@@ -33,7 +36,9 @@ class TransactionDetailsPage extends ConsumerWidget {
     );
 
     if (confirmation ?? false) {
-      await ref.read(transactionsRepositoryProvider).deleteTransaction(transactionId);
+      await ref
+          .read(transactionsRepositoryProvider)
+          .deleteTransaction(transactionId);
 
       ref.invalidate(paginatedTransactionsProvider);
       ref.invalidate(statisticsOverviewProvider);
@@ -42,12 +47,60 @@ class TransactionDetailsPage extends ConsumerWidget {
     }
   }
 
+  Future<void> _linkTransaction(BuildContext context, WidgetRef ref) async {
+    final picked = await showDialog<Transaction>(
+      context: context,
+      builder: (context) => TransactionPickerDialog(excludeId: transactionId),
+    );
+
+    if (picked == null || !context.mounted) {
+      return;
+    }
+
+    final current = ref.read(transactionProvider(transactionId)).value;
+
+    if (current != null) {
+      final confirmed = await confirmSameSignLink(context,
+          amount: current.amount, linkedAmount: picked.amount);
+
+      if (!confirmed) {
+        return;
+      }
+    }
+
+    final previousLinkedTransactionId = current?.linkedTransactionId;
+
+    await ref
+        .read(transactionsRepositoryProvider)
+        .linkTransaction(transactionId, picked.id);
+
+    ref.invalidate(transactionProvider(transactionId));
+    ref.invalidate(reimbursementsProvider(picked.id));
+    if (previousLinkedTransactionId != null) {
+      ref.invalidate(reimbursementsProvider(previousLinkedTransactionId));
+    }
+  }
+
+  Future<void> _unlinkTransaction(WidgetRef ref) async {
+    final previousLinkedTransactionId =
+        ref.read(transactionProvider(transactionId)).value?.linkedTransactionId;
+
+    await ref
+        .read(transactionsRepositoryProvider)
+        .linkTransaction(transactionId, null);
+
+    ref.invalidate(transactionProvider(transactionId));
+    if (previousLinkedTransactionId != null) {
+      ref.invalidate(reimbursementsProvider(previousLinkedTransactionId));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    Widget buildAppBar(Widget? title) {
+    Widget buildAppBar(Widget? title, {Transaction? transaction}) {
       return SliverAppBar.medium(
         // Temporary workaround for text covering automatically implied
         // leading icon button.
@@ -62,8 +115,23 @@ class TransactionDetailsPage extends ConsumerWidget {
               OverflowMenuItem(
                 icon: Icons.edit,
                 title: 'Edit',
-                onPressed: () => ref.read(routerProvider).go('/transaction/$transactionId/edit'),
+                onPressed: () => ref
+                    .read(routerProvider)
+                    .go('/transaction/$transactionId/edit'),
               ),
+              if (transaction != null)
+                if (transaction.linkedTransactionId == null)
+                  OverflowMenuItem(
+                    icon: Icons.link,
+                    title: 'Link to Transaction',
+                    onPressed: () => _linkTransaction(context, ref),
+                  )
+                else
+                  OverflowMenuItem(
+                    icon: Icons.link_off,
+                    title: 'Unlink Transaction',
+                    onPressed: () => _unlinkTransaction(ref),
+                  ),
               OverflowMenuItem(
                 icon: Icons.delete,
                 title: 'Delete',
@@ -78,7 +146,8 @@ class TransactionDetailsPage extends ConsumerWidget {
     return Scaffold(
       body: RefreshIndicator(
         edgeOffset: kToolbarHeight + MediaQuery.of(context).padding.top,
-        onRefresh: () async => await ref.refresh(transactionProvider(transactionId).future),
+        onRefresh: () async =>
+            await ref.refresh(transactionProvider(transactionId).future),
         child: CustomScrollView(
           slivers: ref.watch(transactionProvider(transactionId)).when(
                 error: (error, stackTrace) => [
@@ -139,82 +208,171 @@ class TransactionDetailsPage extends ConsumerWidget {
                     ),
                   )
                 ],
-                data: (transaction) => [
-                  buildAppBar(
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(transaction.text),
-                      ],
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                data: (transaction) {
+                  final reimbursements =
+                      ref.watch(reimbursementsProvider(transactionId)).value ??
+                          [];
+
+                  return [
+                    buildAppBar(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CurrencyText(
-                            transaction.amount,
-                            style: textTheme.headlineMedium,
-                          ),
-                          Text(
-                            transaction.date.localDate(),
-                            // [ListTile] uses the bodyMedium style, but the bodySmall
-                            // color for some reason. This matches that.
-                            style: textTheme.bodyMedium!.copyWith(
-                              color: textTheme.bodySmall!.color,
+                          Text(transaction.text),
+                        ],
+                      ),
+                      transaction: transaction,
+                    ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CurrencyText(
+                              transaction.amount,
+                              style: textTheme.headlineMedium,
+                            ),
+                            Text(
+                              transaction.date.localDate(),
+                              // [ListTile] uses the bodyMedium style, but the bodySmall
+                              // color for some reason. This matches that.
+                              style: textTheme.bodyMedium!.copyWith(
+                                color: textTheme.bodySmall!.color,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(16.0),
+                      sliver: MultiSliver(
+                        children: [
+                          CardWithTitle(
+                            title: 'Details',
+                            child: ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              itemCount: 3,
+                              separatorBuilder: (context, index) => Divider(
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                              itemBuilder: (context, index) {
+                                final detail = {
+                                  'Category': transaction.category.name,
+                                  'Account': transaction.account.name,
+                                  'Fixed Cost':
+                                      transaction.fixedCost ? 'Yes' : 'No',
+                                }.entries.elementAt(index);
+
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(detail.key),
+                                    Text(detail.value),
+                                  ],
+                                );
+                              },
                             ),
                           ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          if (transaction.description?.isNotEmpty ?? false)
+                            CardWithTitle(
+                              title: 'Description',
+                              child: Text(transaction.description!),
+                            ),
+                          if (transaction.linkedTransactionId != null) ...[
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            _LinkedTransactionCard(
+                                linkedTransactionId:
+                                    transaction.linkedTransactionId!),
+                          ],
+                          if (reimbursements.isNotEmpty) ...[
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            _ReimbursementsCard(reimbursements: reimbursements),
+                          ],
                         ],
                       ),
                     ),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(16.0),
-                    sliver: MultiSliver(
-                      children: [
-                        CardWithTitle(
-                          title: 'Details',
-                          child: ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            itemCount: 3,
-                            separatorBuilder: (context, index) => Divider(
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                            itemBuilder: (context, index) {
-                              final detail = {
-                                'Category': transaction.category.name,
-                                'Account': transaction.account.name,
-                                'Fixed Cost': transaction.fixedCost ? 'Yes' : 'No',
-                              }.entries.elementAt(index);
-
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(detail.key),
-                                  Text(detail.value),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        if (transaction.description?.isNotEmpty ?? false)
-                          CardWithTitle(
-                            title: 'Description',
-                            child: Text(transaction.description!),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ];
+                },
               ),
         ),
+      ),
+    );
+  }
+}
+
+class _LinkedTransactionCard extends ConsumerWidget {
+  const _LinkedTransactionCard({required this.linkedTransactionId});
+
+  final String linkedTransactionId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CardWithTitle(
+      title: 'Reimbursement For',
+      child: ref.watch(transactionProvider(linkedTransactionId)).when(
+            error: (error, stackTrace) => ProviderError(
+              error: error,
+              stackTrace: stackTrace,
+              errorText: 'The linked transaction could not be loaded.',
+            ),
+            loading: () => const ShimmerLoading(
+              child: LoadingPlaceholder(height: 48),
+            ),
+            data: (linkedTransaction) => ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(linkedTransaction.text),
+              subtitle: Text(linkedTransaction.date.localDate()),
+              trailing: CurrencyText(linkedTransaction.amount),
+              onTap: () => ref
+                  .read(routerProvider)
+                  .go('/transaction/$linkedTransactionId'),
+            ),
+          ),
+    );
+  }
+}
+
+class _ReimbursementsCard extends ConsumerWidget {
+  const _ReimbursementsCard({required this.reimbursements});
+
+  final List<Transaction> reimbursements;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CardWithTitle(
+      title: 'Reimbursements',
+      child: ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        itemCount: reimbursements.length,
+        separatorBuilder: (context, index) => Divider(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
+        itemBuilder: (context, index) {
+          final reimbursement = reimbursements[index];
+
+          return ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(reimbursement.text),
+            subtitle: Text(reimbursement.date.localDate()),
+            trailing: CurrencyText(reimbursement.amount),
+            onTap: () =>
+                ref.read(routerProvider).go('/transaction/${reimbursement.id}'),
+          );
+        },
       ),
     );
   }

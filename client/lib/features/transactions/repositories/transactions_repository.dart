@@ -27,6 +27,7 @@ class TransactionsRepository {
     DateTime? startDate,
     DateTime? endDate,
     List<String> categories = const [],
+    String? search,
   }) async {
     try {
       final response = await _dio.get(
@@ -38,10 +39,13 @@ class TransactionsRepository {
           'startDate': startDate?.toIso8601String(),
           'endDate': endDate?.toIso8601String(),
           'categories': categories.join(','),
+          if (search != null && search.isNotEmpty) 'search': search,
         },
       );
 
-      return (response.data as List).map((e) => Transaction.fromJson(e)).toList();
+      return (response.data as List)
+          .map((e) => Transaction.fromJson(e))
+          .toList();
     } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }
@@ -72,7 +76,8 @@ class TransactionsRepository {
     }
   }
 
-  Future<Transaction> updateTransaction(String id, CreateTransaction transaction) async {
+  Future<Transaction> updateTransaction(
+      String id, CreateTransaction transaction) async {
     try {
       final response = await _dio.patch(
         '/transactions/$id',
@@ -90,6 +95,37 @@ class TransactionsRepository {
       await _dio.delete(
         '/transactions/$id',
       );
+    } on DioException catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
+
+  /// Set or clear the transaction that [id] is a reimbursement/refund for.
+  Future<Transaction> linkTransaction(
+      String id, String? linkedTransactionId) async {
+    try {
+      final response = await _dio.patch(
+        '/transactions/$id/link',
+        data:
+            LinkTransaction(linkedTransactionId: linkedTransactionId).toJson(),
+      );
+
+      return Transaction.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _errorService.httpHandler(e);
+    }
+  }
+
+  /// Get all transactions that are linked to (i.e. reimburse/refund) [id].
+  Future<List<Transaction>> getReimbursements(String id) async {
+    try {
+      final response = await _dio.get(
+        '/transactions/$id/reimbursements',
+      );
+
+      return (response.data as List)
+          .map((e) => Transaction.fromJson(e))
+          .toList();
     } on DioException catch (e) {
       throw _errorService.httpHandler(e);
     }

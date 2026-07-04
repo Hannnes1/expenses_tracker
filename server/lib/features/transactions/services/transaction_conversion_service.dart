@@ -21,9 +21,12 @@ class TransactionConversionService {
   final CategoryRepository categoryRepository;
 
   /// Convert multiple [DbTransaction]s to [Transaction]s.
-  Future<List<Transaction>> convertTransactions(List<DbTransaction> dbTransactions) async {
-    final dbAccounts = await accountRepository.getAccountsByIds(dbTransactions.map((e) => e.accountId).toSet());
-    final dbCategories = await categoryRepository.getCategoriesByIds(dbTransactions.map((e) => e.categoryId).toSet());
+  Future<List<Transaction>> convertTransactions(
+      List<DbTransaction> dbTransactions) async {
+    final dbAccounts = await accountRepository
+        .getAccountsByIds(dbTransactions.map((e) => e.accountId).toSet());
+    final dbCategories = await categoryRepository
+        .getCategoriesByIds(dbTransactions.map((e) => e.categoryId).toSet());
 
     final accounts = dbAccounts
         .map((e) => Account(
@@ -48,10 +51,13 @@ class TransactionConversionService {
             date: e.date,
             text: e.text,
             amount: e.amount,
-            account: accounts.firstWhere((account) => account.id == e.accountId),
-            category: categories.firstWhere((category) => category.id == e.categoryId),
+            account:
+                accounts.firstWhere((account) => account.id == e.accountId),
+            category: categories
+                .firstWhere((category) => category.id == e.categoryId),
             fixedCost: e.fixedCost,
             description: e.description,
+            linkedTransactionId: e.linkedTransactionId,
           ),
         )
         .toList();

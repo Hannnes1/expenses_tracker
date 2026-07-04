@@ -22,6 +22,7 @@ mixin _$Transaction {
   Category get category;
   bool get fixedCost;
   String? get description;
+  String? get linkedTransactionId;
 
   /// Create a copy of Transaction
   /// with the given fields replaced by the non-null parameter values.
@@ -48,17 +49,19 @@ mixin _$Transaction {
             (identical(other.fixedCost, fixedCost) ||
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, date, text, amount, account,
-      category, fixedCost, description);
+      category, fixedCost, description, linkedTransactionId);
 
   @override
   String toString() {
-    return 'Transaction(id: $id, date: $date, text: $text, amount: $amount, account: $account, category: $category, fixedCost: $fixedCost, description: $description)';
+    return 'Transaction(id: $id, date: $date, text: $text, amount: $amount, account: $account, category: $category, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId)';
   }
 }
 
@@ -76,7 +79,8 @@ abstract mixin class $TransactionCopyWith<$Res> {
       Account account,
       Category category,
       bool fixedCost,
-      String? description});
+      String? description,
+      String? linkedTransactionId});
 
   $AccountCopyWith<$Res> get account;
   $CategoryCopyWith<$Res> get category;
@@ -102,6 +106,7 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
     Object? category = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -135,6 +140,10 @@ class _$TransactionCopyWithImpl<$Res> implements $TransactionCopyWith<$Res> {
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -259,15 +268,24 @@ extension TransactionPatterns on Transaction {
             Account account,
             Category category,
             bool fixedCost,
-            String? description)?
+            String? description,
+            String? linkedTransactionId)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Transaction() when $default != null:
-        return $default(_that.id, _that.date, _that.text, _that.amount,
-            _that.account, _that.category, _that.fixedCost, _that.description);
+        return $default(
+            _that.id,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.account,
+            _that.category,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
       case _:
         return orElse();
     }
@@ -296,14 +314,23 @@ extension TransactionPatterns on Transaction {
             Account account,
             Category category,
             bool fixedCost,
-            String? description)
+            String? description,
+            String? linkedTransactionId)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Transaction():
-        return $default(_that.id, _that.date, _that.text, _that.amount,
-            _that.account, _that.category, _that.fixedCost, _that.description);
+        return $default(
+            _that.id,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.account,
+            _that.category,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
     }
   }
 
@@ -329,14 +356,23 @@ extension TransactionPatterns on Transaction {
             Account account,
             Category category,
             bool fixedCost,
-            String? description)?
+            String? description,
+            String? linkedTransactionId)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Transaction() when $default != null:
-        return $default(_that.id, _that.date, _that.text, _that.amount,
-            _that.account, _that.category, _that.fixedCost, _that.description);
+        return $default(
+            _that.id,
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.account,
+            _that.category,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
       case _:
         return null;
     }
@@ -354,7 +390,8 @@ class _Transaction implements Transaction {
       required this.account,
       required this.category,
       required this.fixedCost,
-      this.description});
+      this.description,
+      this.linkedTransactionId});
   factory _Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
 
@@ -374,6 +411,8 @@ class _Transaction implements Transaction {
   final bool fixedCost;
   @override
   final String? description;
+  @override
+  final String? linkedTransactionId;
 
   /// Create a copy of Transaction
   /// with the given fields replaced by the non-null parameter values.
@@ -405,17 +444,19 @@ class _Transaction implements Transaction {
             (identical(other.fixedCost, fixedCost) ||
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, date, text, amount, account,
-      category, fixedCost, description);
+      category, fixedCost, description, linkedTransactionId);
 
   @override
   String toString() {
-    return 'Transaction(id: $id, date: $date, text: $text, amount: $amount, account: $account, category: $category, fixedCost: $fixedCost, description: $description)';
+    return 'Transaction(id: $id, date: $date, text: $text, amount: $amount, account: $account, category: $category, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId)';
   }
 }
 
@@ -435,7 +476,8 @@ abstract mixin class _$TransactionCopyWith<$Res>
       Account account,
       Category category,
       bool fixedCost,
-      String? description});
+      String? description,
+      String? linkedTransactionId});
 
   @override
   $AccountCopyWith<$Res> get account;
@@ -463,6 +505,7 @@ class __$TransactionCopyWithImpl<$Res> implements _$TransactionCopyWith<$Res> {
     Object? category = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
   }) {
     return _then(_Transaction(
       id: null == id
@@ -497,6 +540,10 @@ class __$TransactionCopyWithImpl<$Res> implements _$TransactionCopyWith<$Res> {
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -530,6 +577,7 @@ mixin _$CreateTransaction {
   String get categoryId;
   bool get fixedCost;
   String? get description;
+  String? get linkedTransactionId;
 
   /// Create a copy of CreateTransaction
   /// with the given fields replaced by the non-null parameter values.
@@ -557,17 +605,19 @@ mixin _$CreateTransaction {
             (identical(other.fixedCost, fixedCost) ||
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, date, text, amount, accountId,
-      categoryId, fixedCost, description);
+      categoryId, fixedCost, description, linkedTransactionId);
 
   @override
   String toString() {
-    return 'CreateTransaction(date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description)';
+    return 'CreateTransaction(date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId)';
   }
 }
 
@@ -584,7 +634,8 @@ abstract mixin class $CreateTransactionCopyWith<$Res> {
       String accountId,
       String categoryId,
       bool fixedCost,
-      String? description});
+      String? description,
+      String? linkedTransactionId});
 }
 
 /// @nodoc
@@ -607,6 +658,7 @@ class _$CreateTransactionCopyWithImpl<$Res>
     Object? categoryId = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
   }) {
     return _then(_self.copyWith(
       date: null == date
@@ -636,6 +688,10 @@ class _$CreateTransactionCopyWithImpl<$Res>
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -732,16 +788,30 @@ extension CreateTransactionPatterns on CreateTransaction {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(DateTime date, String text, num amount, String accountId,
-            String categoryId, bool fixedCost, String? description)?
+    TResult Function(
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            String? linkedTransactionId)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _CreateTransaction() when $default != null:
-        return $default(_that.date, _that.text, _that.amount, _that.accountId,
-            _that.categoryId, _that.fixedCost, _that.description);
+        return $default(
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
       case _:
         return orElse();
     }
@@ -762,15 +832,29 @@ extension CreateTransactionPatterns on CreateTransaction {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(DateTime date, String text, num amount, String accountId,
-            String categoryId, bool fixedCost, String? description)
+    TResult Function(
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            String? linkedTransactionId)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CreateTransaction():
-        return $default(_that.date, _that.text, _that.amount, _that.accountId,
-            _that.categoryId, _that.fixedCost, _that.description);
+        return $default(
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
     }
   }
 
@@ -788,15 +872,29 @@ extension CreateTransactionPatterns on CreateTransaction {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(DateTime date, String text, num amount, String accountId,
-            String categoryId, bool fixedCost, String? description)?
+    TResult? Function(
+            DateTime date,
+            String text,
+            num amount,
+            String accountId,
+            String categoryId,
+            bool fixedCost,
+            String? description,
+            String? linkedTransactionId)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CreateTransaction() when $default != null:
-        return $default(_that.date, _that.text, _that.amount, _that.accountId,
-            _that.categoryId, _that.fixedCost, _that.description);
+        return $default(
+            _that.date,
+            _that.text,
+            _that.amount,
+            _that.accountId,
+            _that.categoryId,
+            _that.fixedCost,
+            _that.description,
+            _that.linkedTransactionId);
       case _:
         return null;
     }
@@ -813,7 +911,8 @@ class _CreateTransaction implements CreateTransaction {
       required this.accountId,
       required this.categoryId,
       required this.fixedCost,
-      required this.description});
+      required this.description,
+      this.linkedTransactionId});
   factory _CreateTransaction.fromJson(Map<String, dynamic> json) =>
       _$CreateTransactionFromJson(json);
 
@@ -831,6 +930,8 @@ class _CreateTransaction implements CreateTransaction {
   final bool fixedCost;
   @override
   final String? description;
+  @override
+  final String? linkedTransactionId;
 
   /// Create a copy of CreateTransaction
   /// with the given fields replaced by the non-null parameter values.
@@ -862,17 +963,19 @@ class _CreateTransaction implements CreateTransaction {
             (identical(other.fixedCost, fixedCost) ||
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, date, text, amount, accountId,
-      categoryId, fixedCost, description);
+      categoryId, fixedCost, description, linkedTransactionId);
 
   @override
   String toString() {
-    return 'CreateTransaction(date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description)';
+    return 'CreateTransaction(date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId)';
   }
 }
 
@@ -891,7 +994,8 @@ abstract mixin class _$CreateTransactionCopyWith<$Res>
       String accountId,
       String categoryId,
       bool fixedCost,
-      String? description});
+      String? description,
+      String? linkedTransactionId});
 }
 
 /// @nodoc
@@ -914,6 +1018,7 @@ class __$CreateTransactionCopyWithImpl<$Res>
     Object? categoryId = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
   }) {
     return _then(_CreateTransaction(
       date: null == date
@@ -943,6 +1048,309 @@ class __$CreateTransactionCopyWithImpl<$Res>
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$LinkTransaction {
+  String? get linkedTransactionId;
+
+  /// Create a copy of LinkTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LinkTransactionCopyWith<LinkTransaction> get copyWith =>
+      _$LinkTransactionCopyWithImpl<LinkTransaction>(
+          this as LinkTransaction, _$identity);
+
+  /// Serializes this LinkTransaction to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is LinkTransaction &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, linkedTransactionId);
+
+  @override
+  String toString() {
+    return 'LinkTransaction(linkedTransactionId: $linkedTransactionId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $LinkTransactionCopyWith<$Res> {
+  factory $LinkTransactionCopyWith(
+          LinkTransaction value, $Res Function(LinkTransaction) _then) =
+      _$LinkTransactionCopyWithImpl;
+  @useResult
+  $Res call({String? linkedTransactionId});
+}
+
+/// @nodoc
+class _$LinkTransactionCopyWithImpl<$Res>
+    implements $LinkTransactionCopyWith<$Res> {
+  _$LinkTransactionCopyWithImpl(this._self, this._then);
+
+  final LinkTransaction _self;
+  final $Res Function(LinkTransaction) _then;
+
+  /// Create a copy of LinkTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? linkedTransactionId = freezed,
+  }) {
+    return _then(_self.copyWith(
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [LinkTransaction].
+extension LinkTransactionPatterns on LinkTransaction {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LinkTransaction value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_LinkTransaction value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction():
+        return $default(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LinkTransaction value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? linkedTransactionId)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction() when $default != null:
+        return $default(_that.linkedTransactionId);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? linkedTransactionId) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction():
+        return $default(_that.linkedTransactionId);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? linkedTransactionId)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LinkTransaction() when $default != null:
+        return $default(_that.linkedTransactionId);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _LinkTransaction implements LinkTransaction {
+  _LinkTransaction({this.linkedTransactionId});
+  factory _LinkTransaction.fromJson(Map<String, dynamic> json) =>
+      _$LinkTransactionFromJson(json);
+
+  @override
+  final String? linkedTransactionId;
+
+  /// Create a copy of LinkTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LinkTransactionCopyWith<_LinkTransaction> get copyWith =>
+      __$LinkTransactionCopyWithImpl<_LinkTransaction>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$LinkTransactionToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _LinkTransaction &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, linkedTransactionId);
+
+  @override
+  String toString() {
+    return 'LinkTransaction(linkedTransactionId: $linkedTransactionId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LinkTransactionCopyWith<$Res>
+    implements $LinkTransactionCopyWith<$Res> {
+  factory _$LinkTransactionCopyWith(
+          _LinkTransaction value, $Res Function(_LinkTransaction) _then) =
+      __$LinkTransactionCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String? linkedTransactionId});
+}
+
+/// @nodoc
+class __$LinkTransactionCopyWithImpl<$Res>
+    implements _$LinkTransactionCopyWith<$Res> {
+  __$LinkTransactionCopyWithImpl(this._self, this._then);
+
+  final _LinkTransaction _self;
+  final $Res Function(_LinkTransaction) _then;
+
+  /// Create a copy of LinkTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? linkedTransactionId = freezed,
+  }) {
+    return _then(_LinkTransaction(
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

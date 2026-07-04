@@ -163,6 +163,94 @@ final class TransactionFamily extends $Family
   String toString() => r'transactionProvider';
 }
 
+/// Transactions that are reimbursements/refunds for the transaction [id].
+
+@ProviderFor(reimbursements)
+final reimbursementsProvider = ReimbursementsFamily._();
+
+/// Transactions that are reimbursements/refunds for the transaction [id].
+
+final class ReimbursementsProvider extends $FunctionalProvider<
+        AsyncValue<List<Transaction>>,
+        List<Transaction>,
+        FutureOr<List<Transaction>>>
+    with
+        $FutureModifier<List<Transaction>>,
+        $FutureProvider<List<Transaction>> {
+  /// Transactions that are reimbursements/refunds for the transaction [id].
+  ReimbursementsProvider._(
+      {required ReimbursementsFamily super.from,
+      required String super.argument})
+      : super(
+          retry: null,
+          name: r'reimbursementsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$reimbursementsHash();
+
+  @override
+  String toString() {
+    return r'reimbursementsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Transaction>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Transaction>> create(Ref ref) {
+    final argument = this.argument as String;
+    return reimbursements(
+      ref,
+      argument,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ReimbursementsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$reimbursementsHash() => r'de0117c9dc017a71508d3b2dc3f38fcd76bfa58f';
+
+/// Transactions that are reimbursements/refunds for the transaction [id].
+
+final class ReimbursementsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Transaction>>, String> {
+  ReimbursementsFamily._()
+      : super(
+          retry: null,
+          name: r'reimbursementsProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
+
+  /// Transactions that are reimbursements/refunds for the transaction [id].
+
+  ReimbursementsProvider call(
+    String id,
+  ) =>
+      ReimbursementsProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'reimbursementsProvider';
+}
+
 @ProviderFor(TransactionsFilterController)
 final transactionsFilterControllerProvider =
     TransactionsFilterControllerProvider._();

@@ -7,6 +7,8 @@ import 'package:expensetrack/features/transactions/controllers/categories.dart';
 import 'package:expensetrack/features/transactions/controllers/transactions.dart';
 import 'package:expensetrack/features/transactions/models/imported_transaction.dart';
 import 'package:expensetrack/features/transactions/repositories/transactions_repository.dart';
+import 'package:expensetrack/features/transactions/ui/widgets/link_helpers.dart';
+import 'package:expensetrack/features/transactions/ui/widgets/transaction_picker_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,6 +59,28 @@ class _ImportState extends ConsumerState<ImportPage> {
     }
   }
 
+  Future<void> _pickLinkedTransaction(ImportedTransaction transaction) async {
+    final picked = await showDialog<Transaction>(
+      context: context,
+      builder: (context) => const TransactionPickerDialog(),
+    );
+
+    if (picked == null || !mounted) {
+      return;
+    }
+
+    final confirmed = await confirmSameSignLink(context,
+        amount: transaction.amount, linkedAmount: picked.amount);
+
+    if (!confirmed) {
+      return;
+    }
+
+    setState(() {
+      transaction.linkedTransaction = picked;
+    });
+  }
+
   Future<void> _save() async {
     final transactions = <CreateTransaction>[];
 
@@ -66,7 +90,9 @@ class _ImportState extends ConsumerState<ImportPage> {
 
       if (category == null || account == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select category and account for all transactions.')),
+          const SnackBar(
+              content: Text(
+                  'Please select category and account for all transactions.')),
         );
         return;
       }
@@ -79,13 +105,16 @@ class _ImportState extends ConsumerState<ImportPage> {
         categoryId: category.id,
         fixedCost: transaction.isFixedCost,
         description: transaction.description,
+        linkedTransactionId: transaction.linkedTransaction?.id,
       ));
     }
 
     final futures = <Future>[];
     for (final transaction in transactions) {
       // TODO: Create a batch endpoint in the backend.
-      futures.add(ref.read(transactionsRepositoryProvider).createTransaction(transaction));
+      futures.add(ref
+          .read(transactionsRepositoryProvider)
+          .createTransaction(transaction));
     }
 
     await Future.wait(futures);
@@ -135,7 +164,7 @@ class _ImportState extends ConsumerState<ImportPage> {
                 ),
               )
             : TableView.builder(
-                columnCount: 8,
+                columnCount: 9,
                 columnBuilder: (int column) {
                   return TableSpan(
                     extent: switch (column) {
@@ -146,7 +175,8 @@ class _ImportState extends ConsumerState<ImportPage> {
                       4 => const FixedTableSpanExtent(180),
                       5 => const FixedTableSpanExtent(80),
                       6 => const FixedTableSpanExtent(300),
-                      7 => const FixedTableSpanExtent(56),
+                      7 => const FixedTableSpanExtent(220),
+                      8 => const FixedTableSpanExtent(56),
                       _ => throw Exception('Invalid column index'),
                     },
                   );
@@ -157,7 +187,9 @@ class _ImportState extends ConsumerState<ImportPage> {
                   return TableSpan(
                     extent: FixedTableSpanExtent(56),
                     backgroundDecoration: TableSpanDecoration(
-                      color: row.isEven ? colors.surfaceContainerHighest : colors.surface,
+                      color: row.isEven
+                          ? colors.surfaceContainerHighest
+                          : colors.surface,
                     ),
                   );
                 },
@@ -173,7 +205,8 @@ class _ImportState extends ConsumerState<ImportPage> {
                       4 => 'Account',
                       5 => 'Fixed Cost',
                       6 => 'Description',
-                      7 => '',
+                      7 => 'Linked To',
+                      8 => '',
                       _ => throw Exception('Invalid column index'),
                     };
 
@@ -189,7 +222,8 @@ class _ImportState extends ConsumerState<ImportPage> {
                     final transaction = _importedTransactions[vicinity.row - 1];
 
                     child = switch (vicinity.column) {
-                      0 => Text(DateFormat('yyyy-MM-dd').format(transaction.date)),
+                      0 =>
+                        Text(DateFormat('yyyy-MM-dd').format(transaction.date)),
                       1 => Text(transaction.text),
                       2 => Text(transaction.amount.toString()),
                       3 => categories.when(
@@ -246,7 +280,37 @@ class _ImportState extends ConsumerState<ImportPage> {
                             });
                           },
                         ),
-                      7 => IconButton(
+                      7 => Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: transaction.linkedTransaction == null
+                                  ? OutlinedButton(
+                                      onPressed: () =>
+                                          _pickLinkedTransaction(transaction),
+                                      child: const Text('Link'),
+                                    )
+                                  : InkWell(
+                                      onTap: () =>
+                                          _pickLinkedTransaction(transaction),
+                                      child: Text(
+                                        transaction.linkedTransaction!.text,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                            ),
+                            if (transaction.linkedTransaction != null)
+                              IconButton(
+                                icon: const Icon(Icons.close, size: 16),
+                                onPressed: () {
+                                  setState(() {
+                                    transaction.linkedTransaction = null;
+                                  });
+                                },
+                              ),
+                          ],
+                        ),
+                      8 => IconButton(
                           icon: Icon(
                             Icons.remove_circle_outline,
                             color: Theme.of(context).colorScheme.error,

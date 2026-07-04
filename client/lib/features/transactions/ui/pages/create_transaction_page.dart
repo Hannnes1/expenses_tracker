@@ -23,7 +23,8 @@ class CreateTransactionPage extends ConsumerStatefulWidget {
   final String? transactionId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateTransactionPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateTransactionPageState();
 }
 
 class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
@@ -37,6 +38,7 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   DateTime? _selectedDate;
   Category? _selectedCategory;
   Account? _selectedAccount;
+  String? _linkedTransactionId;
 
   @override
   void initState() {
@@ -48,7 +50,8 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
   }
 
   Future<void> _loadTransaction() async {
-    final transaction = await ref.read(transactionProvider(widget.transactionId!).future);
+    final transaction =
+        await ref.read(transactionProvider(widget.transactionId!).future);
 
     _textController.text = transaction.text;
     _amountController.text = transaction.amount.toString();
@@ -57,6 +60,7 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
     _selectedDate = transaction.date;
     _selectedCategory = transaction.category;
     _selectedAccount = transaction.account;
+    _linkedTransactionId = transaction.linkedTransactionId;
 
     setState(() {});
   }
@@ -169,13 +173,18 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
       categoryId: _selectedCategory!.id,
       fixedCost: _isFixedCost,
       description: _descriptionController.text.trim(),
+      linkedTransactionId: _linkedTransactionId,
     );
 
     late Transaction created;
     if (widget.transactionId == null) {
-      created = await ref.read(transactionsRepositoryProvider).createTransaction(transaction);
+      created = await ref
+          .read(transactionsRepositoryProvider)
+          .createTransaction(transaction);
     } else {
-      created = await ref.read(transactionsRepositoryProvider).updateTransaction(widget.transactionId!, transaction);
+      created = await ref
+          .read(transactionsRepositoryProvider)
+          .updateTransaction(widget.transactionId!, transaction);
 
       ref.invalidate(transactionProvider(widget.transactionId!));
     }
@@ -233,7 +242,10 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
                     keyboardType: TextInputType.number,
                     // Allow +, -, numbers and decimal points.
                     // The actual format is validated in [_amountValidator].
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\+|-|\.'))],
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[0-9]|\+|-|\.'))
+                    ],
                     decoration: const InputDecoration(
                       labelText: 'Amount',
                     ),
@@ -316,7 +328,9 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
                         return;
                       }
 
-                      ref.read(routerProvider).go('/transaction/${transaction.id}');
+                      ref
+                          .read(routerProvider)
+                          .go('/transaction/${transaction.id}');
                     },
                     child: const Text('Save'),
                   ),
@@ -330,7 +344,9 @@ class _CreateTransactionPageState extends ConsumerState<CreateTransactionPage> {
                           return;
                         }
 
-                        ref.read(routerProvider).pushReplacement('/create-transaction');
+                        ref
+                            .read(routerProvider)
+                            .pushReplacement('/create-transaction');
                       },
                       child: const Text('Save & add another'),
                     ),

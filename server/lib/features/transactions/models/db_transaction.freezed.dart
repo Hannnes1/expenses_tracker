@@ -23,6 +23,7 @@ mixin _$DbTransaction {
   String get categoryId;
   bool get fixedCost;
   String? get description;
+  String? get linkedTransactionId;
   DateTime? get createdAt;
 
   /// Create a copy of DbTransaction
@@ -51,17 +52,30 @@ mixin _$DbTransaction {
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, date, text, amount,
-      accountId, categoryId, fixedCost, description, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      date,
+      text,
+      amount,
+      accountId,
+      categoryId,
+      fixedCost,
+      description,
+      linkedTransactionId,
+      createdAt);
 
   @override
   String toString() {
-    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, createdAt: $createdAt)';
+    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId, createdAt: $createdAt)';
   }
 }
 
@@ -81,6 +95,7 @@ abstract mixin class $DbTransactionCopyWith<$Res> {
       String categoryId,
       bool fixedCost,
       String? description,
+      String? linkedTransactionId,
       DateTime? createdAt});
 }
 
@@ -106,6 +121,7 @@ class _$DbTransactionCopyWithImpl<$Res>
     Object? categoryId = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_self.copyWith(
@@ -144,6 +160,10 @@ class _$DbTransactionCopyWithImpl<$Res>
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _self.createdAt
@@ -254,6 +274,7 @@ extension DbTransactionPatterns on DbTransaction {
             String categoryId,
             bool fixedCost,
             String? description,
+            String? linkedTransactionId,
             DateTime? createdAt)?
         $default, {
     required TResult orElse(),
@@ -271,6 +292,7 @@ extension DbTransactionPatterns on DbTransaction {
             _that.categoryId,
             _that.fixedCost,
             _that.description,
+            _that.linkedTransactionId,
             _that.createdAt);
       case _:
         return orElse();
@@ -302,6 +324,7 @@ extension DbTransactionPatterns on DbTransaction {
             String categoryId,
             bool fixedCost,
             String? description,
+            String? linkedTransactionId,
             DateTime? createdAt)
         $default,
   ) {
@@ -318,6 +341,7 @@ extension DbTransactionPatterns on DbTransaction {
             _that.categoryId,
             _that.fixedCost,
             _that.description,
+            _that.linkedTransactionId,
             _that.createdAt);
     }
   }
@@ -346,6 +370,7 @@ extension DbTransactionPatterns on DbTransaction {
             String categoryId,
             bool fixedCost,
             String? description,
+            String? linkedTransactionId,
             DateTime? createdAt)?
         $default,
   ) {
@@ -362,6 +387,7 @@ extension DbTransactionPatterns on DbTransaction {
             _that.categoryId,
             _that.fixedCost,
             _that.description,
+            _that.linkedTransactionId,
             _that.createdAt);
       case _:
         return null;
@@ -382,6 +408,7 @@ class _DbTransaction implements DbTransaction {
       required this.categoryId,
       required this.fixedCost,
       required this.description,
+      this.linkedTransactionId,
       this.createdAt});
 
   @override
@@ -402,6 +429,8 @@ class _DbTransaction implements DbTransaction {
   final bool fixedCost;
   @override
   final String? description;
+  @override
+  final String? linkedTransactionId;
   @override
   final DateTime? createdAt;
 
@@ -431,17 +460,30 @@ class _DbTransaction implements DbTransaction {
                 other.fixedCost == fixedCost) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.linkedTransactionId, linkedTransactionId) ||
+                other.linkedTransactionId == linkedTransactionId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, date, text, amount,
-      accountId, categoryId, fixedCost, description, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      date,
+      text,
+      amount,
+      accountId,
+      categoryId,
+      fixedCost,
+      description,
+      linkedTransactionId,
+      createdAt);
 
   @override
   String toString() {
-    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, createdAt: $createdAt)';
+    return 'DbTransaction(id: $id, userId: $userId, date: $date, text: $text, amount: $amount, accountId: $accountId, categoryId: $categoryId, fixedCost: $fixedCost, description: $description, linkedTransactionId: $linkedTransactionId, createdAt: $createdAt)';
   }
 }
 
@@ -463,6 +505,7 @@ abstract mixin class _$DbTransactionCopyWith<$Res>
       String categoryId,
       bool fixedCost,
       String? description,
+      String? linkedTransactionId,
       DateTime? createdAt});
 }
 
@@ -488,6 +531,7 @@ class __$DbTransactionCopyWithImpl<$Res>
     Object? categoryId = null,
     Object? fixedCost = null,
     Object? description = freezed,
+    Object? linkedTransactionId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_DbTransaction(
@@ -526,6 +570,10 @@ class __$DbTransactionCopyWithImpl<$Res>
       description: freezed == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      linkedTransactionId: freezed == linkedTransactionId
+          ? _self.linkedTransactionId
+          : linkedTransactionId // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: freezed == createdAt
           ? _self.createdAt
