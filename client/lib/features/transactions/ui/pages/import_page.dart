@@ -36,26 +36,103 @@ class _ImportState extends ConsumerState<ImportPage> {
       withData: true,
     );
 
-    if (result != null && result.files.single.bytes != null) {
-      final content = utf8.decode(result.files.single.bytes!);
-      final rows = csv.decode(content);
+    if (result == null || result.files.single.bytes == null) {
+      return;
+    }
 
+    final content = utf8.decode(result.files.single.bytes!);
+    final rows = csv.decode(content);
+
+    if (rows.isEmpty) {
+      return;
+    }
+
+    final headers =
+        rows.first.map((h) => h.toString().trim().toLowerCase()).toList();
+
+    final dateColumn = headers.indexOf('date');
+    final textColumn = headers.indexOf('text');
+    final amountColumn = headers.indexOf('amount');
+    final fixedColumn = headers.indexOf('fixed');
+    final accountColumn = headers.indexOf('account');
+    final descriptionColumn = headers.indexOf('description');
+
+    final missingColumns = [
+      if (dateColumn == -1) 'date',
+      if (textColumn == -1) 'text',
+      if (amountColumn == -1) 'amount',
+    ];
+
+    if (missingColumns.isNotEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'CSV is missing required column(s): ${missingColumns.join(', ')}. '
+              'Found columns: ${headers.join(', ')}.',
+            ),
+          ),
+        );
+      }
+      return;
+    }
+
+    final accounts = await ref.read(accountsProvider.future);
+
+    try {
       final transactions = <ImportedTransaction>[];
       for (var i = 1; i < rows.length; i++) {
         final row = rows[i];
-        final date = DateFormat('yyyy-MM-dd').parse(row[0].toString());
-        final text = row[1].toString();
-        final amountString = row[2].toString().replaceAll(',', '');
+        final date = DateFormat('yyyy-MM-dd').parse(row[dateColumn].toString());
+        final text = row[textColumn].toString();
+        final amountString = row[amountColumn].toString().replaceAll(',', '');
         final amount = double.parse(amountString);
+
+        final isFixedCost = fixedColumn == -1
+            ? false
+            : row[fixedColumn].toString().trim().toLowerCase() == 'x';
+
+        final description = descriptionColumn == -1
+            ? ''
+            : row[descriptionColumn].toString().trim();
+
+        Account? account;
+        if (accountColumn != -1) {
+          final accountName = row[accountColumn].toString().trim();
+          if (accountName.isNotEmpty) {
+            final matches = accounts
+                .where((a) => a.name.startsWith(accountName))
+                .toList();
+            if (matches.length > 1) {
+              throw Exception(
+                  'Row ${i + 1}: "$accountName" matches multiple accounts '
+                  '(${matches.map((a) => a.name).join(', ')}).');
+            }
+            if (matches.isNotEmpty) {
+              account = matches.first;
+            }
+          }
+        }
+
         transactions.add(ImportedTransaction(
           date: date,
           text: text,
           amount: amount,
+          description: description,
+          isFixedCost: isFixedCost,
+          account: account,
         ));
       }
+
       setState(() {
         _importedTransactions = transactions;
       });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to import CSV: $e')),
+        );
+      }
     }
   }
 
